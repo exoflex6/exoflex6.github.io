@@ -476,15 +476,11 @@ body.playing .hud {
   padding: 2px 6px;
   border: 1px solid currentColor;
   border-radius: 6px;
-  color: #ffb347;
+  color: #ff6ec7;
   font-size: 10px;
   font-style: normal;
   letter-spacing: .06em;
   font-variant-numeric: tabular-nums;
-}
-
-.lives em[title="Starburst"] {
-  color: #ff6ec7;
 }
 
 .lives b {
@@ -719,6 +715,7 @@ const ICONS = {
   battlenet: "M18.94 8.296C15.9 6.892 11.534 6 7.426 6.332c.206-1.36.714-2.308 1.548-2.508 1.148-.275 2.4.48 3.594 1.854.782.102 1.71.28 2.355.429C12.747 2.013 9.828-.282 7.607.565c-1.688.644-2.553 2.97-2.448 6.094-2.2.468-3.915 1.3-5.013 2.495-.056.065-.181.227-.137.305.034.058.146-.008.194-.04 1.274-.89 2.904-1.373 5.027-1.676.303 3.333 1.713 7.56 4.055 10.952-1.28.502-2.356.536-2.946-.087-.812-.856-.784-2.318-.19-4.04a26.764 26.764 0 0 1-.807-2.254c-2.459 3.934-2.986 7.61-1.143 9.11 1.402 1.14 3.847.725 6.502-.926 1.505 1.672 3.083 2.74 4.667 3.094.084.015.287.043.332-.034.034-.06-.08-.124-.131-.149-1.408-.657-2.64-1.828-3.964-3.515 2.735-1.929 5.691-5.263 7.457-8.988 1.076.86 1.64 1.773 1.398 2.595-.336 1.131-1.615 1.84-3.403 2.185a27.697 27.697 0 0 1-1.548 1.826c4.634.16 8.08-1.22 8.458-3.565.286-1.786-1.295-3.696-4.053-5.17.696-2.139.832-4.04.346-5.588-.029-.08-.106-.27-.196-.27-.068 0-.067.13-.063.187.135 1.547-.263 3.2-1.062 5.19zm-8.533 9.869c-1.96-3.145-3.09-6.849-3.082-10.594 3.702-.124 7.474.748 10.714 2.627-1.743 3.269-4.385 6.1-7.633 7.966h.001z",
   github: "M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12",
   roblox: "M18.926 23.998 0 18.892 5.075.002 24 5.108ZM15.348 10.09l-5.282-1.453-1.414 5.273 5.282 1.453z",
+  supercell: "M6.997 21.76H0v-1.583h.673v-3.01H0v-1.592h6.997l.68.747v2.14H5.759v-1.296H3.134v.927h1.132v1.15H3.134v.934h2.624v-1.296h1.92v2.14zm0-6.68H0V13.5h.673v-3.01H0V8.896h6.997l.68.747v2.14H5.759v-1.296H3.134v.927h1.132v1.149H3.134v.934h2.624v-1.295h1.92v2.14zm-.51-6.65h-4.29l-.507-.54l-.451.542H0V6.545h1.73v.534h3.232v-.903H1.116L0 5.15V3.625l1.28-1.378h3.854l.509.542l.45-.542h1.24v1.887H5.6V3.6H2.674v.902h3.748l1.263 1.19v1.443zm16.83 13.33H16.31v-1.584h.672v-3.01h-.672v-1.592h3.805v1.592h-.672v3.01h2.636v-1.997h1.92v2.842zm-8.157 0H8.153v-1.583h.673v-3.01h-.673v-1.592h3.806v1.592h-.673v3.01h2.636V18.18h1.92v2.842zm7.452-6.68h-4.676l-1.615-1.581v-3.02l1.616-1.584h3.684l.459.575l.45-.575H24V11.5h-1.92v-1.02h-3.24v3.02h3.24v-1.04h1.919v1.27zM21.555 3.829h-2.1v1.083h2.1zm1.476 2.157h-3.576v.853h.673v1.584h-3.806V6.839h.672v-3.01h-.672v-1.59h6.595l1.082 1.082v1.698zm-7.772-2.15v3.233l-1.37 1.362h-3.69L8.836 7.069V3.837h-.673V2.246h3.724v1.59h-.59v3.01h2.083v-3.01h-.509v-1.59h2.97v1.59zm-2.562 6.65h-1.41v1.026h1.41zm.681 4.593l-.68-.68V12.47h-1.412v1.025h.5v1.583H8.154v-1.583h.673v-3.01h-.673v-1.59h6.078l1.026 1.025v1.28l-.911.68l.91.69v1.148h.575v1.361z",
 };
 
 const ACCOUNTS = [
@@ -729,10 +726,11 @@ const ACCOUNTS = [
   { icon: "epic",   platform: "Epic Games", name: "exoflex6", brand: "#f2f2f2", brandText: "#111" },
   { icon: "github", platform: "GitHub",     name: "exoflex6", brand: "#f2f2f2", brandText: "#111",    url: "https://github.com/exoflex6" },
   { icon: "minecraft", platform: "Minecraft", name: "exoflex6", brand: "#5aa846", brandText: "#0b1a07" },
-  { icon: "geometrydash", platform: "Geometry Dash", name: "EXOFLEX", brand: "#ffc800", brandText: "#1a1400" },
   { icon: "bungie", platform: "Bungie",     name: "exoflex6", tag: "#2627", brand: "#0075bb", brandText: "#fff",    url: "https://www.bungie.net/7/en/User/Profile/254/33961598" },
   { icon: "battlenet", platform: "Battle.net", name: "exoflex6", tag: "#1638", brand: "#148eff", brandText: "#fff" },
   { icon: "roblox",    platform: "Roblox",    name: "exofiex6", brand: "#335fff", brandText: "#fff",    url: "https://www.roblox.com/users/8018683174/profile" },
+  { icon: "geometrydash", platform: "Geometry Dash", name: "EXOFLEX", brand: "#ffc800", brandText: "#1a1400" },
+  { icon: "supercell", platform: "Supercell", name: "Gamer11", brand: "#f2f2f2", brandText: "#111" },
 ];
 
 const VISIBLE_AT_START = 6;
@@ -965,6 +963,14 @@ function setupGame() {
   };
 
   const FINGER_OFFSET = 70;
+  const FINGER_EASE_ZONE = 140;
+  const fingerOffset = (clientY) => FINGER_OFFSET * clamp((innerHeight - clientY) / FINGER_EASE_ZONE, 0, 1);
+  const FINGER_SIDE_REACH = 50;
+  const fingerX = (clientX) => {
+    const center = innerWidth / 2;
+    const stretch = innerWidth / Math.max(1, innerWidth - FINGER_SIDE_REACH * 2);
+    return clamp(center + (clientX - center) * stretch, 0, innerWidth);
+  };
   let lastPointer = matchMedia("(hover: none)").matches ? "touch" : "mouse";
   let view = 1;
 
@@ -986,7 +992,7 @@ function setupGame() {
   const TAU = Math.PI * 2;
   const POINTS_PER_LEVEL = 350;
   const START_LIVES = 3;
-  const MAX_LIVES = 5;
+  const MAX_LIVES = 7;
   const TITLE_TIME = 3;
   const MAX_LEVEL = 30;
   const ENDLESS_BOSS_EVERY = 3000;
@@ -1007,7 +1013,7 @@ function setupGame() {
     swarm:    { level: 16, weight: () => .8,  radius: 6,  hp: 1, points: 30,  color: "#d6ff4d", name: "Swarms",    hint: "They come in packs" },
     orbiter:  { level: 17, weight: () => 1,   radius: 14, hp: 3, points: 190, color: "#ffb347", name: "Orbiters",  hint: "They circle you" },
     bomber:   { level: 19, weight: () => 1,   radius: 14, hp: 2, points: 160, color: "#ff7a3d", name: "Bombers",   hint: "They explode up close" },
-    healer:   { level: 21, weight: () => .7,  radius: 15, hp: 4, points: 220, color: "#3ddc84", name: "Healers",   hint: "They repair other enemies" },
+    healer:   { level: 21, weight: () => .7,  radius: 15, hp: 4, points: 220, color: "#2ec4b6", name: "Healers",   hint: "They repair other enemies" },
     blinker:  { level: 22, weight: () => .9,  radius: 13, hp: 2, points: 210, color: "#a78bff", name: "Blinkers",  hint: "They teleport next to you" },
   };
 
@@ -1015,25 +1021,25 @@ function setupGame() {
     mothership: { name: "Mothership", hp: 24,  radius: 50, color: "#4aa8ff", sides: 8,  points: 1000 },
     hive:       { name: "Hive",       hp: 60,  radius: 48, color: "#ff4d6d", sides: 6,  points: 1500 },
     spinner:    { name: "Spinner",    hp: 85,  radius: 46, color: "#ffd34d", sides: 8,  points: 1800 },
-    titan:      { name: "Titan",      hp: 120, radius: 68, color: "#4aa8ff", sides: 8,  points: 2500 },
+    titan:      { name: "Titan",      hp: 300, radius: 68, color: "#4aa8ff", sides: 8,  points: 2500 },
     charger:    { name: "Charger",    hp: 145, radius: 44, color: "#ff9a3d", sides: 5,  points: 2500 },
-    warden:     { name: "Warden",     hp: 170, radius: 40, color: "#7cf0c4", sides: 8,  points: 3000 },
-    reaper:     { name: "Reaper",     hp: 195, radius: 46, color: "#b77bff", sides: 7,  points: 3500 },
-    twins:      { name: "The Twins",  hp: 115, radius: 44, color: "#ff4d6d", sides: 8,  points: 4500 },
-    storm:      { name: "Storm",      hp: 260, radius: 50, color: "#6ee7ff", sides: 10, points: 5000 },
-    overseer:   { name: "Overseer",   hp: 300, radius: 54, color: "#ff6ec7", sides: 12, points: 6000 },
-    core:       { name: "The Core",   hp: 450, radius: 72, color: "#eef3ff", sides: 12, points: 10000 },
+    warden:     { name: "Warden",     hp: 330, radius: 40, color: "#7cf0c4", sides: 8,  points: 3000 },
+    reaper:     { name: "Reaper",     hp: 363, radius: 46, color: "#b77bff", sides: 7,  points: 3500 },
+    twins:      { name: "The Twins",  hp: 200, radius: 44, color: "#ff4d6d", sides: 8,  points: 4500 },
+    storm:      { name: "Storm",      hp: 440, radius: 50, color: "#6ee7ff", sides: 10, points: 5000 },
+    overseer:   { name: "Overseer",   hp: 484, radius: 54, color: "#ff6ec7", sides: 12, points: 6000 },
+    core:       { name: "The Core",   hp: 533, radius: 72, color: "#eef3ff", sides: 12, points: 10000 },
   };
-  const BOSS_LEVELS = { 3: "mothership", 6: "hive", 8: "spinner", 10: "titan", 12: "charger", 15: "warden", 18: "reaper", 20: "twins", 23: "storm", 26: "overseer", 30: "core" };
+  const BOSS_LEVELS = { 3: "mothership", 6: "hive", 8: "spinner", 10: "charger", 12: "titan", 15: "warden", 18: "reaper", 20: "twins", 23: "storm", 26: "overseer", 30: "core" };
 
   const HEALTH_DROP = { rock: .01, swarm: .005, drone: .02, dart: .02, tank: .08, gunner: .06 };
   const SHIELD_DROP = { rock: .002, swarm: .001, drone: .004, dart: .004, tank: .015, gunner: .01 };
   const HEALTH_PER_LEVEL = .6;
   const TRIPLE_FROM_LEVEL = 11;
-  const POWER_COLORS = { health: "#3ddc84", shield: "#6ee7ff", penta: "#ffb347", starburst: "#ff6ec7" };
+  const PENTA_FROM_LEVEL = 19;
+  const POWER_COLORS = { health: "#3ddc84", shield: "#6ee7ff", starburst: "#ff6ec7" };
   const WEAPONS = {
-    penta:     { from: 16, time: 12, drop: .004, bossDrop: .2,  name: "Pentashot", badge: "5\u00d7" },
-    starburst: { from: 19, time: 5,  drop: .003, bossDrop: .15, name: "Starburst", badge: "\u2737" },
+    starburst: { from: 21, time: 3, drop: .0008, bossDrop: .05, name: "Starburst", badge: "\u2737" },
   };
   const BREAKABLE_SHOTS = new Set(["gunner", "orbiter", "blinker"]);
 
@@ -1047,6 +1053,7 @@ function setupGame() {
   const angleDiff = (a, b) => Math.atan2(Math.sin(a - b), Math.cos(a - b));
   const levelLabel = () => state.level === Infinity ? "∞" : state.level;
   const scaledLevel = () => Math.min(state.spawnLevel, 15);
+  const powerBoost = () => 1 + ((state.level === Infinity ? MAX_LEVEL + 1 : state.level) - 1) * .05;
 
   function loadBest() {
     try {
@@ -1133,11 +1140,15 @@ function setupGame() {
       endlessBossAt: Infinity,
       twinTurn: -1,
       twinClock: 2,
+      twinShots: 0,
+      endlessBosses: 0,
+      bossBag: [],
+      lastBoss: null,
       pincerCooldown: 8,
       titleTimer: TITLE_TIME,
       spawnTimer: 0,
       shieldTimer: random(120, 180),
-      weaponTimer: random(60, 100),
+      weaponTimer: random(180, 260),
       weapon: null,
       healthTimer: Infinity,
       invincible: 1.2,
@@ -1179,7 +1190,7 @@ function setupGame() {
     let subtitle = "";
     if (bossKind) {
       s.bossPending = bossKind;
-      subtitle = (s.level === MAX_LEVEL ? "Final boss: " : "Boss: ") + BOSSES[bossKind].name;
+      subtitle = `Boss: ${BOSSES[bossKind].name}`;
     } else if (newEnemy) {
       s.introduce = Object.keys(ENEMIES).find((kind) => ENEMIES[kind] === newEnemy);
       subtitle = `New enemy: ${newEnemy.name} · ${newEnemy.hint}`;
@@ -1187,6 +1198,7 @@ function setupGame() {
       subtitle = "Twin cannons online";
     }
     if (s.level === TRIPLE_FROM_LEVEL) subtitle = "Triple cannons online" + (subtitle ? ` \u00b7 ${subtitle}` : "");
+    if (s.level === PENTA_FROM_LEVEL) subtitle = "Pentashot online" + (subtitle ? ` \u00b7 ${subtitle}` : "");
     showBanner(`Level ${s.level}`, subtitle);
   }
 
@@ -1196,8 +1208,11 @@ function setupGame() {
 
     if (s.level === Infinity) {
       if (s.score >= s.endlessBossAt) {
-        const kinds = Object.keys(BOSSES);
-        s.bossPending = kinds[Math.floor(Math.random() * kinds.length)];
+        if (!s.bossBag.length) {
+          s.bossBag = Object.keys(BOSSES).sort(() => Math.random() - .5);
+          if (s.bossBag[s.bossBag.length - 1] === s.lastBoss) s.bossBag.unshift(s.bossBag.pop());
+        }
+        s.bossPending = s.bossBag.pop();
         s.titleTimer = TITLE_TIME;
         showBanner("Level ∞", `Boss: ${BOSSES[s.bossPending].name}`);
       }
@@ -1322,6 +1337,10 @@ function setupGame() {
     }
 
     s.bossActive = kind;
+    s.lastBoss = kind;
+    s.coreStage = 0;
+    s.barHiddenFor = 0;
+    ui.bossHealth.style.background = "";
     ui.bossName.textContent = def.name;
     ui.bossNote.textContent = s.level === Infinity ? "Endless mode" : kind === "twins" ? "Defeat them to continue" : "Defeat it to continue";
     ui.bossHealth.style.width = "100%";
@@ -1337,11 +1356,12 @@ function setupGame() {
     s.shake = 20;
     s.lasers = [];
     s.levelStep += LEVEL_POINTS_GROWTH;
+    if (s.level === Infinity || kind === "core") s.endlessBosses++;
 
-    if (Math.random() < .5) dropPowerup(x - 16, y, "health");
-    if (Math.random() < .1) dropPowerup(x + 16, y, "shield");
+    if (Math.random() < .5 * powerBoost()) dropPowerup(x - 16, y, "health");
+    if (Math.random() < .1 * powerBoost()) dropPowerup(x + 16, y, "shield");
     for (const kind of Object.keys(WEAPONS)) {
-      if (Math.random() < WEAPONS[kind].bossDrop) dropPowerup(x, y + 20, kind);
+      if (Math.random() < WEAPONS[kind].bossDrop * powerBoost()) dropPowerup(x, y + 20, kind);
     }
 
     if (kind === "core" && s.level !== Infinity) {
@@ -1416,8 +1436,10 @@ function setupGame() {
 
   function fire(now) {
     const { ship, weapon } = state;
-    let spread = state.level >= TRIPLE_FROM_LEVEL ? [-.14, 0, .14] : state.level >= 6 ? [-.08, .08] : [0];
-    if (weapon?.kind === "penta") spread = [-.28, -.14, 0, .14, .28];
+    let spread = [0];
+    if (state.level >= 6) spread = [-.08, .08];
+    if (state.level >= TRIPLE_FROM_LEVEL) spread = [-.14, 0, .14];
+    if (state.level >= PENTA_FROM_LEVEL) spread = [-.28, -.14, 0, .14, .28];
     if (weapon?.kind === "starburst") spread = Array.from({ length: 12 }, (_, i) => (i * TAU) / 12);
     for (const offset of spread) {
       const angle = ship.angle + offset;
@@ -1452,8 +1474,22 @@ function setupGame() {
     for (let i = gap; i < count; i++) enemyFire(enemy, offset + (i / count) * TAU, speed);
   }
 
-  function addLaser(owner, angle, pincer = false) {
-    state.lasers.push({ owner, angle, warn: pincer ? 1.6 : 1, fire: pincer ? .6 : .5, width: 14, pincer });
+  function addLaser(owner, angle, pincer = false, extra = {}) {
+    state.lasers.push({ owner, angle, warn: pincer ? 1.6 : 1, fire: pincer ? .6 : .5, width: owner.radius * 2, pincer, ...extra });
+  }
+
+  function spawnWave(x, y, gapCount, color, offset = random(0, TAU)) {
+    const gaps = Array.from({ length: gapCount }, (_, i) => offset + (i * TAU) / gapCount);
+    state.hazards.push({ type: "wave", x, y, radius: 30, speed: 150, width: 16, gaps, gapSize: .62, color });
+  }
+
+  function strikesAround(x, y, count, color) {
+    const offset = random(0, TAU);
+    for (let i = 0; i < count; i++) {
+      const angle = offset + (i / Math.max(1, count - 1)) * TAU;
+      const dist = i === 0 ? 0 : random(170, 240);
+      state.hazards.push({ type: "strike", x: x + Math.cos(angle) * dist, y: y + Math.sin(angle) * dist, radius: 72, timer: 1.3, max: 1.3, color });
+    }
   }
 
   function hasLaser(owner) {
@@ -1508,6 +1544,27 @@ function setupGame() {
     if (enemy.dead) return;
     enemy.dead = true;
 
+    if (enemy.kind === "node") {
+      s.score += 300;
+      explode(enemy.x, enemy.y, "#eef3ff", 30, 300);
+      const core = enemy.parent;
+      const left = s.enemies.filter((e) => e.kind === "node" && e.parent === core && !e.dead).length;
+      if (left === 0 && !core.dead) {
+        core.shielded = false;
+        core.phase = 2;
+        core.timer = 2;
+        core.timer2 = 3;
+        s.shake = 16;
+        floatText(core.x, core.y + core.radius + 40, "Shield down", "#eef3ff");
+        ui.bossNote.textContent = s.level === Infinity ? "Endless mode" : "Defeat it to continue";
+      } else {
+        floatText(enemy.x, enemy.y - 20, `${left} left`, "#eef3ff");
+      }
+      checkProgress();
+      updateHud();
+      return;
+    }
+
     if (enemy.kind === "boss") {
       for (let i = 0; i < 5; i++) {
         setTimeout(() => running && explode(enemy.x + random(-40, 40), enemy.y + random(-40, 40), i % 2 ? enemy.color : "#eef3ff", 40, 380), i * 120);
@@ -1523,10 +1580,11 @@ function setupGame() {
       return;
     }
 
-    if (Math.random() < (HEALTH_DROP[enemy.kind] ?? .03)) dropPowerup(enemy.x - 14, enemy.y, "health");
-    if (Math.random() < (SHIELD_DROP[enemy.kind] ?? .006)) dropPowerup(enemy.x + 14, enemy.y, "shield");
+    const boost = powerBoost();
+    if (Math.random() < (HEALTH_DROP[enemy.kind] ?? .03) * boost) dropPowerup(enemy.x - 14, enemy.y, "health");
+    if (Math.random() < (SHIELD_DROP[enemy.kind] ?? .006) * boost) dropPowerup(enemy.x + 14, enemy.y, "shield");
     for (const kind of Object.keys(WEAPONS)) {
-      if (Math.random() < WEAPONS[kind].drop) dropPowerup(enemy.x, enemy.y + 14, kind);
+      if (Math.random() < WEAPONS[kind].drop * boost) dropPowerup(enemy.x, enemy.y + 14, kind);
     }
 
     if (enemy.kind === "rock") {
@@ -1572,6 +1630,20 @@ function setupGame() {
     turn = Math.atan2(Math.sin(turn), Math.cos(turn));
     ship.angle += turn * (1 - Math.pow(.00002, dt));
 
+    for (const l of state.lasers) {
+      if (!l.pincer || l.owner.dead) continue;
+      const dx = ship.x - l.owner.x;
+      const dy = ship.y - l.owner.y;
+      if (dx * Math.cos(l.angle) + dy * Math.sin(l.angle) <= 0) continue;
+      const across = -dx * Math.sin(l.angle) + dy * Math.cos(l.angle);
+      const wall = l.width / 2 + 10;
+      if (across * l.side < wall) {
+        const push = l.side * wall - across;
+        ship.x += -Math.sin(l.angle) * push;
+        ship.y += Math.cos(l.angle) * push;
+      }
+    }
+
     const moving = now - state.lastMove < 120;
     if (!moving) state.distanceMoved = 0;
     if (state.distanceMoved > 16 && now - state.lastShot > 85) {
@@ -1612,7 +1684,7 @@ function setupGame() {
           s.introduce = null;
         }
         if (s.level !== Infinity) {
-          s.healthTimer = s.level >= 3 && Math.random() < HEALTH_PER_LEVEL ? random(4, 15) : Infinity;
+          s.healthTimer = s.level >= 3 && Math.random() < Math.min(.95, HEALTH_PER_LEVEL * powerBoost()) ? random(4, 15) : Infinity;
         }
       }
       return;
@@ -1620,30 +1692,31 @@ function setupGame() {
 
     s.spawnTimer -= dt;
     if (s.spawnTimer <= 0) {
+      const progress = s.level === Infinity ? MAX_LEVEL + s.endlessBosses * 2 : s.spawnLevel;
       spawnEnemy();
-      const lvl = Math.min(s.spawnLevel, MAX_LEVEL);
+      if (Math.random() < clamp((progress - 12) * .025, 0, .5)) spawnEnemy();
+      const interval = progress <= 20 ? 1.1 - progress * .04 : .3 * Math.pow(.96, progress - 20);
       const bossSlowdown = !s.bossActive ? 1 : s.bossActive === "twins" || s.bossActive === "core" ? 2.5 : 1.8;
-      s.spawnTimer = Math.max(.3, 1.1 - lvl * .04) * bossSlowdown;
+      s.spawnTimer = Math.max(.12, interval) * bossSlowdown;
     }
 
     s.shieldTimer -= dt;
     if (s.shieldTimer <= 0) {
       dropPowerup(random(60, width - 60), random(60, height - 60), "shield");
-      s.shieldTimer = random(120, 180);
+      s.shieldTimer = random(120, 180) / powerBoost();
     }
 
-    if (s.level >= WEAPONS.penta.from) {
+    if (s.level >= WEAPONS.starburst.from) {
       s.weaponTimer -= dt;
       if (s.weaponTimer <= 0) {
-        const kind = s.level >= WEAPONS.starburst.from && Math.random() < .5 ? "starburst" : "penta";
-        dropPowerup(random(60, width - 60), random(60, height - 60), kind);
-        s.weaponTimer = random(70, 110);
+        dropPowerup(random(60, width - 60), random(60, height - 60), "starburst");
+        s.weaponTimer = random(180, 260) / powerBoost();
       }
     }
 
     s.healthTimer -= dt;
     if (s.healthTimer <= 0) {
-      s.healthTimer = s.level === Infinity ? random(40, 70) : Infinity;
+      s.healthTimer = s.level === Infinity ? random(40, 70) / powerBoost() : Infinity;
       dropPowerup(random(60, width - 60), random(60, height - 60), "health");
     }
   }
@@ -1714,7 +1787,7 @@ function setupGame() {
         e.rotation += dt * 1.5;
         e.cooldown -= dt;
         if (ready && e.cooldown <= 0 && onScreen(e, -20)) {
-          s.hazards.push({ type: "mine", x: e.x, y: e.y, radius: 46, timer: 2.2, max: 2.2, color: e.color });
+          s.hazards.push({ type: "mine", x: e.x, y: e.y, radius: 64, timer: 2.2, max: 2.2, color: e.color });
           e.cooldown = 2.4;
         }
         break;
@@ -1833,6 +1906,21 @@ function setupGame() {
           }
         }
         break;
+
+      case "node": {
+        const core = e.parent;
+        e.orbit += dt * .7;
+        e.vx = 0;
+        e.vy = 0;
+        e.x = core.x + Math.cos(e.orbit) * 140;
+        e.y = core.y + Math.sin(e.orbit) * 140;
+        e.cooldown -= dt;
+        if (!s.over && e.cooldown <= 0) {
+          enemyFire(e, toShip, 210);
+          e.cooldown = 2.4;
+        }
+        break;
+      }
     }
 
     const holdsDistance = e.kind === "gunner" || e.kind === "sniper" || e.kind === "healer" || e.kind === "miner";
@@ -1900,7 +1988,7 @@ function setupGame() {
         break;
 
       case "titan":
-        hover(e, topX(e, .25, .4), Math.min(160, height * .25), .6);
+        hover(e, topX(e, .25, .4), e.radius + 6, .6);
         e.cooldown -= dt;
         if (ready && e.cooldown <= 0) {
           spread(e, toShip, 3, .18, 230);
@@ -1924,7 +2012,7 @@ function setupGame() {
           e.timer -= dt;
           if (ready && e.timer <= 0) {
             e.state = "windup";
-            e.timer = .8;
+            e.timer = .4;
             e.targetX = ship.x;
             e.targetY = ship.y;
           }
@@ -1936,8 +2024,8 @@ function setupGame() {
           if (e.timer <= 0) {
             e.state = "dash";
             e.timer = .9;
-            e.vx = Math.cos(e.aim) * 850;
-            e.vy = Math.sin(e.aim) * 850;
+            e.vx = Math.cos(e.aim) * 1150;
+            e.vy = Math.sin(e.aim) * 1150;
           }
         } else if (e.state === "dash") {
           e.aim = Math.atan2(e.vy, e.vx);
@@ -1959,8 +2047,17 @@ function setupGame() {
           e.vy = 0;
           e.timer -= dt;
           if (e.timer <= 0) {
-            e.state = "idle";
-            e.timer = enraged ? 2.2 : 3.2;
+            if (enraged && !e.chained) {
+              e.chained = true;
+              e.state = "windup";
+              e.timer = .35;
+              e.targetX = ship.x;
+              e.targetY = ship.y;
+            } else {
+              e.chained = false;
+              e.state = "idle";
+              e.timer = enraged ? 1.6 : 2.4;
+            }
           }
         }
         break;
@@ -1985,31 +2082,37 @@ function setupGame() {
             e.cooldown = .9;
           }
           if (ready && e.timer <= 0) {
+            const reach = e.radius + 75;
+            for (let tries = 0; tries < 16; tries++) {
+              const angle = random(0, TAU);
+              e.destX = clamp(ship.x + Math.cos(angle) * reach, e.radius, width - e.radius);
+              e.destY = clamp(ship.y + Math.sin(angle) * reach, e.radius, height - e.radius);
+              if (Math.hypot(e.destX - ship.x, e.destY - ship.y) > e.radius + 50) break;
+            }
             e.state = "out";
-            e.timer = .4;
+            e.timer = .5;
           }
         } else if (e.state === "out") {
           e.vx = 0;
           e.vy = 0;
-          e.fade = Math.max(0, e.timer / .4);
+          e.fade = Math.max(0, e.timer / .5);
           if (e.timer <= 0) {
-            for (let tries = 0; tries < 12; tries++) {
-              e.homeX = random(width * .15, width * .85);
-              e.homeY = random(height * .12, height * .45);
-              if (Math.hypot(e.homeX - ship.x, e.homeY - ship.y) > 200) break;
-            }
-            e.x = e.homeX;
-            e.y = e.homeY;
+            e.x = e.destX;
+            e.y = e.destY;
             e.state = "in";
-            e.timer = .4;
+            e.timer = .5;
           }
         } else {
-          e.fade = Math.min(1, 1 - e.timer / .4);
+          e.vx = 0;
+          e.vy = 0;
+          e.fade = Math.min(1, 1 - e.timer / .5);
           if (e.timer <= 0) {
             ring(e, enraged ? 22 : 16, 170, random(0, TAU));
             e.state = "idle";
             e.timer = enraged ? 2.4 : 3.2;
             e.fade = 1;
+            e.homeX = random(width * .15, width * .85);
+            e.homeY = random(height * .1, height * .3);
           }
         }
         e.untouchable = e.state !== "idle";
@@ -2022,7 +2125,7 @@ function setupGame() {
           break;
         }
         e.drift = (e.drift || 0) + dt;
-        const x = e.side < 0 ? width * .12 : width * .88;
+        const x = e.side < 0 ? e.radius + 6 : width - e.radius - 6;
         const y = height * .5 + Math.sin(e.drift * .7 + (e.side > 0 ? Math.PI : 0)) * height * .3;
         hover(e, x, y, 1.2);
         e.cooldown -= dt;
@@ -2037,12 +2140,7 @@ function setupGame() {
         hover(e, topX(e, .3), topY(), 1);
         e.timer -= dt;
         if (ready && e.timer <= 0) {
-          const count = enraged ? 4 : 3;
-          for (let i = 0; i < count; i++) {
-            const ox = i === 0 ? 0 : random(-110, 110);
-            const oy = i === 0 ? 0 : random(-110, 110);
-            s.hazards.push({ type: "strike", x: ship.x + ox, y: ship.y + oy, radius: 46, timer: 1.1, max: 1.1, color: e.color });
-          }
+          strikesAround(ship.x, ship.y, enraged ? 4 : 3, e.color);
           e.timer = enraged ? 1.3 : 1.8;
         }
         e.cooldown -= dt;
@@ -2053,7 +2151,7 @@ function setupGame() {
         break;
 
       case "overseer":
-        hover(e, topX(e, .25, .5), topY(), .8);
+        hover(e, topX(e, .25, .5), e.radius + 6, .8);
         e.timer -= dt;
         if (ready && e.timer <= 0) {
           const move = e.move++ % 3;
@@ -2064,8 +2162,9 @@ function setupGame() {
               bug.age = 1;
             }
           } else if (move === 1) {
-            ring(e, 24, 170, random(0, TAU));
-            e.echo = .35;
+            e.waveOffset = random(0, TAU);
+            spawnWave(e.x, e.y, 3, e.color, e.waveOffset);
+            e.echo = 1.7;
           } else {
             addLaser(e, toShip);
           }
@@ -2073,71 +2172,96 @@ function setupGame() {
         }
         if (e.echo > 0) {
           e.echo -= dt;
-          if (e.echo <= 0) ring(e, 24, 170, random(0, TAU));
+          if (e.echo <= 0) spawnWave(e.x, e.y, 3, e.color, e.waveOffset + TAU / 6);
         }
         break;
 
       case "core": {
-        hover(e, topX(e, .18, .3), Math.min(170, height * .28), .7);
         e.rotation += dt * .6;
-        const phase = e.hp > e.maxHp * .66 ? 1 : e.hp > e.maxHp * .33 ? 2 : 3;
-        if (phase !== e.phase) {
-          e.phase = phase;
-          e.timer = 1.5;
-          e.timer2 = 2.5;
-          s.shake = 14;
-          s.enemyShots = [];
-          floatText(e.x, e.y + e.radius + 24, `Phase ${phase}`, "#eef3ff");
+
+        if (e.phase === 1) {
+          hover(e, topX(e, .18, .3), Math.min(height * .3, 220), .7);
+          if (!e.nodesMade) e.shielded = true;
+          if (!e.nodesMade && e.age > 1.5) {
+            e.nodesMade = true;
+            e.shielded = true;
+            const nodeHp = Math.max(8, Math.round(e.maxHp * .04));
+            e.nodeTotal = nodeHp * 4;
+            for (let i = 0; i < 4; i++) {
+              s.enemies.push({
+                kind: "node", parent: e, orbit: (i * TAU) / 4, x: e.x, y: e.y, vx: 0, vy: 0,
+                radius: 15, hp: nodeHp, maxHp: nodeHp, color: "#eef3ff",
+                rotation: 0, spin: 2, age: 1, cooldown: 1 + i * .6,
+              });
+            }
+            ui.bossNote.textContent = "Destroy the 4 nodes to break its shield";
+          }
+          e.timer -= dt;
+          if (ready && e.timer <= 0) {
+            ring(e, 12, 140, random(0, TAU), 2);
+            e.timer = 3.5;
+          }
+          break;
         }
+
+        hover(e, topX(e, .18, .3), e.radius + 6, .7);
+        if (e.phase === 2 && e.hp <= e.maxHp / 2) {
+          e.phase = 3;
+          e.timer = 2;
+          e.timer2 = 1.5;
+          s.shake = 16;
+          s.enemyShots = [];
+          floatText(e.x, e.y + e.radius + 24, "Overload", "#ff4d6d");
+        }
+
         e.cooldown -= dt;
         e.timer -= dt;
         e.timer2 -= dt;
-        e.spinClock = (e.spinClock || 0) + dt;
-        const spinning = e.spinClock % 4.5 < 3;
 
-        if (phase !== 2 && spinning && ready && e.cooldown <= 0) {
-          const arms = phase === 1 ? 2 : 3;
-          for (let i = 0; i < arms; i++) enemyFire(e, e.spiral + (i * TAU) / arms, 160);
-          e.spiral += phase === 1 ? .3 : .4;
-          e.cooldown = phase === 1 ? .14 : .11;
-        }
-
-        if (phase === 1 && ready && e.timer <= 0) {
-          ring(e, 14, 150, random(0, TAU), 2);
-          e.timer = 3;
-        }
-
-        if (phase === 2) {
+        if (e.phase === 2) {
           if (ready && e.cooldown <= 0) {
             spread(e, toShip, 5, .2, 210);
-            e.cooldown = 1.6;
+            e.cooldown = 1.8;
           }
           if (ready && e.timer <= 0 && !hasLaser(e)) {
-            addLaser(e, toShip);
-            e.timer = 3.2;
+            const dir = Math.random() < .5 ? 1 : -1;
+            addLaser(e, toShip - dir * .45, false, { sweep: dir * .4, sweepLimit: .8, warn: 1.1, fire: 2.6 });
+            e.timer = 5.5;
           }
           if (ready && e.timer2 <= 0) {
-            const gunners = s.enemies.filter((o) => o.kind === "gunner" && !o.dead).length;
-            if (gunners < 4) {
-              for (let i = 0; i < 2; i++) makeEnemy("gunner", e.x + random(-50, 50), e.y + 30).age = 1;
-            }
-            e.timer2 = 6;
+            e.waveOffset = random(0, TAU);
+            spawnWave(e.x, e.y, 3, "#4aa8ff", e.waveOffset);
+            e.echo = 1.7;
+            e.timer2 = 3.5;
           }
         }
 
-        if (phase === 3) {
-          if (ready && e.timer2 <= 0) {
-            for (let i = 0; i < 3; i++) {
-              const ox = i === 0 ? 0 : random(-120, 120);
-              const oy = i === 0 ? 0 : random(-120, 120);
-              s.hazards.push({ type: "strike", x: ship.x + ox, y: ship.y + oy, radius: 46, timer: 1.1, max: 1.1, color: "#eef3ff" });
-            }
-            e.timer2 = 2.4;
+        if (e.phase === 3) {
+          e.spinClock = (e.spinClock || 0) + dt;
+          if (e.spinClock % 4.5 < 3 && ready && e.cooldown <= 0) {
+            for (let i = 0; i < 3; i++) enemyFire(e, e.spiral + (i * TAU) / 3, 160);
+            e.spiral += .4;
+            e.cooldown = .12;
           }
           if (ready && e.timer <= 0 && !hasLaser(e)) {
-            addLaser(e, toShip);
-            e.timer = 4.5;
+            const dir = Math.random() < .5 ? 1 : -1;
+            addLaser(e, toShip - dir * .5, false, { sweep: dir * .5, sweepLimit: .95, warn: 1.1, fire: 2.4 });
+            e.timer = 6.5;
           }
+          if (ready && e.timer2 <= 0) {
+            if (e.move++ % 2) {
+              strikesAround(ship.x, ship.y, 3, "#ff4d6d");
+            } else {
+              e.waveOffset = random(0, TAU);
+              spawnWave(e.x, e.y, 4, "#ff4d6d", e.waveOffset);
+            }
+            e.timer2 = 3;
+          }
+        }
+
+        if (e.echo > 0) {
+          e.echo -= dt;
+          if (e.echo <= 0) spawnWave(e.x, e.y, 3, e.phase === 3 ? "#ff4d6d" : "#4aa8ff", e.waveOffset + TAU / 6);
         }
         break;
       }
@@ -2153,12 +2277,15 @@ function setupGame() {
     if (s.twinClock > 0 || s.over || !twins.length) return;
     if (twins.some((t) => hasLaser(t))) return;
 
-    if (twins.length === 2 && twins.every((t) => t.age > 2) && s.pincerCooldown <= 0 && Math.random() < .35) {
+    if (twins.length === 2 && twins.every((t) => t.age > 2) && s.twinShots >= 3) {
+      s.twinShots = 0;
       for (const twin of twins) {
         const toShip = Math.atan2(s.ship.y - twin.y, s.ship.x - twin.x);
-        const targetX = s.ship.x - Math.sin(toShip) * 85;
-        const targetY = s.ship.y + Math.cos(toShip) * 85;
-        addLaser(twin, Math.atan2(targetY - twin.y, targetX - twin.x), true);
+        const targetX = s.ship.x - Math.sin(toShip) * 115;
+        const targetY = s.ship.y + Math.cos(toShip) * 115;
+        const angle = Math.atan2(targetY - twin.y, targetX - twin.x);
+        const across = -(s.ship.x - twin.x) * Math.sin(angle) + (s.ship.y - twin.y) * Math.cos(angle);
+        addLaser(twin, angle, true, { side: Math.sign(across) || 1 });
       }
       for (const shot of s.enemyShots) {
         if ((shot.x - s.ship.x) ** 2 + (shot.y - s.ship.y) ** 2 < 180 ** 2) shot.life = 0;
@@ -2173,6 +2300,7 @@ function setupGame() {
     if (shooter.age > 2) {
       addLaser(shooter, Math.atan2(s.ship.y - shooter.y, s.ship.x - shooter.x));
       s.twinTurn *= -1;
+      s.twinShots++;
     }
     s.twinClock = twins.length > 1 ? 2.4 : 1.8;
   }
@@ -2201,6 +2329,18 @@ function setupGame() {
     const canBeHit = !s.over && s.invincible <= 0;
 
     for (const h of s.hazards) {
+      if (h.type === "wave") {
+        h.radius += h.speed * dt;
+        if (h.radius > Math.hypot(width, height)) h.done = true;
+        const dist = Math.hypot(s.ship.x - h.x, s.ship.y - h.y);
+        if (canBeHit && Math.abs(dist - h.radius) < h.width / 2 + 7) {
+          const angle = Math.atan2(s.ship.y - h.y, s.ship.x - h.x);
+          const margin = 10 / Math.max(h.radius, 1);
+          const safe = h.gaps.some((g) => Math.abs(angleDiff(angle, g)) < h.gapSize / 2 - margin);
+          if (!safe) hitShip();
+        }
+        continue;
+      }
       h.timer -= dt;
       if (h.timer > 0) continue;
       h.done = true;
@@ -2221,6 +2361,11 @@ function setupGame() {
       }
       l.fire -= dt;
       if (l.fire <= 0) l.done = true;
+      if (l.sweep && Math.abs(l.swept || 0) < l.sweepLimit) {
+        const step = l.sweep * dt;
+        l.angle += step;
+        l.swept = (l.swept || 0) + step;
+      }
 
       if (!s.over && s.invincible <= 0) {
         const dx = s.ship.x - l.owner.x;
@@ -2246,7 +2391,9 @@ function setupGame() {
     const dist = Math.hypot(b.x - e.x, b.y - e.y);
     const angle = Math.atan2(b.y - e.y, b.x - e.x);
 
-    if (e.kind === "shielder" && dist < e.radius + 10 && Math.abs(angleDiff(angle, e.rotation)) < 1) return "block";
+    if (e.shielded) return "block";
+
+    if (e.kind === "shielder" && Math.abs(angleDiff(angle, e.rotation)) < 1.4) return "block";
 
     if (e.bossKind === "warden" && dist < e.radius + 34 && dist > e.radius + 8) {
       for (let i = 0; i < 3; i++) {
@@ -2264,7 +2411,7 @@ function setupGame() {
     for (const e of s.enemies) {
       for (const b of s.bullets) {
         if (e.dead || b.life <= 0) continue;
-        const reach = e.bossKind === "warden" ? e.radius + 34 : e.radius + 3;
+        const reach = e.bossKind === "warden" ? e.radius + 34 : e.shielded ? e.radius + 22 : e.kind === "shielder" ? e.radius + 12 : e.radius + 3;
         if ((b.x - e.x) ** 2 + (b.y - e.y) ** 2 > reach ** 2) continue;
 
         const blocked = bulletBlocked(e, b);
@@ -2285,7 +2432,9 @@ function setupGame() {
 
       const solid = !(e.kind === "phantom" && !e.visible) && !e.untouchable;
       if (!e.dead && solid && canBeHit() && (ship.x - e.x) ** 2 + (ship.y - e.y) ** 2 < (e.radius + 9) ** 2) {
-        if (e.kind !== "boss") {
+        if (e.kind === "node") {
+          destroy(e);
+        } else if (e.kind !== "boss") {
           e.dead = true;
           explode(e.x, e.y, e.color || "#9fb3d6", 16);
         }
@@ -2324,9 +2473,41 @@ function setupGame() {
     return obj.x > -margin && obj.x < width + margin && obj.y > -margin && obj.y < height + margin;
   }
 
-  function updateBossBar() {
+  function updateBossBar(dt) {
     const s = state;
     if (!s.bossActive) return;
+
+    const core = s.bossActive === "core" && s.enemies.find((e) => e.bossKind === "core" && !e.dead);
+    if (core) {
+      const stage = core.phase;
+      if (stage !== s.coreStage) {
+        const first = !s.coreStage;
+        s.coreStage = stage;
+        ui.bossName.textContent = `The Core \u00b7 ${["Shield", "Exposed", "Overload"][stage - 1]} (${stage}/3)`;
+        ui.bossHealth.style.background = ["#eef3ff", "#4aa8ff", "#ff4d6d"][stage - 1];
+        if (!first) {
+          ui.bossBar.hidden = true;
+          s.barHiddenFor = 1.2;
+        }
+      }
+      if (s.barHiddenFor > 0) {
+        s.barHiddenFor -= dt;
+        if (s.barHiddenFor <= 0) ui.bossBar.hidden = false;
+      }
+
+      let fraction = 1;
+      if (stage === 1 && core.nodesMade) {
+        const nodes = s.enemies.filter((e) => e.kind === "node" && e.parent === core && !e.dead);
+        fraction = nodes.reduce((sum, n) => sum + Math.max(0, n.hp), 0) / core.nodeTotal;
+      } else if (stage === 2) {
+        fraction = (core.hp - core.maxHp / 2) / (core.maxHp / 2);
+      } else if (stage === 3) {
+        fraction = core.hp / (core.maxHp / 2);
+      }
+      ui.bossHealth.style.width = clamp(fraction, 0, 1) * 100 + "%";
+      return;
+    }
+
     const parts = s.enemies.filter((e) => e.kind === "boss");
     const hp = parts.reduce((sum, e) => sum + Math.max(0, e.dead ? 0 : e.hp), 0);
     const max = parts.reduce((sum, e) => sum + e.maxHp, 0) || 1;
@@ -2373,7 +2554,7 @@ function setupGame() {
     }
 
     checkCollisions();
-    updateBossBar();
+    updateBossBar(dt);
 
     for (const e of s.enemies) {
       if (e.flash) e.flash = Math.max(0, e.flash - dt);
@@ -2392,7 +2573,7 @@ function setupGame() {
 
     s.bullets = s.bullets.filter((b) => b.life > 0 && onScreen(b, 20));
     s.enemyShots = s.enemyShots.filter((b) => b.life > 0 && onScreen(b, 30));
-    s.enemies = s.enemies.filter((e) => !e.dead && (e.kind === "boss" || e.age < 3 || onScreen(e, 150)));
+    s.enemies = s.enemies.filter((e) => !e.dead && (e.kind === "boss" || e.kind === "node" || e.age < 3 || onScreen(e, 150)));
     s.powerups = s.powerups.filter((p) => !p.collected && p.age < p.lifetime);
     s.particles = s.particles.filter((p) => p.life > 0);
     s.texts = s.texts.filter((t) => t.life > 0);
@@ -2554,9 +2735,10 @@ function setupGame() {
         circle(0, 0, e.radius * .7);
         outline(c, 1.6, dark);
         ctx.strokeStyle = c;
-        ctx.lineWidth = 4;
+        ctx.lineWidth = 5;
+        ctx.lineCap = "round";
         ctx.beginPath();
-        ctx.arc(0, 0, e.radius + 4, -1, 1);
+        ctx.arc(0, 0, e.radius + 6, -1.35, 1.35);
         ctx.stroke();
         break;
 
@@ -2603,12 +2785,39 @@ function setupGame() {
       }
 
       case "healer":
-        circle(0, 0, e.radius);
+        ctx.rotate(e.age * 1.5);
+        circle(0, 0, e.radius * .6);
         outline(c, 1.8, dark);
-        ctx.rotate(-e.rotation);
+        polygon(3, e.radius * .32, -Math.PI / 2);
         ctx.fillStyle = c;
-        ctx.fillRect(-1.5, -6, 3, 12);
-        ctx.fillRect(-6, -1.5, 12, 3);
+        ctx.fill();
+        for (let i = 0; i < 3; i++) {
+          const a = (i * TAU) / 3;
+          circle(Math.cos(a) * e.radius, Math.sin(a) * e.radius, 3);
+          ctx.fill();
+        }
+        ctx.strokeStyle = c;
+        ctx.globalAlpha = .35 + .25 * Math.sin(now / 160);
+        ctx.lineWidth = 1;
+        circle(0, 0, e.radius);
+        ctx.stroke();
+        ctx.globalAlpha = 1;
+        break;
+
+      case "node":
+        ctx.rotate(-e.rotation);
+        ctx.strokeStyle = "rgba(238, 243, 255, .25)";
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.lineTo(e.parent.x - e.x, e.parent.y - e.y);
+        ctx.stroke();
+        ctx.rotate(e.rotation);
+        polygon(4, e.radius, 0);
+        outline("#eef3ff", 2, dark);
+        polygon(4, e.radius * .45, Math.PI / 4);
+        ctx.fillStyle = "#4aa8ff";
+        ctx.fill();
         break;
 
       case "blinker":
@@ -2640,6 +2849,17 @@ function setupGame() {
     const c = e.color;
     const hit = e.flash > 0;
     const enraged = e.enraged || e.hp < e.maxHp / 2;
+
+    if (e.bossKind === "reaper" && e.state === "out") {
+      ctx.strokeStyle = c;
+      ctx.lineWidth = 2;
+      ctx.globalAlpha = .4 + .4 * Math.sin(now / 50);
+      ctx.setLineDash([8, 6]);
+      circle(e.destX, e.destY, r);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.globalAlpha = 1;
+    }
 
     ctx.save();
     ctx.translate(e.x, e.y);
@@ -2762,6 +2982,20 @@ function setupGame() {
     }
     ctx.restore();
 
+    if (e.bossKind === "core" && e.shielded) {
+      ctx.save();
+      ctx.globalAlpha = .1 + .05 * Math.sin(now / 200);
+      ctx.fillStyle = "#eef3ff";
+      circle(0, 0, r + 22);
+      ctx.fill();
+      ctx.globalAlpha = .55 + .2 * Math.sin(now / 200);
+      ctx.strokeStyle = "#eef3ff";
+      ctx.lineWidth = 2;
+      circle(0, 0, r + 22);
+      ctx.stroke();
+      ctx.restore();
+    }
+
     if (e.bossKind === "core") {
       for (let i = 1; i <= 2; i++) {
         ctx.save();
@@ -2825,15 +3059,6 @@ function setupGame() {
     if (p.kind === "health") {
       ctx.fillRect(-1.5, -6, 3, 12);
       ctx.fillRect(-6, -1.5, 12, 3);
-    } else if (p.kind === "penta") {
-      ctx.lineCap = "round";
-      ctx.lineWidth = 1.8;
-      for (const a of [-.7, -.35, 0, .35, .7]) {
-        ctx.beginPath();
-        ctx.moveTo(Math.sin(a) * 2, 5 - Math.cos(a) * 2);
-        ctx.lineTo(Math.sin(a) * 9, 5 - Math.cos(a) * 11);
-        ctx.stroke();
-      }
     } else if (p.kind === "starburst") {
       ctx.lineCap = "round";
       ctx.lineWidth = 1.6;
@@ -2852,8 +3077,29 @@ function setupGame() {
     ctx.restore();
   }
 
+  function drawWave(h) {
+    const gaps = [...h.gaps].map((g) => ((g % TAU) + TAU) % TAU).sort((a, b) => a - b);
+    for (const pass of [[h.width + 12, .22], [h.width, .9]]) {
+      ctx.strokeStyle = h.color;
+      ctx.lineWidth = pass[0];
+      ctx.globalAlpha = pass[1];
+      for (let i = 0; i < gaps.length; i++) {
+        const start = gaps[i] + h.gapSize / 2;
+        const end = (i + 1 < gaps.length ? gaps[i + 1] : gaps[0] + TAU) - h.gapSize / 2;
+        ctx.beginPath();
+        ctx.arc(h.x, h.y, h.radius, start, end);
+        ctx.stroke();
+      }
+    }
+    ctx.globalAlpha = 1;
+  }
+
   function drawHazards(now) {
     for (const h of state.hazards) {
+      if (h.type === "wave") {
+        drawWave(h);
+        continue;
+      }
       const progress = 1 - h.timer / h.max;
       ctx.strokeStyle = h.color;
       ctx.fillStyle = h.color;
@@ -2889,6 +3135,24 @@ function setupGame() {
 
       if (l.warn > 0) {
         ctx.strokeStyle = color;
+        ctx.globalAlpha = l.pincer ? .22 : .1;
+        ctx.lineWidth = l.width;
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        ctx.lineTo(ex, ey);
+        ctx.stroke();
+        if (l.pincer) {
+          ctx.globalAlpha = .8;
+          ctx.lineWidth = 2;
+          for (const edge of [-1, 1]) {
+            const ox = -Math.sin(l.angle) * (l.width / 2) * edge;
+            const oy = Math.cos(l.angle) * (l.width / 2) * edge;
+            ctx.beginPath();
+            ctx.moveTo(x + ox, y + oy);
+            ctx.lineTo(ex + ox, ey + oy);
+            ctx.stroke();
+          }
+        }
         ctx.globalAlpha = .25 + .35 * (Math.floor(now / 80) % 2);
         ctx.lineWidth = 2;
         ctx.setLineDash([10, 8]);
@@ -2905,40 +3169,90 @@ function setupGame() {
       ctx.lineCap = "round";
       ctx.strokeStyle = color;
       ctx.globalAlpha = .45;
-      ctx.lineWidth = l.width + 10;
+      ctx.lineWidth = l.width + 18;
       ctx.beginPath();
       ctx.moveTo(x, y);
       ctx.lineTo(ex, ey);
       ctx.stroke();
       ctx.globalAlpha = 1;
-      ctx.lineWidth = l.width * .45;
+      ctx.lineWidth = l.width * .35;
       ctx.strokeStyle = "#fff";
       ctx.stroke();
       ctx.globalCompositeOperation = "source-over";
     }
   }
 
+  const SHIP_OUTLINE = (() => {
+    const corners = [[15, 0], [-9, -10], [-5, 0], [-9, 10]];
+    const points = [];
+    for (let i = 0; i < corners.length; i++) {
+      const [ax, ay] = corners[i];
+      const [bx, by] = corners[(i + 1) % corners.length];
+      for (let step = 0; step < 8; step++) {
+        const t = step / 8;
+        points.push([ax + (bx - ax) * t, ay + (by - ay) * t]);
+      }
+    }
+    return points;
+  })();
+
+  function ballAmount() {
+    const w = state.weapon;
+    if (!w || w.kind !== "starburst") return 0;
+    const elapsed = WEAPONS.starburst.time - w.time;
+    return Math.min(1, elapsed / .3, w.time / .3);
+  }
+
   function drawShip(now) {
     const { ship } = state;
     const blinking = state.invincible > 0 && Math.floor(now / 90) % 2;
+    const ball = ballAmount();
 
     if (!blinking) {
       ctx.save();
       ctx.translate(ship.x, ship.y);
-      ctx.rotate(ship.angle);
+      const spun = state.weapon ? (WEAPONS.starburst.time - state.weapon.time) * 7 : 0;
+      ctx.rotate(ship.angle + ball * spun);
 
-      if (now - state.lastMove < 120) {
+      if (now - state.lastMove < 120 && ball < .5) {
         ctx.fillStyle = "#4aa8ff";
+        ctx.globalAlpha = 1 - ball * 2;
         shape([[-8, -4], [-15 - Math.random() * 8, 0], [-8, 4]]);
         ctx.fill();
+        ctx.globalAlpha = 1;
       }
 
-      shape([[15, 0], [-9, -10], [-5, 0], [-9, 10]]);
+      if (ball > 0) {
+        ctx.fillStyle = "#ff6ec7";
+        ctx.globalAlpha = ball * (.25 + .1 * Math.sin(now / 80));
+        circle(0, 0, 20);
+        ctx.fill();
+        ctx.globalAlpha = 1;
+      }
+
+      shape(SHIP_OUTLINE.map(([x, y]) => {
+        const a = Math.atan2(y, x);
+        return [x + (Math.cos(a) * 11 - x) * ball, y + (Math.sin(a) * 11 - y) * ball];
+      }));
       ctx.fillStyle = "#eef3ff";
       ctx.fill();
-      ctx.strokeStyle = "#4aa8ff";
-      ctx.lineWidth = 1.5;
+      ctx.strokeStyle = ball > .5 ? "#ff6ec7" : "#4aa8ff";
+      ctx.lineWidth = 1.5 + ball;
       ctx.stroke();
+
+      if (ball > .6) {
+        ctx.strokeStyle = "#ff6ec7";
+        ctx.lineWidth = 1.5;
+        ctx.globalAlpha = (ball - .6) / .4;
+        for (let i = 0; i < 12; i++) {
+          const a = (i * TAU) / 12;
+          ctx.beginPath();
+          ctx.moveTo(Math.cos(a) * 4, Math.sin(a) * 4);
+          ctx.lineTo(Math.cos(a) * 9, Math.sin(a) * 9);
+          ctx.stroke();
+        }
+        ctx.globalAlpha = 1;
+      }
       ctx.restore();
     }
 
@@ -3044,8 +3358,8 @@ function setupGame() {
     if (e.pointerType === "mouse" && usingTouch() && (Math.abs(e.movementX) + Math.abs(e.movementY)) > 2) setInputMode("mouse");
     if (!running || state.over) return;
     const { ship } = state;
-    const x = e.clientX / view;
-    const y = (e.clientY - (e.pointerType === "touch" ? FINGER_OFFSET : 0)) / view;
+    const x = (e.pointerType === "touch" ? fingerX(e.clientX) : e.clientX) / view;
+    const y = (e.clientY - (e.pointerType === "touch" ? fingerOffset(e.clientY) : 0)) / view;
     const dx = x - ship.targetX;
     const dy = y - ship.targetY;
     const dist = Math.hypot(dx, dy);
@@ -3063,8 +3377,8 @@ function setupGame() {
     if (e.pointerType !== lastPointer) setInputMode(e.pointerType);
     if (e.pointerType !== "touch") return;
     if (running && !state.over) {
-      state.ship.targetX = e.clientX / view;
-      state.ship.targetY = (e.clientY - FINGER_OFFSET) / view;
+      state.ship.targetX = fingerX(e.clientX) / view;
+      state.ship.targetY = (e.clientY - fingerOffset(e.clientY)) / view;
     }
   });
 
