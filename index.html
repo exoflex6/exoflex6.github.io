@@ -474,13 +474,17 @@ body.playing .hud {
 .lives em {
   margin-right: 6px;
   padding: 2px 6px;
-  border: 1px solid #ffb347;
+  border: 1px solid currentColor;
   border-radius: 6px;
   color: #ffb347;
   font-size: 10px;
   font-style: normal;
   letter-spacing: .06em;
   font-variant-numeric: tabular-nums;
+}
+
+.lives em[title="Starburst"] {
+  color: #ff6ec7;
 }
 
 .lives b {
@@ -540,7 +544,7 @@ body.playing .hud {
 }
 
 .banner.show {
-  animation: banner 1.8s ease forwards;
+  animation: banner 3s ease forwards;
 }
 
 .banner span {
@@ -691,9 +695,9 @@ body.playing .hud {
   <div class="game-over" id="game-over" hidden>
     <b>Ship down</b>
     <span id="final-score"></span>
-    <small id="exit-note">Click or Esc to exit</small>
+    <small id="exit-note">Esc to exit</small>
   </div>
-  <div class="controls" id="controls">Move to fly and shoot &middot; Click or Esc to exit</div>
+  <div class="controls" id="controls">Move to fly and shoot &middot; Esc to exit</div>
   <button class="quit" id="quit" type="button" aria-label="Exit game">&times;</button>
 </div>
 <div class="rotate" id="rotate" hidden>
@@ -970,8 +974,8 @@ function setupGame() {
     lastPointer = type;
     const touch = usingTouch();
     document.documentElement.classList.toggle("touch-ui", touch);
-    $("controls").textContent = touch ? "Drag to fly and shoot \u00b7 Tap \u00d7 to exit" : "Move to fly and shoot \u00b7 Click or Esc to exit";
-    $("exit-note").textContent = touch ? "Tap \u00d7 to exit" : "Click or Esc to exit";
+    $("controls").textContent = touch ? "Drag to fly and shoot \u00b7 Tap \u00d7 to exit" : "Move to fly and shoot \u00b7 Esc to exit";
+    $("exit-note").textContent = touch ? "Tap \u00d7 to exit" : "Esc to exit";
   }
   setInputMode(lastPointer);
 
@@ -983,7 +987,7 @@ function setupGame() {
   const POINTS_PER_LEVEL = 350;
   const START_LIVES = 3;
   const MAX_LIVES = 5;
-  const TITLE_TIME = 1.8;
+  const TITLE_TIME = 3;
   const MAX_LEVEL = 30;
   const ENDLESS_BOSS_EVERY = 3000;
   const LEVEL_POINTS_GROWTH = 100;
@@ -1025,10 +1029,13 @@ function setupGame() {
   const HEALTH_DROP = { rock: .01, swarm: .005, drone: .02, dart: .02, tank: .08, gunner: .06 };
   const SHIELD_DROP = { rock: .002, swarm: .001, drone: .004, dart: .004, tank: .015, gunner: .01 };
   const HEALTH_PER_LEVEL = .6;
-  const TRIPLE_FROM_LEVEL = 10;
-  const TRIPLE_TIME = 12;
-  const TRIPLE_DROP = .004;
-  const POWER_COLORS = { health: "#3ddc84", shield: "#6ee7ff", triple: "#ffb347" };
+  const TRIPLE_FROM_LEVEL = 11;
+  const POWER_COLORS = { health: "#3ddc84", shield: "#6ee7ff", penta: "#ffb347", starburst: "#ff6ec7" };
+  const WEAPONS = {
+    penta:     { from: 16, time: 12, drop: .004, bossDrop: .2,  name: "Pentashot", badge: "5\u00d7" },
+    starburst: { from: 19, time: 5,  drop: .003, bossDrop: .15, name: "Starburst", badge: "\u2737" },
+  };
+  const BREAKABLE_SHOTS = new Set(["gunner", "orbiter", "blinker"]);
 
   let running = false;
   let width = 0, height = 0;
@@ -1074,7 +1081,7 @@ function setupGame() {
     ui.score.textContent = s.score;
     ui.levelBest.textContent = `Level ${levelLabel()} · Best ${Math.max(best, s.score)}`;
 
-    let lives = s.tripleShot > 0 ? `<em title="Triple shot">3\u00d7 ${Math.ceil(s.tripleShot)}</em>` : "";
+    let lives = s.weapon ? `<em title="${WEAPONS[s.weapon.kind].name}">${WEAPONS[s.weapon.kind].badge} ${Math.ceil(s.weapon.time)}</em>` : "";
     if (s.ship.shield) lives += '<b title="Shield"></b>';
     for (let i = Math.max(START_LIVES, s.lives) - 1; i >= 0; i--) {
       const cls = i >= s.lives ? "lost" : i >= START_LIVES ? "extra" : "";
@@ -1130,8 +1137,8 @@ function setupGame() {
       titleTimer: TITLE_TIME,
       spawnTimer: 0,
       shieldTimer: random(120, 180),
-      tripleTimer: random(60, 100),
-      tripleShot: 0,
+      weaponTimer: random(60, 100),
+      weapon: null,
       healthTimer: Infinity,
       invincible: 1.2,
       shake: 0,
@@ -1179,6 +1186,7 @@ function setupGame() {
     } else if (s.level === 6) {
       subtitle = "Twin cannons online";
     }
+    if (s.level === TRIPLE_FROM_LEVEL) subtitle = "Triple cannons online" + (subtitle ? ` \u00b7 ${subtitle}` : "");
     showBanner(`Level ${s.level}`, subtitle);
   }
 
@@ -1332,7 +1340,9 @@ function setupGame() {
 
     if (Math.random() < .5) dropPowerup(x - 16, y, "health");
     if (Math.random() < .1) dropPowerup(x + 16, y, "shield");
-    if (Math.random() < .2) dropPowerup(x, y + 20, "triple");
+    for (const kind of Object.keys(WEAPONS)) {
+      if (Math.random() < WEAPONS[kind].bossDrop) dropPowerup(x, y + 20, kind);
+    }
 
     if (kind === "core" && s.level !== Infinity) {
       s.level = Infinity;
@@ -1361,14 +1371,14 @@ function setupGame() {
     return onScreen < (state.ship.shield ? 2 : 3);
   }
 
-  function canDropTriple() {
+  function canDropWeapon(kind) {
     const s = state;
-    return s.level >= TRIPLE_FROM_LEVEL && s.tripleShot <= 0 && !s.powerups.some((p) => p.kind === "triple");
+    return s.level >= WEAPONS[kind].from && !s.weapon && !s.powerups.some((p) => WEAPONS[p.kind]);
   }
 
   function dropPowerup(x, y, kind) {
-    const allowed = { health: canDropHealth, shield: canDropShield, triple: canDropTriple }[kind];
-    if (!allowed()) return;
+    const allowed = WEAPONS[kind] ? canDropWeapon(kind) : { health: canDropHealth, shield: canDropShield }[kind]();
+    if (!allowed) return;
     const angle = random(0, TAU);
     state.powerups.push({ kind, x, y, vx: Math.cos(angle) * 30, vy: Math.sin(angle) * 30, age: 0, lifetime: 9 });
   }
@@ -1384,9 +1394,9 @@ function setupGame() {
     } else if (p.kind === "shield" && !s.ship.shield) {
       s.ship.shield = true;
       floatText(p.x, p.y - 20, "Shield", color);
-    } else if (p.kind === "triple" && s.tripleShot <= 0) {
-      s.tripleShot = TRIPLE_TIME;
-      floatText(p.x, p.y - 20, "Triple shot", color);
+    } else if (WEAPONS[p.kind] && !s.weapon) {
+      s.weapon = { kind: p.kind, time: WEAPONS[p.kind].time };
+      floatText(p.x, p.y - 20, WEAPONS[p.kind].name, color);
     } else {
       s.score += 50;
       floatText(p.x, p.y - 20, "+50", color);
@@ -1405,8 +1415,10 @@ function setupGame() {
   }
 
   function fire(now) {
-    const { ship } = state;
-    const spread = state.tripleShot > 0 ? [-.14, 0, .14] : state.level >= 6 ? [-.08, .08] : [0];
+    const { ship, weapon } = state;
+    let spread = state.level >= TRIPLE_FROM_LEVEL ? [-.14, 0, .14] : state.level >= 6 ? [-.08, .08] : [0];
+    if (weapon?.kind === "penta") spread = [-.28, -.14, 0, .14, .28];
+    if (weapon?.kind === "starburst") spread = Array.from({ length: 12 }, (_, i) => (i * TAU) / 12);
     for (const offset of spread) {
       const angle = ship.angle + offset;
       state.bullets.push({
@@ -1428,6 +1440,7 @@ function setupGame() {
       vy: Math.sin(angle) * speed,
       life: 6,
       color: enemy.color,
+      breakable: BREAKABLE_SHOTS.has(enemy.kind),
     });
   }
 
@@ -1512,7 +1525,9 @@ function setupGame() {
 
     if (Math.random() < (HEALTH_DROP[enemy.kind] ?? .03)) dropPowerup(enemy.x - 14, enemy.y, "health");
     if (Math.random() < (SHIELD_DROP[enemy.kind] ?? .006)) dropPowerup(enemy.x + 14, enemy.y, "shield");
-    if (Math.random() < TRIPLE_DROP) dropPowerup(enemy.x, enemy.y + 14, "triple");
+    for (const kind of Object.keys(WEAPONS)) {
+      if (Math.random() < WEAPONS[kind].drop) dropPowerup(enemy.x, enemy.y + 14, kind);
+    }
 
     if (enemy.kind === "rock") {
       s.score += enemy.radius > 30 ? 20 : 10;
@@ -1617,11 +1632,12 @@ function setupGame() {
       s.shieldTimer = random(120, 180);
     }
 
-    if (s.level >= TRIPLE_FROM_LEVEL) {
-      s.tripleTimer -= dt;
-      if (s.tripleTimer <= 0) {
-        dropPowerup(random(60, width - 60), random(60, height - 60), "triple");
-        s.tripleTimer = random(70, 110);
+    if (s.level >= WEAPONS.penta.from) {
+      s.weaponTimer -= dt;
+      if (s.weaponTimer <= 0) {
+        const kind = s.level >= WEAPONS.starburst.from && Math.random() < .5 ? "starburst" : "penta";
+        dropPowerup(random(60, width - 60), random(60, height - 60), kind);
+        s.weaponTimer = random(70, 110);
       }
     }
 
@@ -1708,10 +1724,12 @@ function setupGame() {
         e.visible = e.age % 3 < 1.7;
         break;
 
-      case "shielder":
+      case "shielder": {
         steer(e, toShip, 70, 1, dt);
-        e.rotation = toShip;
+        const turn = angleDiff(toShip, e.rotation);
+        e.rotation += clamp(turn, -.7 * dt, .7 * dt);
         break;
+      }
 
       case "sniper":
         keepDistance(e, toShip, dist, 320, 440, 110, dt);
@@ -2276,6 +2294,18 @@ function setupGame() {
     }
 
     for (const shot of s.enemyShots) {
+      if (!shot.breakable || shot.life <= 0) continue;
+      for (const b of s.bullets) {
+        if (b.life > 0 && (b.x - shot.x) ** 2 + (b.y - shot.y) ** 2 < 11 ** 2) {
+          b.life = 0;
+          shot.life = 0;
+          explode(shot.x, shot.y, shot.color, 6, 110);
+          break;
+        }
+      }
+    }
+
+    for (const shot of s.enemyShots) {
       if (shot.life > 0 && canBeHit() && (ship.x - shot.x) ** 2 + (ship.y - shot.y) ** 2 < 100) {
         shot.life = 0;
         hitShip();
@@ -2368,11 +2398,16 @@ function setupGame() {
     s.texts = s.texts.filter((t) => t.life > 0);
     s.shake = Math.max(0, s.shake - dt * 40);
 
-    if (s.tripleShot > 0 && !s.over) {
-      const before = Math.ceil(s.tripleShot);
-      s.tripleShot = Math.max(0, s.tripleShot - dt);
-      if (Math.ceil(s.tripleShot) !== before) updateHud();
-      if (s.tripleShot === 0) floatText(s.ship.x, s.ship.y - 24, "Triple shot over", "#ffb347");
+    if (s.weapon && !s.over) {
+      const before = Math.ceil(s.weapon.time);
+      s.weapon.time = Math.max(0, s.weapon.time - dt);
+      if (s.weapon.time === 0) {
+        floatText(s.ship.x, s.ship.y - 24, `${WEAPONS[s.weapon.kind].name} over`, POWER_COLORS[s.weapon.kind]);
+        s.weapon = null;
+        updateHud();
+      } else if (Math.ceil(s.weapon.time) !== before) {
+        updateHud();
+      }
     }
 
     draw(now);
@@ -2790,13 +2825,23 @@ function setupGame() {
     if (p.kind === "health") {
       ctx.fillRect(-1.5, -6, 3, 12);
       ctx.fillRect(-6, -1.5, 12, 3);
-    } else if (p.kind === "triple") {
+    } else if (p.kind === "penta") {
       ctx.lineCap = "round";
-      ctx.lineWidth = 2.2;
-      for (const a of [-.5, 0, .5]) {
+      ctx.lineWidth = 1.8;
+      for (const a of [-.7, -.35, 0, .35, .7]) {
         ctx.beginPath();
         ctx.moveTo(Math.sin(a) * 2, 5 - Math.cos(a) * 2);
-        ctx.lineTo(Math.sin(a) * 8, 5 - Math.cos(a) * 11);
+        ctx.lineTo(Math.sin(a) * 9, 5 - Math.cos(a) * 11);
+        ctx.stroke();
+      }
+    } else if (p.kind === "starburst") {
+      ctx.lineCap = "round";
+      ctx.lineWidth = 1.6;
+      for (let i = 0; i < 12; i++) {
+        const a = (i * TAU) / 12;
+        ctx.beginPath();
+        ctx.moveTo(Math.cos(a) * 3, Math.sin(a) * 3);
+        ctx.lineTo(Math.cos(a) * 8, Math.sin(a) * 8);
         ctx.stroke();
       }
     } else {
@@ -2938,6 +2983,18 @@ function setupGame() {
     }
 
     for (const shot of s.enemyShots) {
+      if (shot.breakable) {
+        ctx.fillStyle = shot.color;
+        ctx.globalAlpha = .18;
+        circle(shot.x, shot.y, 6);
+        ctx.fill();
+        ctx.globalAlpha = 1;
+        ctx.strokeStyle = shot.color;
+        ctx.lineWidth = 2;
+        circle(shot.x, shot.y, 6);
+        ctx.stroke();
+        continue;
+      }
       ctx.fillStyle = shot.color;
       ctx.globalAlpha = .3;
       circle(shot.x, shot.y, 8);
@@ -3022,8 +3079,7 @@ function setupGame() {
   });
 
   document.addEventListener("click", (e) => {
-    if (lastPointer === "touch") return;
-    if (running) return stop();
+    if (lastPointer === "touch" || running) return;
     if (e.target.closest("a, button, .toast") || isOverContent(e.clientX, e.clientY)) return;
     start(e.clientX, e.clientY);
   });
