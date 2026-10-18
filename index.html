@@ -294,6 +294,41 @@ h1 span {
 
 body.playing .hint {
   opacity: 0;
+  visibility: hidden;
+}
+
+.play {
+  display: none;
+  margin: 0 auto;
+  padding: 13px 26px;
+  border: 1px solid var(--blue);
+  border-radius: 12px;
+  background: var(--card-hover);
+  color: var(--text);
+  font: inherit;
+  font-size: 12px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  pointer-events: auto;
+  box-shadow: 0 10px 30px -12px color-mix(in srgb, var(--blue) 70%, transparent);
+  -webkit-tap-highlight-color: transparent;
+  transition: transform .2s;
+}
+
+.play:active {
+  transform: scale(.96);
+}
+
+.touch-ui .hint span {
+  display: none;
+}
+
+.touch-ui .play {
+  display: block;
+}
+
+.touch-ui main {
+  padding-bottom: 110px;
 }
 
 .toast {
@@ -559,18 +594,60 @@ body.playing .hud {
   .handle { font-size: 16px; }
 }
 
-@media (hover: none) {
-  .quit { display: grid; }
-  .controls { padding: 0 64px; }
-  .account:hover { transform: none; }
-  .account:active { transform: scale(.985); }
-  .account:hover .card { border-color: var(--border); background: var(--card); box-shadow: none; }
-  .account:hover .logo { background: #131c2d; }
-  .account:hover .logo svg { fill: var(--text); transform: none; }
-  .account:hover .action,
-  .account.link:hover .action { border-color: var(--border); background: transparent; color: var(--muted); }
-  .account.link:hover .action svg { transform: none; }
-  .more:hover { border-color: var(--border); background: var(--card); color: var(--muted); transform: none; }
+.touch-ui .quit { display: grid; }
+.touch-ui .controls { padding: 0 64px; }
+.touch-ui .account:hover { transform: none; }
+.touch-ui .account:active { transform: scale(.985); }
+.touch-ui .account:hover .card { border-color: var(--border); background: var(--card); box-shadow: none; }
+.touch-ui .account:hover .logo { background: #131c2d; }
+.touch-ui .account:hover .logo svg { fill: var(--text); transform: none; }
+.touch-ui .account:hover .action,
+.touch-ui .account.link:hover .action { border-color: var(--border); background: transparent; color: var(--muted); }
+.touch-ui .account.link:hover .action svg { transform: none; }
+.touch-ui .more:hover { border-color: var(--border); background: var(--card); color: var(--muted); transform: none; }
+
+.rotate {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 14px;
+  padding: 24px;
+  background: rgba(5, 8, 15, .94);
+  color: var(--muted);
+  font-size: 11px;
+  letter-spacing: .14em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.rotate[hidden] {
+  display: none;
+}
+
+.rotate b {
+  color: var(--text);
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -.02em;
+  text-transform: none;
+}
+
+.rotate i {
+  width: 34px;
+  height: 58px;
+  margin-bottom: 8px;
+  border: 2px solid var(--blue);
+  border-radius: 7px;
+  animation: turn 2s ease-in-out infinite;
+}
+
+@keyframes turn {
+  0%, 25% { transform: rotate(0); }
+  55%, 100% { transform: rotate(-90deg); }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -590,7 +667,7 @@ body.playing .hud {
   <button class="more" id="more" type="button" hidden></button>
 </main>
 
-<p class="hint" id="hint">Click empty space to play</p>
+<div class="hint"><span>Click empty space to play</span><button class="play" id="play" type="button">Play the game</button></div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <canvas id="game" aria-hidden="true"></canvas>
@@ -606,6 +683,11 @@ body.playing .hud {
   </div>
   <div class="controls" id="controls">Move to fly and shoot &middot; Click or Esc to exit</div>
   <button class="quit" id="quit" type="button" aria-label="Exit game">&times;</button>
+</div>
+<div class="rotate" id="rotate" hidden>
+  <i></i>
+  <b>Rotate your phone</b>
+  <span>The game plays in landscape</span>
 </div>
 
 <script>
@@ -863,17 +945,26 @@ function setupGame() {
     gameOver: $("game-over"),
     finalScore: $("final-score"),
     quit: $("quit"),
+    rotate: $("rotate"),
   };
 
-  const touchMode = matchMedia("(hover: none)").matches;
   const FINGER_OFFSET = 70;
-  let lastPointer = "mouse";
-  let tapStart = null;
+  let lastPointer = matchMedia("(hover: none)").matches ? "touch" : "mouse";
+  let view = 1;
 
-  if (touchMode) {
-    $("hint").textContent = "Tap empty space to play";
-    $("controls").textContent = "Drag to fly and shoot \u00b7 Tap \u00d7 to exit";
-    $("exit-note").textContent = "Tap \u00d7 to exit";
+  const usingTouch = () => lastPointer === "touch";
+
+  function setInputMode(type) {
+    lastPointer = type;
+    const touch = usingTouch();
+    document.documentElement.classList.toggle("touch-ui", touch);
+    $("controls").textContent = touch ? "Drag to fly and shoot \u00b7 Tap \u00d7 to exit" : "Move to fly and shoot \u00b7 Click or Esc to exit";
+    $("exit-note").textContent = touch ? "Tap \u00d7 to exit" : "Click or Esc to exit";
+  }
+  setInputMode(lastPointer);
+
+  function needsLandscape() {
+    return usingTouch() && Math.min(innerWidth, innerHeight) < 540 && innerHeight > innerWidth;
   }
 
   const TAU = Math.PI * 2;
@@ -951,11 +1042,12 @@ function setupGame() {
 
   function resize() {
     const dpr = Math.min(2, devicePixelRatio || 1);
-    width = innerWidth;
-    height = innerHeight;
-    canvas.width = width * dpr;
-    canvas.height = height * dpr;
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    view = clamp(Math.min(innerWidth, innerHeight) / 650, .55, 1);
+    width = innerWidth / view;
+    height = innerHeight / view;
+    canvas.width = innerWidth * dpr;
+    canvas.height = innerHeight * dpr;
+    ctx.setTransform(dpr * view, 0, 0, dpr * view, 0, 0);
   }
 
 
@@ -984,9 +1076,11 @@ function setupGame() {
   }
 
 
-  function start(x, y) {
+  function start(clientX, clientY) {
     running = true;
     resize();
+    const x = clientX / view;
+    const y = clientY / view;
     document.body.classList.add("playing");
     document.documentElement.classList.add("playing");
 
@@ -1027,7 +1121,7 @@ function setupGame() {
     ui.gameOver.hidden = true;
     ui.bossBar.hidden = true;
     updateHud();
-    showBanner("Level 1", touchMode ? "Drag to fly and shoot" : "Move to fly and shoot");
+    showBanner("Level 1", usingTouch() ? "Drag to fly and shoot" : "Move to fly and shoot");
 
     lastTime = performance.now();
     frameId = requestAnimationFrame(loop);
@@ -1038,6 +1132,7 @@ function setupGame() {
     cancelAnimationFrame(frameId);
     document.body.classList.remove("playing");
     document.documentElement.classList.remove("playing");
+    ui.rotate.hidden = true;
     ui.banner.classList.remove("show");
     ctx.clearRect(0, 0, width, height);
   }
@@ -2163,6 +2258,13 @@ function setupGame() {
 
   function loop(now) {
     const s = state;
+    const rotate = needsLandscape();
+    ui.rotate.hidden = !rotate;
+    if (rotate) {
+      lastTime = now;
+      frameId = requestAnimationFrame(loop);
+      return;
+    }
     const dt = Math.min(.05, (now - lastTime) / 1000);
     lastTime = now;
 
@@ -2819,10 +2921,11 @@ function setupGame() {
   addEventListener("resize", () => running && resize());
 
   addEventListener("pointermove", (e) => {
+    if (e.pointerType === "mouse" && usingTouch() && (Math.abs(e.movementX) + Math.abs(e.movementY)) > 2) setInputMode("mouse");
     if (!running || state.over) return;
     const { ship } = state;
-    const x = e.clientX;
-    const y = e.clientY - (e.pointerType === "touch" ? FINGER_OFFSET : 0);
+    const x = e.clientX / view;
+    const y = (e.clientY - (e.pointerType === "touch" ? FINGER_OFFSET : 0)) / view;
     const dx = x - ship.targetX;
     const dy = y - ship.targetY;
     const dist = Math.hypot(dx, dy);
@@ -2837,21 +2940,17 @@ function setupGame() {
   });
 
   addEventListener("pointerdown", (e) => {
-    lastPointer = e.pointerType;
+    if (e.pointerType !== lastPointer) setInputMode(e.pointerType);
     if (e.pointerType !== "touch") return;
-    tapStart = { x: e.clientX, y: e.clientY, time: performance.now() };
     if (running && !state.over) {
-      state.ship.targetX = e.clientX;
-      state.ship.targetY = e.clientY - FINGER_OFFSET;
+      state.ship.targetX = e.clientX / view;
+      state.ship.targetY = (e.clientY - FINGER_OFFSET) / view;
     }
   });
 
-  addEventListener("pointerup", (e) => {
-    if (e.pointerType !== "touch" || !tapStart || running) return;
-    const tapped = Math.hypot(e.clientX - tapStart.x, e.clientY - tapStart.y) < 12 && performance.now() - tapStart.time < 400;
-    tapStart = null;
-    if (!tapped || e.target.closest("a, button, .toast") || isOverContent(e.clientX, e.clientY)) return;
-    start(e.clientX, Math.max(30, e.clientY - FINGER_OFFSET));
+  $("play").addEventListener("click", (e) => {
+    e.stopPropagation();
+    if (!running) start(innerWidth / 2, innerHeight * .6);
   });
 
   ui.quit.addEventListener("click", (e) => {
