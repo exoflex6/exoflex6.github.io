@@ -1032,9 +1032,9 @@ function setupGame() {
   };
   const BOSS_LEVELS = { 3: "mothership", 6: "hive", 8: "spinner", 10: "charger", 12: "titan", 15: "warden", 18: "reaper", 20: "twins", 23: "storm", 26: "overseer", 30: "core" };
 
-  const HEALTH_DROP = { rock: .01, swarm: .005, drone: .02, dart: .02, tank: .08, gunner: .06 };
-  const SHIELD_DROP = { rock: .002, swarm: .001, drone: .004, dart: .004, tank: .015, gunner: .01 };
-  const HEALTH_PER_LEVEL = .6;
+  const HEALTH_DROP = { rock: .005, swarm: .0025, drone: .01, dart: .01, tank: .04, gunner: .03 };
+  const SHIELD_DROP = { rock: .001, swarm: .0005, drone: .002, dart: .002, tank: .0075, gunner: .005 };
+  const HEALTH_PER_LEVEL = .3;
   const TRIPLE_FROM_LEVEL = 11;
   const PENTA_FROM_LEVEL = 19;
   const POWER_COLORS = { health: "#3ddc84", shield: "#6ee7ff", starburst: "#ff6ec7" };
@@ -1147,7 +1147,7 @@ function setupGame() {
       pincerCooldown: 8,
       titleTimer: TITLE_TIME,
       spawnTimer: 0,
-      shieldTimer: random(120, 180),
+      shieldTimer: random(240, 360),
       weaponTimer: random(180, 260),
       weapon: null,
       healthTimer: Infinity,
@@ -1358,8 +1358,8 @@ function setupGame() {
     s.levelStep += LEVEL_POINTS_GROWTH;
     if (s.level === Infinity || kind === "core") s.endlessBosses++;
 
-    if (Math.random() < .5 * powerBoost()) dropPowerup(x - 16, y, "health");
-    if (Math.random() < .1 * powerBoost()) dropPowerup(x + 16, y, "shield");
+    if (Math.random() < .25 * powerBoost()) dropPowerup(x - 16, y, "health");
+    if (Math.random() < .05 * powerBoost()) dropPowerup(x + 16, y, "shield");
     for (const kind of Object.keys(WEAPONS)) {
       if (Math.random() < WEAPONS[kind].bossDrop * powerBoost()) dropPowerup(x, y + 20, kind);
     }
@@ -1369,7 +1369,7 @@ function setupGame() {
       s.spawnLevel = MAX_LEVEL;
       s.endlessBossAt = s.score + Math.max(ENDLESS_BOSS_EVERY, s.levelStep * 4);
       s.titleTimer = TITLE_TIME;
-      s.healthTimer = random(20, 40);
+      s.healthTimer = random(40, 80);
       showBanner("Level ∞", "The Core is down. Endless mode");
     } else if (s.level === Infinity) {
       s.endlessBossAt = s.score + Math.max(ENDLESS_BOSS_EVERY, s.levelStep * 4);
@@ -1478,9 +1478,9 @@ function setupGame() {
     state.lasers.push({ owner, angle, warn: pincer ? 1.6 : 1, fire: pincer ? .6 : .5, width: owner.radius * 2, pincer, ...extra });
   }
 
-  function spawnWave(x, y, gapCount, color, offset = random(0, TAU)) {
+  function spawnWave(x, y, gapCount, color, offset = random(0, TAU), gapSize = .62) {
     const gaps = Array.from({ length: gapCount }, (_, i) => offset + (i * TAU) / gapCount);
-    state.hazards.push({ type: "wave", x, y, radius: 30, speed: 150, width: 16, gaps, gapSize: .62, color });
+    state.hazards.push({ type: "wave", x, y, radius: 30, speed: 150, width: 16, gaps, gapSize, color });
   }
 
   function strikesAround(x, y, count, color) {
@@ -1581,8 +1581,8 @@ function setupGame() {
     }
 
     const boost = powerBoost();
-    if (Math.random() < (HEALTH_DROP[enemy.kind] ?? .03) * boost) dropPowerup(enemy.x - 14, enemy.y, "health");
-    if (Math.random() < (SHIELD_DROP[enemy.kind] ?? .006) * boost) dropPowerup(enemy.x + 14, enemy.y, "shield");
+    if (Math.random() < (HEALTH_DROP[enemy.kind] ?? .015) * boost) dropPowerup(enemy.x - 14, enemy.y, "health");
+    if (Math.random() < (SHIELD_DROP[enemy.kind] ?? .003) * boost) dropPowerup(enemy.x + 14, enemy.y, "shield");
     for (const kind of Object.keys(WEAPONS)) {
       if (Math.random() < WEAPONS[kind].drop * boost) dropPowerup(enemy.x, enemy.y + 14, kind);
     }
@@ -1703,7 +1703,7 @@ function setupGame() {
     s.shieldTimer -= dt;
     if (s.shieldTimer <= 0) {
       dropPowerup(random(60, width - 60), random(60, height - 60), "shield");
-      s.shieldTimer = random(120, 180) / powerBoost();
+      s.shieldTimer = random(240, 360) / powerBoost();
     }
 
     if (s.level >= WEAPONS.starburst.from) {
@@ -1716,7 +1716,7 @@ function setupGame() {
 
     s.healthTimer -= dt;
     if (s.healthTimer <= 0) {
-      s.healthTimer = s.level === Infinity ? random(40, 70) / powerBoost() : Infinity;
+      s.healthTimer = s.level === Infinity ? random(80, 140) / powerBoost() : Infinity;
       dropPowerup(random(60, width - 60), random(60, height - 60), "health");
     }
   }
@@ -2209,6 +2209,7 @@ function setupGame() {
           e.phase = 3;
           e.timer = 2;
           e.timer2 = 1.5;
+          e.move = 0;
           s.shake = 16;
           s.enemyShots = [];
           floatText(e.x, e.y + e.radius + 24, "Overload", "#ff4d6d");
@@ -2218,21 +2219,30 @@ function setupGame() {
         e.timer -= dt;
         e.timer2 -= dt;
 
+        e.quiet = Math.max(0, (e.quiet || 0) - dt);
+        const shipDist = Math.hypot(ship.x - e.x, ship.y - e.y);
+        const ringsComing = e.echo > 0 || s.hazards.some((h) => h.type === "strike" || (h.type === "wave" && h.radius < shipDist + 140));
+        const laserFree = !hasLaser(e) && e.quiet <= 0;
+
         if (e.phase === 2) {
           if (ready && e.cooldown <= 0) {
             spread(e, toShip, 5, .2, 210);
             e.cooldown = 1.8;
           }
-          if (ready && e.timer <= 0 && !hasLaser(e)) {
-            const dir = Math.random() < .5 ? 1 : -1;
-            addLaser(e, toShip - dir * .45, false, { sweep: dir * .4, sweepLimit: .8, warn: 1.1, fire: 2.6 });
-            e.timer = 5.5;
-          }
-          if (ready && e.timer2 <= 0) {
-            e.waveOffset = random(0, TAU);
-            spawnWave(e.x, e.y, 3, "#4aa8ff", e.waveOffset);
-            e.echo = 1.7;
-            e.timer2 = 3.5;
+          if (ready && e.timer <= 0) {
+            if (e.move % 2 === 0 && laserFree && !ringsComing) {
+              const dir = Math.random() < .5 ? 1 : -1;
+              addLaser(e, toShip - dir * .45, false, { sweep: dir * .4, sweepLimit: .8, warn: 1.1, fire: 2.6 });
+              e.quiet = 1.1 + 2.6 + .8;
+              e.move++;
+              e.timer = 1;
+            } else if (e.move % 2 === 1 && laserFree) {
+              e.waveOffset = random(0, TAU);
+              spawnWave(e.x, e.y, 3, "#4aa8ff", e.waveOffset, .8);
+              e.echo = 1.7;
+              e.move++;
+              e.timer = 2.5;
+            }
           }
         }
 
@@ -2243,25 +2253,30 @@ function setupGame() {
             e.spiral += .4;
             e.cooldown = .12;
           }
-          if (ready && e.timer <= 0 && !hasLaser(e)) {
-            const dir = Math.random() < .5 ? 1 : -1;
-            addLaser(e, toShip - dir * .5, false, { sweep: dir * .5, sweepLimit: .95, warn: 1.1, fire: 2.4 });
-            e.timer = 6.5;
-          }
-          if (ready && e.timer2 <= 0) {
-            if (e.move++ % 2) {
-              strikesAround(ship.x, ship.y, 3, "#ff4d6d");
-            } else {
+          if (ready && e.timer <= 0) {
+            const step = e.move % 4;
+            if ((step === 0 || step === 2) && laserFree && !ringsComing) {
+              const dir = Math.random() < .5 ? 1 : -1;
+              addLaser(e, toShip - dir * .5, false, { sweep: dir * .5, sweepLimit: .95, warn: 1.1, fire: 2.4 });
+              e.quiet = 1.1 + 2.4 + .8;
+              e.move++;
+              e.timer = 1;
+            } else if (step === 1 && laserFree) {
               e.waveOffset = random(0, TAU);
-              spawnWave(e.x, e.y, 4, "#ff4d6d", e.waveOffset);
+              spawnWave(e.x, e.y, 4, "#ff4d6d", e.waveOffset, .75);
+              e.move++;
+              e.timer = 2;
+            } else if (step === 3 && laserFree) {
+              strikesAround(ship.x, ship.y, 3, "#ff4d6d");
+              e.move++;
+              e.timer = 2;
             }
-            e.timer2 = 3;
           }
         }
 
         if (e.echo > 0) {
           e.echo -= dt;
-          if (e.echo <= 0) spawnWave(e.x, e.y, 3, e.phase === 3 ? "#ff4d6d" : "#4aa8ff", e.waveOffset + TAU / 6);
+          if (e.echo <= 0) spawnWave(e.x, e.y, 3, e.phase === 3 ? "#ff4d6d" : "#4aa8ff", e.waveOffset + TAU / 6, .8);
         }
         break;
       }
