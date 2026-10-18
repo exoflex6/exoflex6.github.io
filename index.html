@@ -986,6 +986,8 @@ function setupGame() {
   const TITLE_TIME = 1.8;
   const MAX_LEVEL = 30;
   const ENDLESS_BOSS_EVERY = 3000;
+  const LEVEL_POINTS_GROWTH = 100;
+  const BOSS_HEALTH_GROWTH = 1.1;
 
   const ENEMIES = {
     rock:     { level: 1,  weight: (lvl) => Math.max(1.5, 5 - lvl * .5) },
@@ -1007,16 +1009,16 @@ function setupGame() {
 
   const BOSSES = {
     mothership: { name: "Mothership", hp: 24,  radius: 50, color: "#4aa8ff", sides: 8,  points: 1000 },
-    hive:       { name: "Hive",       hp: 70,  radius: 48, color: "#ff4d6d", sides: 6,  points: 1500 },
-    spinner:    { name: "Spinner",    hp: 90,  radius: 46, color: "#ffd34d", sides: 8,  points: 1800 },
-    titan:      { name: "Titan",      hp: 140, radius: 68, color: "#4aa8ff", sides: 8,  points: 2500 },
-    charger:    { name: "Charger",    hp: 120, radius: 44, color: "#ff9a3d", sides: 5,  points: 2500 },
-    warden:     { name: "Warden",     hp: 150, radius: 40, color: "#7cf0c4", sides: 8,  points: 3000 },
-    reaper:     { name: "Reaper",     hp: 160, radius: 46, color: "#b77bff", sides: 7,  points: 3500 },
-    twins:      { name: "The Twins",  hp: 110, radius: 44, color: "#ff4d6d", sides: 8,  points: 4500 },
-    storm:      { name: "Storm",      hp: 190, radius: 50, color: "#6ee7ff", sides: 10, points: 5000 },
-    overseer:   { name: "Overseer",   hp: 220, radius: 54, color: "#ff6ec7", sides: 12, points: 6000 },
-    core:       { name: "The Core",   hp: 420, radius: 72, color: "#eef3ff", sides: 12, points: 10000 },
+    hive:       { name: "Hive",       hp: 60,  radius: 48, color: "#ff4d6d", sides: 6,  points: 1500 },
+    spinner:    { name: "Spinner",    hp: 85,  radius: 46, color: "#ffd34d", sides: 8,  points: 1800 },
+    titan:      { name: "Titan",      hp: 120, radius: 68, color: "#4aa8ff", sides: 8,  points: 2500 },
+    charger:    { name: "Charger",    hp: 145, radius: 44, color: "#ff9a3d", sides: 5,  points: 2500 },
+    warden:     { name: "Warden",     hp: 170, radius: 40, color: "#7cf0c4", sides: 8,  points: 3000 },
+    reaper:     { name: "Reaper",     hp: 195, radius: 46, color: "#b77bff", sides: 7,  points: 3500 },
+    twins:      { name: "The Twins",  hp: 115, radius: 44, color: "#ff4d6d", sides: 8,  points: 4500 },
+    storm:      { name: "Storm",      hp: 260, radius: 50, color: "#6ee7ff", sides: 10, points: 5000 },
+    overseer:   { name: "Overseer",   hp: 300, radius: 54, color: "#ff6ec7", sides: 12, points: 6000 },
+    core:       { name: "The Core",   hp: 450, radius: 72, color: "#eef3ff", sides: 12, points: 10000 },
   };
   const BOSS_LEVELS = { 3: "mothership", 6: "hive", 8: "spinner", 10: "titan", 12: "charger", 15: "warden", 18: "reaper", 20: "twins", 23: "storm", 26: "overseer", 30: "core" };
 
@@ -1117,6 +1119,8 @@ function setupGame() {
       level: 1,
       spawnLevel: 1,
       nextLevelAt: POINTS_PER_LEVEL,
+      levelStep: POINTS_PER_LEVEL,
+      lastBossHealth: 0,
       bossActive: null,
       bossPending: null,
       endlessBossAt: Infinity,
@@ -1160,7 +1164,7 @@ function setupGame() {
   function nextLevel() {
     const s = state;
     s.level++;
-    s.nextLevelAt += POINTS_PER_LEVEL;
+    s.nextLevelAt += s.levelStep;
     s.titleTimer = TITLE_TIME;
 
     const bossKind = BOSS_LEVELS[s.level];
@@ -1284,10 +1288,14 @@ function setupGame() {
   function spawnBoss(kind) {
     const s = state;
     const def = BOSSES[kind];
+    const parts = kind === "twins" ? 2 : 1;
+    const total = Math.max(def.hp * parts, Math.ceil(s.lastBossHealth * BOSS_HEALTH_GROWTH));
+    const hp = Math.ceil(total / parts);
+    s.lastBossHealth = hp * parts;
     const make = (x, y, extra = {}) => {
       const boss = {
         kind: "boss", bossKind: kind, x, y, vx: 0, vy: 0,
-        radius: def.radius, hp: def.hp, maxHp: def.hp, color: def.color, sides: def.sides,
+        radius: def.radius, hp, maxHp: hp, color: def.color, sides: def.sides,
         rotation: 0, spin: .4, age: 0, cooldown: 2, timer: 2.5, timer2: 5, state: "idle",
         spiral: 0, fade: 1, phase: 1, move: 0,
         homeX: width / 2, homeY: Math.min(150, height * .24),
@@ -1320,6 +1328,7 @@ function setupGame() {
     s.score += def.points;
     s.shake = 20;
     s.lasers = [];
+    s.levelStep += LEVEL_POINTS_GROWTH;
 
     if (Math.random() < .5) dropPowerup(x - 16, y, "health");
     if (Math.random() < .1) dropPowerup(x + 16, y, "shield");
@@ -1328,15 +1337,15 @@ function setupGame() {
     if (kind === "core" && s.level !== Infinity) {
       s.level = Infinity;
       s.spawnLevel = MAX_LEVEL;
-      s.endlessBossAt = s.score + ENDLESS_BOSS_EVERY;
+      s.endlessBossAt = s.score + Math.max(ENDLESS_BOSS_EVERY, s.levelStep * 4);
       s.titleTimer = TITLE_TIME;
       s.healthTimer = random(20, 40);
       showBanner("Level ∞", "The Core is down. Endless mode");
     } else if (s.level === Infinity) {
-      s.endlessBossAt = s.score + ENDLESS_BOSS_EVERY;
+      s.endlessBossAt = s.score + Math.max(ENDLESS_BOSS_EVERY, s.levelStep * 4);
       showBanner(`${def.name} down`, `+${def.points}`);
     } else {
-      s.nextLevelAt = s.score + POINTS_PER_LEVEL;
+      s.nextLevelAt = s.score + s.levelStep;
       showBanner(`${def.name} down`, `+${def.points}`);
     }
     updateHud();
