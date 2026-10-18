@@ -1,3 +1,4 @@
+<meta charset="utf-8">
 <title>exoflex6</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E %3Crect width=%2264%22 height=%2264%22 rx=%2214%22 fill=%22%2305080f%22/%3E %3Cpath fill=%22%23eef3ff%22 d=%22M20.184692179700498 29.789683860232945V34.21031613976706H10.952579034941763L10.548252911813645 37.09450915141431H20.97088186356073V42.108153078202996H5.0L6.257903494176373 32.0L5.0 21.891846921797004H20.858569051580698V26.905490848585693H10.548252911813645L10.952579034941763 29.789683860232945ZM34.470881863560734 31.595673876871878 41.56905158069884 42.108153078202996H35.12229617304493L31.191347753743763 35.90848585690516L27.215474209650584 42.108153078202996H20.881031613976706L28.024126455906824 31.595673876871878L21.33028286189684 21.891846921797004H27.86688851913478L31.281198003327788 27.255906821963393L34.650582362728784 21.891846921797004H41.097337770382694Z%22/%3E %3Cpath fill=%22%234aa8ff%22 d=%22M50.5765391014975 21.433610648918467Q52.82279534109817 21.433610648918467 54.563643926788686 22.255740432612313Q56.3044925124792 23.077870216306156 57.37146422628952 24.466056572379365Q58.438435940099836 25.854242928452578 58.6630615640599 27.6063227953411H53.87853577371048Q53.5865224625624 26.87853577371048 52.82279534109817 26.39334442595674Q52.05906821963394 25.908153078202997 50.71131447587354 25.908153078202997Q49.183860232945094 25.908153078202997 48.16181364392679 26.582029950083196Q47.13976705490849 27.255906821963393 46.634359400998335 28.549750415973378Q46.12895174708819 29.843594009983363 46.12895174708819 31.73044925124792Q46.12895174708819 31.75740432612313 46.12895174708819 31.784359400998337Q46.173876871880196 31.703494176372715 46.21880199667221 31.649584026622296Q47.29700499168053 30.38269550748752 48.79076539101497 29.6414309484193Q50.28452579034942 28.90016638935108 52.193843594009984 28.90016638935108Q54.32778702163061 28.90016638935108 55.84400998336106 29.735773710482526Q57.36023294509151 30.571381031613974 58.180116472545755 32.053910149750415Q59.0 33.536439267886855 59.0 35.47720465890183Q59.0 37.52579034941764 58.034109816971714 39.12961730449251Q57.06821963394343 40.73344425956739 55.22628951747088 41.649916805324466Q53.384359400998335 42.56638935108153 50.688851913477535 42.56638935108153Q47.521630615640596 42.56638935108153 45.43261231281198 41.21863560732113Q43.34359400998336 39.87088186356073 42.32154742096506 37.48535773710482Q41.29950083194675 35.099833610648915 41.29950083194675 32.026955074875204Q41.29950083194675 28.9540765391015 42.332778702163054 26.555074875207985Q43.366056572379364 24.156073211314474 45.432612312811976 22.79484193011647Q47.49916805324459 21.433610648918467 50.5765391014975 21.433610648918467ZM46.71297836938436 35.34242928452579Q47.25207986688852 36.69018302828619 48.26289517470882 37.36405990016639Q49.296173044925126 38.064891846921796 50.77870216306157 38.064891846921796Q51.744592346089846 38.064891846921796 52.41846921797005 37.7414309484193Q53.09234608985025 37.4179700499168 53.42928452579035 36.87886855241264Q53.76622296173045 36.339767054908485 53.76622296173045 35.69284525790349Q53.76622296173045 34.96505823627288 53.44051580698835 34.43943427620633Q53.11480865224625 33.91381031613977 52.46339434276206 33.64425956738769Q51.81198003327787 33.37470881863561 50.86855241264559 33.37470881863561Q49.58818635607321 33.37470881863561 48.39767054908486 33.99467554076539Q47.521630615640596 34.47986688851913 46.71297836938436 35.34242928452579Z%22/%3E %3C/svg%3E">
@@ -421,7 +422,7 @@ body.playing .hud {
   box-sizing: border-box;
   width: 16px;
   height: 16px;
-  margin-left: 6px;
+  margin-right: 6px;
   border: 2px solid var(--shield);
   border-radius: 50%;
   box-shadow: 0 0 10px var(--shield);
@@ -443,6 +444,11 @@ body.playing .hud {
   overflow: hidden;
   border-radius: 2px;
   background: var(--border);
+}
+
+.boss-bar small {
+  color: #4b5874;
+  font-size: 10px;
 }
 
 .boss-bar i {
@@ -539,7 +545,7 @@ body.playing .hud {
 <div class="hud" aria-live="polite">
   <div class="score"><span id="score">0</span><small id="level-best">Level 1 &middot; Best 0</small></div>
   <div class="lives" id="lives"></div>
-  <div class="boss-bar" id="boss-bar" hidden><span>Mothership</span><div><i id="boss-health"></i></div></div>
+  <div class="boss-bar" id="boss-bar" hidden><span id="boss-name">Mothership</span><div><i id="boss-health"></i></div><small id="boss-note">Defeat it to continue</small></div>
   <div class="banner" id="banner"></div>
   <div class="game-over" id="game-over" hidden>
     <b>Ship down</b>
@@ -797,6 +803,8 @@ function setupGame() {
     levelBest: $("level-best"),
     lives: $("lives"),
     bossBar: $("boss-bar"),
+    bossName: $("boss-name"),
+    bossNote: $("boss-note"),
     bossHealth: $("boss-health"),
     banner: $("banner"),
     gameOver: $("game-over"),
@@ -808,18 +816,44 @@ function setupGame() {
   const START_LIVES = 3;
   const MAX_LIVES = 5;
   const TITLE_TIME = 1.8;
+  const MAX_LEVEL = 30;
+  const ENDLESS_BOSS_EVERY = 3000;
 
   const ENEMIES = {
-    rock:   { level: 1, weight: (lvl) => Math.max(1.5, 5 - lvl * .5) },
-    drone:  { level: 2, weight: () => 3,   radius: 12, hp: 1, points: 50,  color: "#ff4d6d", name: "Drones" },
-    dart:   { level: 3, weight: () => 2.5, radius: 9,  hp: 1, points: 75,  color: "#ffd34d", name: "Darts" },
-    tank:   { level: 4, weight: () => 1.5, radius: 26, hp: 6, points: 120, color: "#ff9a3d", name: "Tanks" },
-    gunner: { level: 5, weight: () => 1.4, radius: 16, hp: 3, points: 150, color: "#b77bff", name: "Gunners" },
+    rock:     { level: 1,  weight: (lvl) => Math.max(1.5, 5 - lvl * .5) },
+    drone:    { level: 2,  weight: () => 3,   radius: 12, hp: 1, points: 50,  color: "#ff4d6d", name: "Drones",    hint: "They chase you" },
+    dart:     { level: 3,  weight: () => 2.5, radius: 9,  hp: 1, points: 75,  color: "#ffd34d", name: "Darts",     hint: "Fast and straight" },
+    tank:     { level: 4,  weight: () => 1.5, radius: 26, hp: 6, points: 120, color: "#ff9a3d", name: "Tanks",     hint: "Slow but tough" },
+    gunner:   { level: 5,  weight: () => 1.4, radius: 16, hp: 3, points: 150, color: "#b77bff", name: "Gunners",   hint: "They shoot back" },
+    splitter: { level: 7,  weight: () => 1.3, radius: 15, hp: 2, points: 140, color: "#4dd9ff", name: "Splitters", hint: "Burst into darts" },
+    miner:    { level: 9,  weight: () => 1,   radius: 15, hp: 3, points: 160, color: "#ff6ec7", name: "Miners",    hint: "They leave mines behind" },
+    phantom:  { level: 11, weight: () => 1.2, radius: 13, hp: 2, points: 170, color: "#c9d4ff", name: "Phantoms",  hint: "Only hittable when visible" },
+    shielder: { level: 13, weight: () => 1.1, radius: 17, hp: 4, points: 180, color: "#7cf0c4", name: "Shielders", hint: "Hit them from the side" },
+    sniper:   { level: 14, weight: () => .9,  radius: 13, hp: 2, points: 200, color: "#ff3b3b", name: "Snipers",   hint: "Watch for the red line" },
+    swarm:    { level: 16, weight: () => .8,  radius: 6,  hp: 1, points: 30,  color: "#d6ff4d", name: "Swarms",    hint: "They come in packs" },
+    orbiter:  { level: 17, weight: () => 1,   radius: 14, hp: 3, points: 190, color: "#ffb347", name: "Orbiters",  hint: "They circle you" },
+    bomber:   { level: 19, weight: () => 1,   radius: 14, hp: 2, points: 160, color: "#ff7a3d", name: "Bombers",   hint: "They explode up close" },
+    healer:   { level: 21, weight: () => .7,  radius: 15, hp: 4, points: 220, color: "#3ddc84", name: "Healers",   hint: "They repair other enemies" },
+    blinker:  { level: 22, weight: () => .9,  radius: 13, hp: 2, points: 210, color: "#a78bff", name: "Blinkers",  hint: "They teleport next to you" },
   };
-  const BOSS_POINTS = 1000;
 
-  const HEALTH_DROP = { rock: .01, drone: .02, dart: .02, tank: .08, gunner: .06, boss: .5 };
-  const SHIELD_DROP = { rock: .002, drone: .004, dart: .004, tank: .015, gunner: .01, boss: .1 };
+  const BOSSES = {
+    mothership: { name: "Mothership", hp: 24,  radius: 50, color: "#4aa8ff", sides: 8,  points: 1000 },
+    hive:       { name: "Hive",       hp: 70,  radius: 48, color: "#ff4d6d", sides: 6,  points: 1500 },
+    spinner:    { name: "Spinner",    hp: 90,  radius: 46, color: "#ffd34d", sides: 8,  points: 1800 },
+    titan:      { name: "Titan",      hp: 140, radius: 68, color: "#4aa8ff", sides: 8,  points: 2500 },
+    charger:    { name: "Charger",    hp: 120, radius: 44, color: "#ff9a3d", sides: 5,  points: 2500 },
+    warden:     { name: "Warden",     hp: 150, radius: 40, color: "#7cf0c4", sides: 8,  points: 3000 },
+    reaper:     { name: "Reaper",     hp: 160, radius: 46, color: "#b77bff", sides: 7,  points: 3500 },
+    twins:      { name: "The Twins",  hp: 110, radius: 44, color: "#ff4d6d", sides: 8,  points: 4500 },
+    storm:      { name: "Storm",      hp: 190, radius: 50, color: "#6ee7ff", sides: 10, points: 5000 },
+    overseer:   { name: "Overseer",   hp: 220, radius: 54, color: "#ff6ec7", sides: 12, points: 6000 },
+    core:       { name: "The Core",   hp: 420, radius: 72, color: "#eef3ff", sides: 12, points: 10000 },
+  };
+  const BOSS_LEVELS = { 3: "mothership", 6: "hive", 8: "spinner", 10: "titan", 12: "charger", 15: "warden", 18: "reaper", 20: "twins", 23: "storm", 26: "overseer", 30: "core" };
+
+  const HEALTH_DROP = { rock: .01, swarm: .005, drone: .02, dart: .02, tank: .08, gunner: .06 };
+  const SHIELD_DROP = { rock: .002, swarm: .001, drone: .004, dart: .004, tank: .015, gunner: .01 };
   const HEALTH_PER_LEVEL = .6;
 
   let running = false;
@@ -827,6 +861,11 @@ function setupGame() {
   let frameId = 0, lastTime = 0;
   let best = loadBest();
   let state;
+
+  const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
+  const angleDiff = (a, b) => Math.atan2(Math.sin(a - b), Math.cos(a - b));
+  const levelLabel = () => state.level === Infinity ? "∞" : state.level;
+  const scaledLevel = () => Math.min(state.spawnLevel, 15);
 
   function loadBest() {
     try {
@@ -854,17 +893,17 @@ function setupGame() {
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   }
 
+
   function updateHud() {
     const s = state;
     ui.score.textContent = s.score;
-    ui.levelBest.textContent = `Level ${s.level} · Best ${Math.max(best, s.score)}`;
+    ui.levelBest.textContent = `Level ${levelLabel()} · Best ${Math.max(best, s.score)}`;
 
-    let lives = "";
-    for (let i = 0; i < Math.max(START_LIVES, s.lives); i++) {
+    let lives = s.ship.shield ? '<b title="Shield"></b>' : "";
+    for (let i = Math.max(START_LIVES, s.lives) - 1; i >= 0; i--) {
       const cls = i >= s.lives ? "lost" : i >= START_LIVES ? "extra" : "";
       lives += `<i class="${cls}"></i>`;
     }
-    if (s.ship.shield) lives += '<b title="Shield"></b>';
     ui.lives.innerHTML = lives;
   }
 
@@ -879,6 +918,7 @@ function setupGame() {
     state.texts.push({ x, y, text, color, life: 1.1 });
   }
 
+
   function start(x, y) {
     running = true;
     resize();
@@ -892,11 +932,20 @@ function setupGame() {
       particles: [],
       powerups: [],
       texts: [],
-      boss: null,
+      lasers: [],
+      hazards: [],
+      rings: [],
       score: 0,
       lives: START_LIVES,
       level: 1,
       spawnLevel: 1,
+      nextLevelAt: POINTS_PER_LEVEL,
+      bossActive: null,
+      bossPending: null,
+      endlessBossAt: Infinity,
+      twinTurn: -1,
+      twinClock: 2,
+      pincerCooldown: 8,
       titleTimer: TITLE_TIME,
       spawnTimer: 0,
       shieldTimer: random(120, 180),
@@ -926,7 +975,47 @@ function setupGame() {
     ctx.clearRect(0, 0, width, height);
   }
 
-  function offscreenPoint(margin = 60) {
+
+  function nextLevel() {
+    const s = state;
+    s.level++;
+    s.nextLevelAt += POINTS_PER_LEVEL;
+    s.titleTimer = TITLE_TIME;
+
+    const bossKind = BOSS_LEVELS[s.level];
+    const newEnemy = Object.values(ENEMIES).find((e) => e.level === s.level);
+    let subtitle = "";
+    if (bossKind) {
+      s.bossPending = bossKind;
+      subtitle = (s.level === MAX_LEVEL ? "Final boss: " : "Boss: ") + BOSSES[bossKind].name;
+    } else if (newEnemy) {
+      s.introduce = Object.keys(ENEMIES).find((kind) => ENEMIES[kind] === newEnemy);
+      subtitle = `New enemy: ${newEnemy.name} · ${newEnemy.hint}`;
+    } else if (s.level === 6) {
+      subtitle = "Twin cannons online";
+    }
+    showBanner(`Level ${s.level}`, subtitle);
+  }
+
+  function checkProgress() {
+    const s = state;
+    if (s.bossActive || s.bossPending || s.over) return;
+
+    if (s.level === Infinity) {
+      if (s.score >= s.endlessBossAt) {
+        const kinds = Object.keys(BOSSES);
+        s.bossPending = kinds[Math.floor(Math.random() * kinds.length)];
+        s.titleTimer = TITLE_TIME;
+        showBanner("Level ∞", `Boss: ${BOSSES[s.bossPending].name}`);
+      }
+      return;
+    }
+
+    if (s.score >= s.nextLevelAt) nextLevel();
+  }
+
+
+  function offscreenPoint(margin = 40) {
     const side = Math.floor(Math.random() * 4);
     return {
       x: side === 0 ? -margin : side === 1 ? width + margin : random(0, width),
@@ -935,11 +1024,12 @@ function setupGame() {
   }
 
   function pickEnemy() {
-    const lvl = state.spawnLevel;
+    const lvl = Math.min(state.spawnLevel, MAX_LEVEL);
     const options = Object.entries(ENEMIES).filter(([, e]) => lvl >= e.level);
-    let roll = Math.random() * options.reduce((sum, [, e]) => sum + e.weight(lvl), 0);
+    const weight = (e) => e.weight(lvl) * (e.level === lvl ? 4 : 1);
+    let roll = Math.random() * options.reduce((sum, [, e]) => sum + weight(e), 0);
     for (const [kind, e] of options) {
-      roll -= e.weight(lvl);
+      roll -= weight(e);
       if (roll <= 0) return kind;
     }
     return "rock";
@@ -956,47 +1046,120 @@ function setupGame() {
     };
   }
 
-  function spawnEnemy() {
+  function makeEnemy(kind, x, y) {
+    const type = ENEMIES[kind];
+    const enemy = {
+      kind, x, y, vx: 0, vy: 0,
+      radius: type.radius, hp: type.hp, maxHp: type.hp, color: type.color,
+      rotation: 0, spin: 0, age: 0,
+      cooldown: random(1, 2.2), timer: 0, state: "idle",
+    };
+    state.enemies.push(enemy);
+    return enemy;
+  }
+
+  function spawnEnemy(forced) {
     const s = state;
-    const kind = pickEnemy();
+    const kind = forced || pickEnemy();
     const { x, y } = offscreenPoint();
+    const lvl = scaledLevel();
 
     if (kind === "rock") {
       const aim = Math.atan2(random(height * .2, height * .8) - y, random(width * .2, width * .8) - x);
-      const speed = random(50, 110) + s.level * 8;
+      const speed = random(50, 110) + lvl * 8;
       s.enemies.push(makeRock(x, y, random(18, 40), Math.cos(aim) * speed, Math.sin(aim) * speed));
       return;
     }
 
-    const type = ENEMIES[kind];
-    const enemy = {
-      kind, x, y, vx: 0, vy: 0,
-      radius: type.radius, hp: type.hp, maxHp: type.hp,
-      rotation: 0, spin: 0, age: 0,
-      cooldown: random(1, 2),
-    };
+    if (kind === "swarm") {
+      for (let i = 0; i < 5; i++) {
+        makeEnemy("swarm", x + random(-30, 30), y + random(-30, 30)).phase = random(0, TAU);
+      }
+      return;
+    }
+
+    const enemy = makeEnemy(kind, x, y);
 
     if (kind === "dart") {
       const aim = Math.atan2(s.ship.y - y, s.ship.x - x);
-      const speed = 300 + s.level * 15;
+      const speed = 300 + lvl * 15;
       enemy.vx = Math.cos(aim) * speed;
       enemy.vy = Math.sin(aim) * speed;
       enemy.rotation = aim;
     }
 
-    s.enemies.push(enemy);
+    if (kind === "miner") {
+      const aim = Math.atan2(random(height * .2, height * .8) - y, random(width * .2, width * .8) - x);
+      enemy.vx = Math.cos(aim) * 70;
+      enemy.vy = Math.sin(aim) * 70;
+    }
+
+    if (kind === "orbiter") {
+      enemy.orbit = Math.atan2(y - s.ship.y, x - s.ship.x);
+      enemy.direction = Math.random() < .5 ? 1 : -1;
+    }
   }
 
-  function spawnBoss() {
-    const hp = 30 + state.level * 6;
-    state.boss = {
-      kind: "boss", x: width / 2, y: -80, vx: 0, vy: 0,
-      radius: 50, hp, maxHp: hp,
-      rotation: 0, spin: .4, age: 0, cooldown: 2,
+  function spawnBoss(kind) {
+    const s = state;
+    const def = BOSSES[kind];
+    const make = (x, y, extra = {}) => {
+      const boss = {
+        kind: "boss", bossKind: kind, x, y, vx: 0, vy: 0,
+        radius: def.radius, hp: def.hp, maxHp: def.hp, color: def.color, sides: def.sides,
+        rotation: 0, spin: .4, age: 0, cooldown: 2, timer: 2.5, timer2: 5, state: "idle",
+        spiral: 0, fade: 1, phase: 1, move: 0,
+        homeX: width / 2, homeY: Math.min(150, height * .24),
+        ...extra,
+      };
+      s.enemies.push(boss);
+      return boss;
     };
-    state.enemies.push(state.boss);
+
+    if (kind === "twins") {
+      make(-80, height * .3, { side: -1, color: "#ff4d6d" });
+      make(width + 80, height * .7, { side: 1, color: "#4aa8ff" });
+      s.twinClock = 3;
+    } else {
+      make(width / 2, -110);
+    }
+
+    s.bossActive = kind;
+    ui.bossName.textContent = def.name;
+    ui.bossNote.textContent = s.level === Infinity ? "Endless mode" : kind === "twins" ? "Defeat them to continue" : "Defeat it to continue";
+    ui.bossHealth.style.width = "100%";
     ui.bossBar.hidden = false;
   }
+
+  function bossDefeated(kind, x, y) {
+    const s = state;
+    const def = BOSSES[kind];
+    s.bossActive = null;
+    ui.bossBar.hidden = true;
+    s.score += def.points;
+    s.shake = 20;
+    s.lasers = [];
+
+    if (Math.random() < .5) dropPowerup(x - 16, y, "health");
+    if (Math.random() < .1) dropPowerup(x + 16, y, "shield");
+
+    if (kind === "core" && s.level !== Infinity) {
+      s.level = Infinity;
+      s.spawnLevel = MAX_LEVEL;
+      s.endlessBossAt = s.score + ENDLESS_BOSS_EVERY;
+      s.titleTimer = TITLE_TIME;
+      s.healthTimer = random(20, 40);
+      showBanner("Level ∞", "The Core is down. Endless mode");
+    } else if (s.level === Infinity) {
+      s.endlessBossAt = s.score + ENDLESS_BOSS_EVERY;
+      showBanner(`${def.name} down`, `+${def.points}`);
+    } else {
+      s.nextLevelAt = s.score + POINTS_PER_LEVEL;
+      showBanner(`${def.name} down`, `+${def.points}`);
+    }
+    updateHud();
+  }
+
 
   function canDropHealth() {
     return state.level >= 3 && state.lives < MAX_LIVES;
@@ -1028,8 +1191,10 @@ function setupGame() {
       s.score += 50;
       floatText(p.x, p.y - 20, "+50", color);
     }
+    checkProgress();
     updateHud();
   }
+
 
   function explode(x, y, color, count, speed = 260) {
     for (let i = 0; i < count; i++) {
@@ -1061,9 +1226,25 @@ function setupGame() {
       y: enemy.y + Math.sin(angle) * enemy.radius,
       vx: Math.cos(angle) * speed,
       vy: Math.sin(angle) * speed,
-      life: 5,
-      color: enemy.kind === "boss" ? "#7cc4ff" : ENEMIES.gunner.color,
+      life: 6,
+      color: enemy.color,
     });
+  }
+
+  function spread(enemy, angle, count, step, speed) {
+    for (let i = 0; i < count; i++) enemyFire(enemy, angle + (i - (count - 1) / 2) * step, speed);
+  }
+
+  function ring(enemy, count, speed, offset = 0, gap = 0) {
+    for (let i = gap; i < count; i++) enemyFire(enemy, offset + (i / count) * TAU, speed);
+  }
+
+  function addLaser(owner, angle, pincer = false) {
+    state.lasers.push({ owner, angle, warn: pincer ? 1.6 : 1, fire: pincer ? .6 : .5, width: 14, pincer });
+  }
+
+  function hasLaser(owner) {
+    return state.lasers.some((l) => l.owner === owner);
   }
 
   function hitShip() {
@@ -1103,7 +1284,7 @@ function setupGame() {
         best = s.score;
         saveBest(best);
       }
-      ui.finalScore.textContent = (newBest ? "New best · " : "") + `Score ${s.score} · Level ${s.level}`;
+      ui.finalScore.textContent = (newBest ? "New best · " : "") + `Score ${s.score} · Level ${levelLabel()}`;
       ui.gameOver.hidden = false;
     }
     updateHud();
@@ -1111,15 +1292,30 @@ function setupGame() {
 
   function destroy(enemy) {
     const s = state;
+    if (enemy.dead) return;
     enemy.dead = true;
 
-    if (Math.random() < (HEALTH_DROP[enemy.kind] || 0)) dropPowerup(enemy.x - 14, enemy.y, "health");
-    if (Math.random() < (SHIELD_DROP[enemy.kind] || 0)) dropPowerup(enemy.x + 14, enemy.y, "shield");
+    if (enemy.kind === "boss") {
+      for (let i = 0; i < 5; i++) {
+        setTimeout(() => running && explode(enemy.x + random(-40, 40), enemy.y + random(-40, 40), i % 2 ? enemy.color : "#eef3ff", 40, 380), i * 120);
+      }
+      const left = s.enemies.filter((e) => e.kind === "boss" && !e.dead);
+      if (left.length) {
+        floatText(enemy.x, enemy.y - enemy.radius - 16, "One down", enemy.color);
+        for (const twin of left) twin.enraged = true;
+      } else {
+        bossDefeated(enemy.bossKind, enemy.x, enemy.y);
+      }
+      checkProgress();
+      return;
+    }
+
+    if (Math.random() < (HEALTH_DROP[enemy.kind] ?? .03)) dropPowerup(enemy.x - 14, enemy.y, "health");
+    if (Math.random() < (SHIELD_DROP[enemy.kind] ?? .006)) dropPowerup(enemy.x + 14, enemy.y, "shield");
 
     if (enemy.kind === "rock") {
       s.score += enemy.radius > 30 ? 20 : 10;
       explode(enemy.x, enemy.y, "#9fb3d6", 18);
-
       if (enemy.radius > 24) {
         for (let i = 0; i < 2; i++) {
           const angle = random(0, TAU);
@@ -1129,35 +1325,27 @@ function setupGame() {
           s.enemies.push(piece);
         }
       }
-    } else if (enemy.kind === "boss") {
-      s.score += BOSS_POINTS;
-      s.shake = 20;
-      s.boss = null;
-      ui.bossBar.hidden = true;
-      for (let i = 0; i < 5; i++) {
-        setTimeout(() => running && explode(enemy.x + random(-40, 40), enemy.y + random(-40, 40), i % 2 ? "#4aa8ff" : "#eef3ff", 40, 380), i * 120);
-      }
-      showBanner("Mothership down", `+${BOSS_POINTS}`);
     } else {
-      const type = ENEMIES[enemy.kind];
-      s.score += type.points;
-      explode(enemy.x, enemy.y, type.color, enemy.kind === "tank" ? 40 : 24);
+      s.score += ENEMIES[enemy.kind].points;
+      explode(enemy.x, enemy.y, enemy.color, enemy.kind === "tank" ? 40 : 24);
     }
 
-    const level = 1 + Math.floor(s.score / POINTS_PER_LEVEL);
-    if (level > s.level) {
-      s.level = level;
-      s.titleTimer = TITLE_TIME;
-      const newEnemy = Object.values(ENEMIES).find((e) => e.level === level);
-      let subtitle = "";
-      if (level % 3 === 0) subtitle = "Mothership incoming";
-      else if (newEnemy) subtitle = `New enemy: ${newEnemy.name}`;
-      else if (level === 6) subtitle = "Twin cannons online";
-      showBanner(`Level ${level}`, subtitle);
+    if (enemy.kind === "splitter") {
+      const offset = random(0, TAU);
+      for (let i = 0; i < 3; i++) {
+        const angle = offset + (i / 3) * TAU;
+        const dart = makeEnemy("dart", enemy.x, enemy.y);
+        dart.vx = Math.cos(angle) * 240;
+        dart.vy = Math.sin(angle) * 240;
+        dart.rotation = angle;
+        dart.age = 1;
+      }
     }
 
+    checkProgress();
     updateHud();
   }
+
 
   function updateShip(dt, now) {
     const { ship } = state;
@@ -1192,14 +1380,24 @@ function setupGame() {
     if (s.titleTimer > 0) {
       s.titleTimer -= dt;
       if (s.titleTimer <= 0) {
-        s.spawnLevel = s.level;
+        if (s.level !== Infinity) s.spawnLevel = s.level;
         s.spawnTimer = 0;
-        if (s.level % 3 === 0 && !s.boss) spawnBoss();
+        if (s.bossPending) {
+          spawnBoss(s.bossPending);
+          s.bossPending = null;
+        }
         if (s.level === 1) {
           spawnEnemy();
           spawnEnemy();
         }
-        s.healthTimer = s.level >= 3 && Math.random() < HEALTH_PER_LEVEL ? random(4, 15) : Infinity;
+        if (s.introduce) {
+          spawnEnemy(s.introduce);
+          spawnEnemy(s.introduce);
+          s.introduce = null;
+        }
+        if (s.level !== Infinity) {
+          s.healthTimer = s.level >= 3 && Math.random() < HEALTH_PER_LEVEL ? random(4, 15) : Infinity;
+        }
       }
       return;
     }
@@ -1207,7 +1405,9 @@ function setupGame() {
     s.spawnTimer -= dt;
     if (s.spawnTimer <= 0) {
       spawnEnemy();
-      s.spawnTimer = Math.max(.32, 1.1 - s.spawnLevel * .08) * (s.boss ? 1.8 : 1);
+      const lvl = Math.min(s.spawnLevel, MAX_LEVEL);
+      const bossSlowdown = !s.bossActive ? 1 : s.bossActive === "twins" || s.bossActive === "core" ? 2.5 : 1.8;
+      s.spawnTimer = Math.max(.3, 1.1 - lvl * .04) * bossSlowdown;
     }
 
     s.shieldTimer -= dt;
@@ -1218,67 +1418,615 @@ function setupGame() {
 
     s.healthTimer -= dt;
     if (s.healthTimer <= 0) {
-      s.healthTimer = Infinity;
+      s.healthTimer = s.level === Infinity ? random(40, 70) : Infinity;
       dropPowerup(random(60, width - 60), random(60, height - 60), "health");
     }
   }
 
-  function updateEnemies(dt) {
+
+  function steer(e, angle, speed, rate, dt) {
+    const k = Math.min(1, dt * rate);
+    e.vx += (Math.cos(angle) * speed - e.vx) * k;
+    e.vy += (Math.sin(angle) * speed - e.vy) * k;
+  }
+
+  function keepDistance(e, toShip, dist, near, far, speed, dt) {
+    const approach = dist > far ? 1 : dist < near ? -1 : 0;
+    const sideways = toShip + Math.PI / 2;
+    const k = Math.min(1, dt * 1.6);
+    e.vx += (Math.cos(toShip) * approach * speed + Math.cos(sideways) * speed * .4 - e.vx) * k;
+    e.vy += (Math.sin(toShip) * approach * speed + Math.sin(sideways) * speed * .4 - e.vy) * k;
+  }
+
+  function hover(e, x, y, ease) {
+    e.vx = (x - e.x) * ease;
+    e.vy = (y - e.y) * ease;
+  }
+
+  function topX(e, sway, speed = .6) {
+    return width / 2 + Math.sin(e.age * speed) * width * sway;
+  }
+
+  function topY() {
+    return Math.min(150, height * .24);
+  }
+
+  function updateEnemy(e, dt) {
     const s = state;
     const { ship } = s;
+    const lvl = scaledLevel();
+    const toShip = Math.atan2(ship.y - e.y, ship.x - e.x);
+    const dist = Math.hypot(ship.x - e.x, ship.y - e.y);
+    const ready = !s.over && e.age > 1;
 
-    for (const e of s.enemies) {
-      e.age += dt;
-      e.rotation += e.spin * dt;
-      const toShip = Math.atan2(ship.y - e.y, ship.x - e.x);
-      const dist = Math.hypot(ship.x - e.x, ship.y - e.y);
+    switch (e.kind) {
+      case "drone":
+        steer(e, toShip, 120 + lvl * 8, 1.6, dt);
+        e.rotation = Math.atan2(e.vy, e.vx);
+        break;
 
-      if (e.kind === "drone" || e.kind === "tank") {
-        const speed = e.kind === "tank" ? 45 + s.level * 3 : 120 + s.level * 8;
-        const steer = Math.min(1, dt * (e.kind === "tank" ? .8 : 1.6));
-        e.vx += (Math.cos(toShip) * speed - e.vx) * steer;
-        e.vy += (Math.sin(toShip) * speed - e.vy) * steer;
-        e.rotation = e.kind === "drone" ? Math.atan2(e.vy, e.vx) : e.rotation + dt * .5;
-      }
+      case "tank":
+        steer(e, toShip, 45 + lvl * 3, .8, dt);
+        e.rotation += dt * .5;
+        break;
 
-      if (e.kind === "gunner") {
-        const approach = dist > 260 ? 1 : dist < 180 ? -1 : 0;
-        const sideways = toShip + Math.PI / 2;
-        const steer = Math.min(1, dt * 2);
-        e.vx += (Math.cos(toShip) * approach * 140 + Math.cos(sideways) * 60 - e.vx) * steer;
-        e.vy += (Math.sin(toShip) * approach * 140 + Math.sin(sideways) * 60 - e.vy) * steer;
+      case "gunner":
+        keepDistance(e, toShip, dist, 180, 260, 140, dt);
         e.rotation = toShip;
-
         e.cooldown -= dt;
-        if (!s.over && e.cooldown <= 0 && e.age > 1) {
+        if (ready && e.cooldown <= 0) {
           enemyFire(e, toShip, 240);
-          e.cooldown = Math.max(.9, 2 - s.level * .08);
+          e.cooldown = Math.max(.9, 2 - lvl * .08);
         }
+        break;
+
+      case "splitter":
+        steer(e, toShip, 90, 1.2, dt);
+        e.rotation += dt * 2;
+        break;
+
+      case "miner":
+        e.rotation += dt * 1.5;
+        e.cooldown -= dt;
+        if (ready && e.cooldown <= 0 && onScreen(e, -20)) {
+          s.hazards.push({ type: "mine", x: e.x, y: e.y, radius: 46, timer: 2.2, max: 2.2, color: e.color });
+          e.cooldown = 2.4;
+        }
+        break;
+
+      case "phantom":
+        steer(e, toShip, 110, 1.4, dt);
+        e.visible = e.age % 3 < 1.7;
+        break;
+
+      case "shielder":
+        steer(e, toShip, 70, 1, dt);
+        e.rotation = toShip;
+        break;
+
+      case "sniper":
+        keepDistance(e, toShip, dist, 320, 440, 110, dt);
+        if (e.state === "idle") {
+          e.rotation = toShip;
+          e.cooldown -= dt;
+          if (ready && e.cooldown <= 0) {
+            e.state = "aim";
+            e.timer = .9;
+            e.aim = toShip;
+          }
+        } else {
+          e.timer -= dt;
+          e.rotation = e.aim;
+          if (e.timer <= 0) {
+            enemyFire(e, e.aim, 650);
+            e.state = "idle";
+            e.cooldown = 3;
+          }
+        }
+        break;
+
+      case "swarm":
+        steer(e, toShip + Math.sin(e.age * 4 + e.phase) * .6, 170, 2.5, dt);
+        e.rotation = Math.atan2(e.vy, e.vx);
+        break;
+
+      case "orbiter": {
+        e.orbit += dt * .9 * e.direction;
+        const angle = Math.atan2(ship.y + Math.sin(e.orbit) * 200 - e.y, ship.x + Math.cos(e.orbit) * 200 - e.x);
+        steer(e, angle, 230, 2, dt);
+        e.rotation += dt * 2;
+        e.cooldown -= dt;
+        if (ready && e.cooldown <= 0) {
+          spread(e, toShip, 3, .15, 230);
+          e.cooldown = 2.2;
+        }
+        break;
       }
 
-      if (e.kind === "boss") {
-        const targetX = width / 2 + Math.sin(e.age * .6) * width * .3;
-        const targetY = Math.min(140, height * .22);
-        e.vx = (targetX - e.x) * 1.2;
-        e.vy = (targetY - e.y) * 1.5;
+      case "bomber":
+        if (e.fuse === undefined) {
+          steer(e, toShip, 150, 1.4, dt);
+          if (dist < 75 && !s.over) e.fuse = .6;
+        } else {
+          e.vx *= .9;
+          e.vy *= .9;
+          e.fuse -= dt;
+          if (e.fuse <= 0) {
+            e.dead = true;
+            ring(e, 12, 200, random(0, TAU));
+            explode(e.x, e.y, e.color, 30);
+          }
+        }
+        break;
 
+      case "healer":
+        keepDistance(e, toShip, dist, 260, 340, 90, dt);
         e.cooldown -= dt;
-        if (!s.over && e.cooldown <= 0 && e.age > 2) {
-          const enraged = e.hp < e.maxHp / 2;
-          const count = enraged ? 7 : 5;
-          for (let i = 0; i < count; i++) enemyFire(e, toShip + (i - (count - 1) / 2) * .22, 220);
+        if (ready && e.cooldown <= 0) {
+          e.cooldown = 2.4;
+          s.rings.push({ x: e.x, y: e.y, radius: 0, max: 170, life: .6, color: e.color });
+          for (const other of s.enemies) {
+            if (other === e || other.dead || other.kind === "boss" || other.hp >= other.maxHp) continue;
+            if (Math.hypot(other.x - e.x, other.y - e.y) < 170) {
+              other.hp++;
+              other.healed = .4;
+            }
+          }
+        }
+        break;
+
+      case "blinker":
+        e.rotation += dt * 3;
+        if (!onScreen(e, -30)) {
+          steer(e, Math.atan2(height / 2 - e.y, width / 2 - e.x), 160, 3, dt);
+          break;
+        }
+        if (e.state === "idle") {
+          steer(e, toShip, 60, 1, dt);
+          e.cooldown -= dt;
+          if (ready && e.cooldown <= 0 && onScreen(e, 0)) {
+            const angle = random(0, TAU);
+            e.destX = clamp(ship.x + Math.cos(angle) * 140, 30, width - 30);
+            e.destY = clamp(ship.y + Math.sin(angle) * 140, 30, height - 30);
+            e.state = "warp";
+            e.timer = .7;
+          }
+        } else {
+          e.vx *= .8;
+          e.vy *= .8;
+          e.timer -= dt;
+          if (e.timer <= 0) {
+            explode(e.x, e.y, e.color, 10, 120);
+            e.x = e.destX;
+            e.y = e.destY;
+            const offset = random(0, TAU);
+            for (let i = 0; i < 4; i++) enemyFire(e, offset + (i * TAU) / 4, 200);
+            e.state = "idle";
+            e.cooldown = 2.6;
+          }
+        }
+        break;
+    }
+
+    const holdsDistance = e.kind === "gunner" || e.kind === "sniper" || e.kind === "healer" || e.kind === "miner";
+    if (holdsDistance && !onScreen(e, -30)) {
+      steer(e, Math.atan2(height / 2 - e.y, width / 2 - e.x), e.kind === "miner" ? 90 : 160, 3, dt);
+    }
+  }
+
+  function updateBoss(e, dt) {
+    const s = state;
+    const { ship } = s;
+    const toShip = Math.atan2(ship.y - e.y, ship.x - e.x);
+    const ready = !s.over && e.age > 2;
+    const enraged = e.enraged || e.hp < e.maxHp / 2;
+    e.aim = toShip;
+
+    switch (e.bossKind) {
+      case "mothership":
+        hover(e, topX(e, .3), topY(), 1.2);
+        e.cooldown -= dt;
+        if (ready && e.cooldown <= 0) {
+          spread(e, toShip, enraged ? 7 : 5, .22, 220);
           e.cooldown = enraged ? 1.1 : 1.6;
         }
-        ui.bossHealth.style.width = (e.hp / e.maxHp) * 100 + "%";
+        break;
+
+      case "hive":
+        hover(e, topX(e, .3), topY(), 1.2);
+        e.cooldown -= dt;
+        if (ready && e.cooldown <= 0) {
+          spread(e, toShip, 3, .25, 200);
+          e.cooldown = 2;
+        }
+        e.timer -= dt;
+        if (ready && e.timer <= 0) {
+          const drones = s.enemies.filter((o) => o.kind === "drone" && !o.dead).length;
+          if (drones < 8) {
+            for (let i = 0; i < 2; i++) makeEnemy("drone", e.x + random(-30, 30), e.y + random(-20, 30)).age = 1;
+          }
+          e.timer = enraged ? 2.2 : 3.2;
+        }
+        break;
+
+      case "spinner":
+        hover(e, topX(e, .2), topY(), 1);
+        e.timer -= dt;
+        if (e.state === "idle") {
+          if (e.timer <= 0) {
+            e.state = "spin";
+            e.timer = 3.5;
+          }
+        } else {
+          e.cooldown -= dt;
+          if (ready && e.cooldown <= 0) {
+            const arms = enraged ? 3 : 2;
+            for (let i = 0; i < arms; i++) enemyFire(e, e.spiral + (i * TAU) / arms, 170);
+            e.spiral += .33;
+            e.cooldown = .11;
+          }
+          if (e.timer <= 0) {
+            e.state = "idle";
+            e.timer = 1.5;
+          }
+        }
+        break;
+
+      case "titan":
+        hover(e, topX(e, .25, .4), Math.min(160, height * .25), .6);
+        e.cooldown -= dt;
+        if (ready && e.cooldown <= 0) {
+          spread(e, toShip, 3, .18, 230);
+          e.cooldown = 2.2;
+        }
+        e.timer -= dt;
+        if (ready && e.timer <= 0 && !hasLaser(e)) {
+          addLaser(e, toShip);
+          e.timer = enraged ? 3.5 : 5;
+        }
+        break;
+
+      case "charger":
+        if (e.state === "idle") {
+          hover(e, topX(e, .3), topY(), 1.4);
+          e.cooldown -= dt;
+          if (ready && e.cooldown <= 0) {
+            spread(e, toShip, 3, .25, 210);
+            e.cooldown = 1.2;
+          }
+          e.timer -= dt;
+          if (ready && e.timer <= 0) {
+            e.state = "windup";
+            e.timer = .8;
+            e.targetX = ship.x;
+            e.targetY = ship.y;
+          }
+        } else if (e.state === "windup") {
+          e.vx *= .85;
+          e.vy *= .85;
+          e.aim = Math.atan2(e.targetY - e.y, e.targetX - e.x);
+          e.timer -= dt;
+          if (e.timer <= 0) {
+            e.state = "dash";
+            e.timer = .9;
+            e.vx = Math.cos(e.aim) * 850;
+            e.vy = Math.sin(e.aim) * 850;
+          }
+        } else if (e.state === "dash") {
+          e.aim = Math.atan2(e.vy, e.vx);
+          e.timer -= dt;
+          const arrived = Math.hypot(e.targetX - e.x, e.targetY - e.y) < 30;
+          const edge = e.x < e.radius || e.x > width - e.radius || e.y < e.radius || e.y > height - e.radius;
+          if (e.timer <= 0 || arrived || edge) {
+            e.x = clamp(e.x, e.radius, width - e.radius);
+            e.y = clamp(e.y, e.radius, height - e.radius);
+            e.vx = 0;
+            e.vy = 0;
+            e.state = "recover";
+            e.timer = .6;
+            ring(e, enraged ? 16 : 12, 190, random(0, TAU));
+            s.shake = 8;
+          }
+        } else {
+          e.vx = 0;
+          e.vy = 0;
+          e.timer -= dt;
+          if (e.timer <= 0) {
+            e.state = "idle";
+            e.timer = enraged ? 2.2 : 3.2;
+          }
+        }
+        break;
+
+      case "warden":
+        hover(e, topX(e, .25), Math.min(170, height * .28), 1);
+        e.rotation += dt * (enraged ? 1.6 : 1.1);
+        e.cooldown -= dt;
+        if (ready && e.cooldown <= 0) {
+          ring(e, 18, 170, random(0, TAU), 3);
+          e.cooldown = enraged ? 1.8 : 2.6;
+        }
+        break;
+
+      case "reaper":
+        e.timer -= dt;
+        if (e.state === "idle") {
+          hover(e, e.homeX, e.homeY, 1.5);
+          e.cooldown -= dt;
+          if (ready && e.cooldown <= 0) {
+            spread(e, toShip, 2, .12, 240);
+            e.cooldown = .9;
+          }
+          if (ready && e.timer <= 0) {
+            e.state = "out";
+            e.timer = .4;
+          }
+        } else if (e.state === "out") {
+          e.vx = 0;
+          e.vy = 0;
+          e.fade = Math.max(0, e.timer / .4);
+          if (e.timer <= 0) {
+            for (let tries = 0; tries < 12; tries++) {
+              e.homeX = random(width * .15, width * .85);
+              e.homeY = random(height * .12, height * .45);
+              if (Math.hypot(e.homeX - ship.x, e.homeY - ship.y) > 200) break;
+            }
+            e.x = e.homeX;
+            e.y = e.homeY;
+            e.state = "in";
+            e.timer = .4;
+          }
+        } else {
+          e.fade = Math.min(1, 1 - e.timer / .4);
+          if (e.timer <= 0) {
+            ring(e, enraged ? 22 : 16, 170, random(0, TAU));
+            e.state = "idle";
+            e.timer = enraged ? 2.4 : 3.2;
+            e.fade = 1;
+          }
+        }
+        e.untouchable = e.state !== "idle";
+        break;
+
+      case "twins": {
+        if (s.lasers.some((l) => l.pincer)) {
+          e.vx = 0;
+          e.vy = 0;
+          break;
+        }
+        e.drift = (e.drift || 0) + dt;
+        const x = e.side < 0 ? width * .12 : width * .88;
+        const y = height * .5 + Math.sin(e.drift * .7 + (e.side > 0 ? Math.PI : 0)) * height * .3;
+        hover(e, x, y, 1.2);
+        e.cooldown -= dt;
+        if (ready && e.cooldown <= 0) {
+          spread(e, toShip, 3, .2, 200);
+          e.cooldown = e.enraged ? 1.4 : 2.4;
+        }
+        break;
       }
+
+      case "storm":
+        hover(e, topX(e, .3), topY(), 1);
+        e.timer -= dt;
+        if (ready && e.timer <= 0) {
+          const count = enraged ? 4 : 3;
+          for (let i = 0; i < count; i++) {
+            const ox = i === 0 ? 0 : random(-110, 110);
+            const oy = i === 0 ? 0 : random(-110, 110);
+            s.hazards.push({ type: "strike", x: ship.x + ox, y: ship.y + oy, radius: 46, timer: 1.1, max: 1.1, color: e.color });
+          }
+          e.timer = enraged ? 1.3 : 1.8;
+        }
+        e.cooldown -= dt;
+        if (ready && e.cooldown <= 0) {
+          ring(e, 10, 150, random(0, TAU));
+          e.cooldown = 3;
+        }
+        break;
+
+      case "overseer":
+        hover(e, topX(e, .25, .5), topY(), .8);
+        e.timer -= dt;
+        if (ready && e.timer <= 0) {
+          const move = e.move++ % 3;
+          if (move === 0) {
+            for (let i = 0; i < 4; i++) {
+              const bug = makeEnemy("swarm", e.x + random(-30, 30), e.y + random(-10, 40));
+              bug.phase = random(0, TAU);
+              bug.age = 1;
+            }
+          } else if (move === 1) {
+            ring(e, 24, 170, random(0, TAU));
+            e.echo = .35;
+          } else {
+            addLaser(e, toShip);
+          }
+          e.timer = enraged ? 1.8 : 2.5;
+        }
+        if (e.echo > 0) {
+          e.echo -= dt;
+          if (e.echo <= 0) ring(e, 24, 170, random(0, TAU));
+        }
+        break;
+
+      case "core": {
+        hover(e, topX(e, .18, .3), Math.min(170, height * .28), .7);
+        e.rotation += dt * .6;
+        const phase = e.hp > e.maxHp * .66 ? 1 : e.hp > e.maxHp * .33 ? 2 : 3;
+        if (phase !== e.phase) {
+          e.phase = phase;
+          e.timer = 1.5;
+          e.timer2 = 2.5;
+          s.shake = 14;
+          s.enemyShots = [];
+          floatText(e.x, e.y + e.radius + 24, `Phase ${phase}`, "#eef3ff");
+        }
+        e.cooldown -= dt;
+        e.timer -= dt;
+        e.timer2 -= dt;
+        e.spinClock = (e.spinClock || 0) + dt;
+        const spinning = e.spinClock % 4.5 < 3;
+
+        if (phase !== 2 && spinning && ready && e.cooldown <= 0) {
+          const arms = phase === 1 ? 2 : 3;
+          for (let i = 0; i < arms; i++) enemyFire(e, e.spiral + (i * TAU) / arms, 160);
+          e.spiral += phase === 1 ? .3 : .4;
+          e.cooldown = phase === 1 ? .14 : .11;
+        }
+
+        if (phase === 1 && ready && e.timer <= 0) {
+          ring(e, 14, 150, random(0, TAU), 2);
+          e.timer = 3;
+        }
+
+        if (phase === 2) {
+          if (ready && e.cooldown <= 0) {
+            spread(e, toShip, 5, .2, 210);
+            e.cooldown = 1.6;
+          }
+          if (ready && e.timer <= 0 && !hasLaser(e)) {
+            addLaser(e, toShip);
+            e.timer = 3.2;
+          }
+          if (ready && e.timer2 <= 0) {
+            const gunners = s.enemies.filter((o) => o.kind === "gunner" && !o.dead).length;
+            if (gunners < 4) {
+              for (let i = 0; i < 2; i++) makeEnemy("gunner", e.x + random(-50, 50), e.y + 30).age = 1;
+            }
+            e.timer2 = 6;
+          }
+        }
+
+        if (phase === 3) {
+          if (ready && e.timer2 <= 0) {
+            for (let i = 0; i < 3; i++) {
+              const ox = i === 0 ? 0 : random(-120, 120);
+              const oy = i === 0 ? 0 : random(-120, 120);
+              s.hazards.push({ type: "strike", x: ship.x + ox, y: ship.y + oy, radius: 46, timer: 1.1, max: 1.1, color: "#eef3ff" });
+            }
+            e.timer2 = 2.4;
+          }
+          if (ready && e.timer <= 0 && !hasLaser(e)) {
+            addLaser(e, toShip);
+            e.timer = 4.5;
+          }
+        }
+        break;
+      }
+    }
+  }
+
+  function updateTwinLasers(dt) {
+    const s = state;
+    if (s.bossActive !== "twins") return;
+    const twins = s.enemies.filter((e) => e.kind === "boss" && e.bossKind === "twins" && !e.dead);
+    s.twinClock -= dt;
+    s.pincerCooldown -= dt;
+    if (s.twinClock > 0 || s.over || !twins.length) return;
+    if (twins.some((t) => hasLaser(t))) return;
+
+    if (twins.length === 2 && twins.every((t) => t.age > 2) && s.pincerCooldown <= 0 && Math.random() < .35) {
+      for (const twin of twins) {
+        const toShip = Math.atan2(s.ship.y - twin.y, s.ship.x - twin.x);
+        const targetX = s.ship.x - Math.sin(toShip) * 85;
+        const targetY = s.ship.y + Math.cos(toShip) * 85;
+        addLaser(twin, Math.atan2(targetY - twin.y, targetX - twin.x), true);
+      }
+      for (const shot of s.enemyShots) {
+        if ((shot.x - s.ship.x) ** 2 + (shot.y - s.ship.y) ** 2 < 180 ** 2) shot.life = 0;
+      }
+      floatText(s.ship.x, s.ship.y - 30, "Hold still", "#ff4d6d");
+      s.pincerCooldown = 10;
+      s.twinClock = 3.4;
+      return;
+    }
+
+    const shooter = twins.find((t) => t.side === s.twinTurn) || twins[0];
+    if (shooter.age > 2) {
+      addLaser(shooter, Math.atan2(s.ship.y - shooter.y, s.ship.x - shooter.x));
+      s.twinTurn *= -1;
+    }
+    s.twinClock = twins.length > 1 ? 2.4 : 1.8;
+  }
+
+  function updateEnemies(dt) {
+    for (const e of state.enemies) {
+      e.age += dt;
+      e.rotation += (e.spin || 0) * dt;
+      if (e.healed) e.healed = Math.max(0, e.healed - dt);
+
+      if (e.kind === "boss") updateBoss(e, dt);
+      else updateEnemy(e, dt);
 
       e.x += e.vx * dt;
       e.y += e.vy * dt;
 
       if (e.kind === "dart" && Math.random() < .6) {
-        s.particles.push({ x: e.x, y: e.y, vx: 0, vy: 0, life: .25, maxLife: .25, color: "#ffd34d", size: 2 });
+        state.particles.push({ x: e.x, y: e.y, vx: 0, vy: 0, life: .25, maxLife: .25, color: "#ffd34d", size: 2 });
       }
     }
+    updateTwinLasers(dt);
+  }
+
+  function updateHazards(dt) {
+    const s = state;
+    const canBeHit = !s.over && s.invincible <= 0;
+
+    for (const h of s.hazards) {
+      h.timer -= dt;
+      if (h.timer > 0) continue;
+      h.done = true;
+      explode(h.x, h.y, h.color, 26, 220);
+      s.rings.push({ x: h.x, y: h.y, radius: h.radius * .4, max: h.radius * 1.3, life: .35, color: h.color });
+      if (canBeHit && Math.hypot(s.ship.x - h.x, s.ship.y - h.y) < h.radius + 6) hitShip();
+    }
+    s.hazards = s.hazards.filter((h) => !h.done);
+
+    for (const l of s.lasers) {
+      if (l.owner.dead) {
+        l.done = true;
+        continue;
+      }
+      if (l.warn > 0) {
+        l.warn -= dt;
+        continue;
+      }
+      l.fire -= dt;
+      if (l.fire <= 0) l.done = true;
+
+      if (!s.over && s.invincible <= 0) {
+        const dx = s.ship.x - l.owner.x;
+        const dy = s.ship.y - l.owner.y;
+        const along = dx * Math.cos(l.angle) + dy * Math.sin(l.angle);
+        const across = Math.abs(-dx * Math.sin(l.angle) + dy * Math.cos(l.angle));
+        if (along > 0 && across < l.width / 2 + 8) hitShip();
+      }
+    }
+    s.lasers = s.lasers.filter((l) => !l.done);
+
+    for (const r of s.rings) {
+      r.life -= dt;
+      r.radius += (r.max - r.radius) * Math.min(1, dt * 8);
+    }
+    s.rings = s.rings.filter((r) => r.life > 0);
+  }
+
+  function bulletBlocked(e, b) {
+    if (e.kind === "phantom" && !e.visible) return "pass";
+    if (e.untouchable) return "pass";
+
+    const dist = Math.hypot(b.x - e.x, b.y - e.y);
+    const angle = Math.atan2(b.y - e.y, b.x - e.x);
+
+    if (e.kind === "shielder" && dist < e.radius + 10 && Math.abs(angleDiff(angle, e.rotation)) < 1) return "block";
+
+    if (e.bossKind === "warden" && dist < e.radius + 34 && dist > e.radius + 8) {
+      for (let i = 0; i < 3; i++) {
+        if (Math.abs(angleDiff(angle, e.rotation + (i * TAU) / 3)) < .55) return "block";
+      }
+    }
+    return null;
   }
 
   function checkCollisions() {
@@ -1289,20 +2037,30 @@ function setupGame() {
     for (const e of s.enemies) {
       for (const b of s.bullets) {
         if (e.dead || b.life <= 0) continue;
-        if ((b.x - e.x) ** 2 + (b.y - e.y) ** 2 < (e.radius + 3) ** 2) {
+        const reach = e.bossKind === "warden" ? e.radius + 34 : e.radius + 3;
+        if ((b.x - e.x) ** 2 + (b.y - e.y) ** 2 > reach ** 2) continue;
+
+        const blocked = bulletBlocked(e, b);
+        if (blocked === "pass") continue;
+        if (blocked === "block") {
           b.life = 0;
-          e.hp--;
-          e.flash = .08;
-          const color = e.kind === "rock" ? "#9fb3d6" : e.kind === "boss" ? "#eef3ff" : ENEMIES[e.kind].color;
-          explode(b.x, b.y, color, 5, 140);
-          if (e.hp <= 0) destroy(e);
+          explode(b.x, b.y, "#eef3ff", 4, 120);
+          continue;
         }
+        if ((b.x - e.x) ** 2 + (b.y - e.y) ** 2 > (e.radius + 3) ** 2) continue;
+
+        b.life = 0;
+        e.hp--;
+        e.flash = .08;
+        explode(b.x, b.y, e.kind === "rock" ? "#9fb3d6" : e.kind === "boss" ? "#eef3ff" : e.color, 5, 140);
+        if (e.hp <= 0) destroy(e);
       }
 
-      if (!e.dead && canBeHit() && (ship.x - e.x) ** 2 + (ship.y - e.y) ** 2 < (e.radius + 9) ** 2) {
+      const solid = !(e.kind === "phantom" && !e.visible) && !e.untouchable;
+      if (!e.dead && solid && canBeHit() && (ship.x - e.x) ** 2 + (ship.y - e.y) ** 2 < (e.radius + 9) ** 2) {
         if (e.kind !== "boss") {
           e.dead = true;
-          explode(e.x, e.y, "#9fb3d6", 16);
+          explode(e.x, e.y, e.color || "#9fb3d6", 16);
         }
         hitShip();
       }
@@ -1327,6 +2085,15 @@ function setupGame() {
     return obj.x > -margin && obj.x < width + margin && obj.y > -margin && obj.y < height + margin;
   }
 
+  function updateBossBar() {
+    const s = state;
+    if (!s.bossActive) return;
+    const parts = s.enemies.filter((e) => e.kind === "boss");
+    const hp = parts.reduce((sum, e) => sum + Math.max(0, e.dead ? 0 : e.hp), 0);
+    const max = parts.reduce((sum, e) => sum + e.maxHp, 0) || 1;
+    ui.bossHealth.style.width = (hp / max) * 100 + "%";
+  }
+
   function loop(now) {
     const s = state;
     const dt = Math.min(.05, (now - lastTime) / 1000);
@@ -1347,6 +2114,7 @@ function setupGame() {
     }
 
     updateEnemies(dt);
+    updateHazards(dt);
 
     for (const p of s.powerups) {
       p.age += dt;
@@ -1359,6 +2127,7 @@ function setupGame() {
     }
 
     checkCollisions();
+    updateBossBar();
 
     for (const e of s.enemies) {
       if (e.flash) e.flash = Math.max(0, e.flash - dt);
@@ -1387,6 +2156,7 @@ function setupGame() {
     frameId = requestAnimationFrame(loop);
   }
 
+
   function polygon(sides, radius, rotation = 0) {
     ctx.beginPath();
     for (let i = 0; i < sides; i++) {
@@ -1401,21 +2171,44 @@ function setupGame() {
     ctx.arc(x, y, radius, 0, TAU);
   }
 
+  function shape(points) {
+    ctx.beginPath();
+    for (const [x, y] of points) ctx.lineTo(x, y);
+    ctx.closePath();
+  }
+
   function drawHealthBar(e) {
-    if (e.kind === "boss" || e.maxHp <= 1 || e.hp === e.maxHp) return;
+    if (e.kind === "boss" || e.maxHp <= 1 || e.hp >= e.maxHp) return;
     const w = e.radius * 1.6;
     const x = e.x - w / 2, y = e.y - e.radius - 10;
     ctx.fillStyle = "#1a2436";
     ctx.fillRect(x, y, w, 3);
-    ctx.fillStyle = e.kind === "rock" ? "#a9bbdc" : ENEMIES[e.kind].color;
+    ctx.fillStyle = e.kind === "rock" ? "#a9bbdc" : e.color;
     ctx.fillRect(x, y, w * e.hp / e.maxHp, 3);
+  }
+
+  function outline(color, lineWidth, fill) {
+    ctx.fillStyle = fill;
+    ctx.fill();
+    ctx.strokeStyle = color;
+    ctx.lineWidth = lineWidth;
+    ctx.stroke();
   }
 
   function drawEnemy(e, now) {
     const hit = e.flash > 0;
+    const c = e.color;
+    const dark = hit ? "#2a3a5c" : "#0d1526";
 
     ctx.save();
     ctx.translate(e.x, e.y);
+    if (e.healed) {
+      ctx.strokeStyle = "#3ddc84";
+      ctx.globalAlpha = e.healed * 2;
+      circle(0, 0, e.radius + 6);
+      ctx.stroke();
+      ctx.globalAlpha = 1;
+    }
     ctx.rotate(e.rotation);
 
     switch (e.kind) {
@@ -1426,97 +2219,330 @@ function setupGame() {
           ctx.lineTo(Math.cos(a) * e.radius * r, Math.sin(a) * e.radius * r);
         });
         ctx.closePath();
-        ctx.fillStyle = hit ? "#2a3a5c" : "#0d1526";
-        ctx.fill();
-        ctx.strokeStyle = e.hp > 1 ? "#a9bbdc" : "#6f82a6";
-        ctx.lineWidth = 1.5;
-        ctx.stroke();
+        outline(e.hp > 1 ? "#a9bbdc" : "#6f82a6", 1.5, dark);
         break;
 
       case "drone":
-        ctx.beginPath();
-        ctx.moveTo(14, 0);
-        ctx.lineTo(0, 9);
-        ctx.lineTo(-10, 0);
-        ctx.lineTo(0, -9);
-        ctx.closePath();
-        ctx.fillStyle = "#2a0b14";
-        ctx.fill();
-        ctx.strokeStyle = "#ff4d6d";
-        ctx.lineWidth = 1.6;
-        ctx.stroke();
-        ctx.fillStyle = "#ff4d6d";
+        shape([[14, 0], [0, 9], [-10, 0], [0, -9]]);
+        outline(c, 1.6, "#2a0b14");
+        ctx.fillStyle = c;
         circle(2, 0, 2.2 + Math.sin(now / 90) * .8);
         ctx.fill();
         break;
 
       case "dart":
-        ctx.beginPath();
-        ctx.moveTo(14, 0);
-        ctx.lineTo(-8, -6);
-        ctx.lineTo(-4, 0);
-        ctx.lineTo(-8, 6);
-        ctx.closePath();
-        ctx.fillStyle = "#ffd34d";
+        shape([[14, 0], [-8, -6], [-4, 0], [-8, 6]]);
+        ctx.fillStyle = c;
         ctx.fill();
         break;
 
       case "tank":
         polygon(6, e.radius);
-        ctx.fillStyle = hit ? "#4a2a10" : "#1f1408";
-        ctx.fill();
-        ctx.strokeStyle = "#ff9a3d";
-        ctx.lineWidth = 2;
-        ctx.stroke();
+        outline(c, 2, hit ? "#4a2a10" : "#1f1408");
         polygon(6, e.radius * .55, Math.PI / 6);
         ctx.strokeStyle = "rgba(255, 154, 61, .6)";
         ctx.lineWidth = 1.5;
         ctx.stroke();
-        ctx.fillStyle = "#ff9a3d";
+        ctx.fillStyle = c;
         circle(0, 0, 3);
         ctx.fill();
         break;
 
       case "gunner":
         circle(0, 0, e.radius);
-        ctx.fillStyle = hit ? "#3a2060" : "#170d26";
-        ctx.fill();
-        ctx.strokeStyle = "#b77bff";
-        ctx.lineWidth = 1.8;
-        ctx.stroke();
-        ctx.fillStyle = "#b77bff";
+        outline(c, 1.8, hit ? "#3a2060" : "#170d26");
+        ctx.fillStyle = c;
         ctx.fillRect(e.radius - 4, -3, 12, 6);
         circle(0, 0, 5);
         ctx.fill();
         break;
 
-      case "boss":
-        polygon(8, e.radius, Math.PI / 8);
-        ctx.fillStyle = hit ? "#1c3358" : "#0a1428";
-        ctx.fill();
-        ctx.strokeStyle = "#4aa8ff";
-        ctx.lineWidth = 2.5;
-        ctx.stroke();
-
-        ctx.rotate(e.age * 1.2);
-        polygon(8, e.radius * .66);
-        ctx.strokeStyle = "rgba(74, 168, 255, .55)";
-        ctx.lineWidth = 1.5;
-        ctx.stroke();
-        ctx.fillStyle = "#4aa8ff";
-        for (let i = 0; i < 4; i++) {
-          ctx.rotate(TAU / 4);
-          ctx.fillRect(e.radius * .66 - 3, -3, 6, 6);
+      case "splitter":
+        polygon(3, e.radius);
+        outline(c, 1.8, dark);
+        ctx.fillStyle = c;
+        for (let i = 0; i < 3; i++) {
+          const a = (i / 3) * TAU;
+          circle(Math.cos(a) * 6, Math.sin(a) * 6, 2);
+          ctx.fill();
         }
+        break;
 
-        ctx.fillStyle = e.hp < e.maxHp / 2 ? "#ff4d6d" : "#eef3ff";
-        circle(0, 0, 9 + Math.sin(now / 120) * 2);
+      case "miner":
+        polygon(4, e.radius, Math.PI / 4);
+        outline(c, 1.8, dark);
+        ctx.strokeStyle = c;
+        ctx.beginPath();
+        ctx.moveTo(-6, 0);
+        ctx.lineTo(6, 0);
+        ctx.moveTo(0, -6);
+        ctx.lineTo(0, 6);
+        ctx.stroke();
+        break;
+
+      case "phantom":
+        ctx.globalAlpha = e.visible ? 1 : .12;
+        circle(0, 0, e.radius);
+        outline(c, 1.6, dark);
+        ctx.fillStyle = c;
+        circle(-4, -2, 2);
+        ctx.fill();
+        circle(4, -2, 2);
+        ctx.fill();
+        ctx.globalAlpha = 1;
+        break;
+
+      case "shielder":
+        circle(0, 0, e.radius * .7);
+        outline(c, 1.6, dark);
+        ctx.strokeStyle = c;
+        ctx.lineWidth = 4;
+        ctx.beginPath();
+        ctx.arc(0, 0, e.radius + 4, -1, 1);
+        ctx.stroke();
+        break;
+
+      case "sniper":
+        shape([[18, 0], [0, 6], [-10, 0], [0, -6]]);
+        outline(c, 1.6, dark);
+        if (e.state === "aim") {
+          ctx.strokeStyle = c;
+          ctx.globalAlpha = .25 + .5 * (1 - e.timer / .9);
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(18, 0);
+          ctx.lineTo(3000, 0);
+          ctx.stroke();
+          ctx.globalAlpha = 1;
+        }
+        break;
+
+      case "swarm":
+        shape([[8, 0], [-5, -4], [-5, 4]]);
+        ctx.fillStyle = c;
+        ctx.fill();
+        break;
+
+      case "orbiter":
+        circle(0, 0, e.radius * .7);
+        outline(c, 1.6, dark);
+        ctx.fillStyle = c;
+        for (let i = 0; i < 3; i++) {
+          const a = (i / 3) * TAU;
+          circle(Math.cos(a) * e.radius, Math.sin(a) * e.radius, 2.5);
+          ctx.fill();
+        }
+        break;
+
+      case "bomber": {
+        const flashing = e.fuse !== undefined && Math.floor(now / 70) % 2;
+        circle(0, 0, e.radius);
+        outline(c, 1.8, flashing ? c : dark);
+        ctx.fillStyle = flashing ? "#fff" : c;
+        circle(0, 0, 4);
+        ctx.fill();
+        break;
+      }
+
+      case "healer":
+        circle(0, 0, e.radius);
+        outline(c, 1.8, dark);
+        ctx.rotate(-e.rotation);
+        ctx.fillStyle = c;
+        ctx.fillRect(-1.5, -6, 3, 12);
+        ctx.fillRect(-6, -1.5, 12, 3);
+        break;
+
+      case "blinker":
+        polygon(4, e.radius, 0);
+        outline(c, 1.8, dark);
+        polygon(4, e.radius * .45, 0);
+        ctx.fillStyle = c;
         ctx.fill();
         break;
     }
 
     ctx.restore();
+
+    if (e.kind === "blinker" && e.state === "warp") {
+      ctx.strokeStyle = e.color;
+      ctx.globalAlpha = .4 + .4 * Math.sin(now / 60);
+      ctx.setLineDash([4, 4]);
+      circle(e.destX, e.destY, e.radius + 6);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.globalAlpha = 1;
+    }
+
     drawHealthBar(e);
+  }
+
+  function drawBoss(e, now) {
+    const r = e.radius;
+    const c = e.color;
+    const hit = e.flash > 0;
+    const enraged = e.enraged || e.hp < e.maxHp / 2;
+
+    ctx.save();
+    ctx.translate(e.x, e.y);
+    ctx.globalAlpha = e.fade ?? 1;
+
+    if (e.bossKind === "warden") {
+      ctx.strokeStyle = c;
+      ctx.lineWidth = 8;
+      ctx.lineCap = "round";
+      for (let i = 0; i < 3; i++) {
+        const a = e.rotation + (i * TAU) / 3;
+        ctx.beginPath();
+        ctx.arc(0, 0, r + 22, a - .55, a + .55);
+        ctx.stroke();
+      }
+    }
+
+    if (e.bossKind === "titan" || e.bossKind === "overseer") {
+      const laser = state.lasers.find((l) => l.owner === e);
+      const aim = laser ? laser.angle : e.aim;
+      ctx.save();
+      ctx.rotate(aim);
+      ctx.fillStyle = c;
+      ctx.fillRect(r * .4, -6, r * .85, 12);
+      ctx.restore();
+    }
+
+    if (e.bossKind === "charger") {
+      ctx.save();
+      ctx.rotate(e.aim || 0);
+      ctx.fillStyle = c;
+      for (let i = 0; i < 5; i++) {
+        const a = (i / 5) * TAU;
+        ctx.beginPath();
+        ctx.moveTo(Math.cos(a - .2) * r, Math.sin(a - .2) * r);
+        ctx.lineTo(Math.cos(a) * (r + 16), Math.sin(a) * (r + 16));
+        ctx.lineTo(Math.cos(a + .2) * r, Math.sin(a + .2) * r);
+        ctx.fill();
+      }
+      ctx.restore();
+    }
+
+    if (e.bossKind === "spinner") {
+      ctx.save();
+      ctx.rotate(e.spiral);
+      ctx.fillStyle = c;
+      for (let i = 0; i < 3; i++) {
+        ctx.rotate(TAU / 3);
+        shape([[r * .6, -8], [r * 1.4, 0], [r * .6, 8]]);
+        ctx.fill();
+      }
+      ctx.restore();
+    }
+
+    if (e.bossKind === "hive") {
+      ctx.strokeStyle = c;
+      ctx.lineWidth = 1.5;
+      for (let i = 0; i < 6; i++) {
+        const a = (i / 6) * TAU + e.age * .3;
+        ctx.save();
+        ctx.translate(Math.cos(a) * (r + 10), Math.sin(a) * (r + 10));
+        polygon(6, 7);
+        ctx.fillStyle = "#2a0b14";
+        ctx.fill();
+        ctx.stroke();
+        ctx.restore();
+      }
+    }
+
+    if (e.bossKind === "storm") {
+      ctx.strokeStyle = c;
+      ctx.lineWidth = 2;
+      for (let i = 0; i < 4; i++) {
+        const a = (i / 4) * TAU + e.age * .5;
+        ctx.beginPath();
+        ctx.moveTo(Math.cos(a) * r, Math.sin(a) * r);
+        ctx.lineTo(Math.cos(a + .12) * (r + 10), Math.sin(a + .12) * (r + 10));
+        ctx.lineTo(Math.cos(a - .05) * (r + 18), Math.sin(a - .05) * (r + 18));
+        ctx.lineTo(Math.cos(a + .08) * (r + 28), Math.sin(a + .08) * (r + 28));
+        ctx.stroke();
+      }
+    }
+
+    if (e.bossKind === "reaper") {
+      ctx.strokeStyle = c;
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.arc(0, 0, r + 12, Math.PI * .9 + e.age, Math.PI * 1.6 + e.age);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(0, 0, r + 12, Math.PI * -.1 + e.age, Math.PI * .6 + e.age);
+      ctx.stroke();
+    }
+
+    polygon(e.sides, r, Math.PI / e.sides);
+    ctx.fillStyle = hit ? "#1c3358" : "#0a1428";
+    ctx.fill();
+    ctx.strokeStyle = c;
+    ctx.lineWidth = e.bossKind === "titan" || e.bossKind === "core" ? 3.5 : 2.5;
+    ctx.stroke();
+    if (e.bossKind === "titan") {
+      polygon(e.sides, r - 8, Math.PI / e.sides);
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+    }
+
+    ctx.save();
+    ctx.rotate(e.age * 1.2);
+    polygon(e.sides, r * .66);
+    ctx.globalAlpha = (e.fade ?? 1) * .55;
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+    ctx.globalAlpha = e.fade ?? 1;
+    if (e.bossKind === "mothership" || e.bossKind === "twins") {
+      ctx.fillStyle = c;
+      for (let i = 0; i < 4; i++) {
+        ctx.rotate(TAU / 4);
+        ctx.fillRect(r * .66 - 3, -3, 6, 6);
+      }
+    }
+    ctx.restore();
+
+    if (e.bossKind === "core") {
+      for (let i = 1; i <= 2; i++) {
+        ctx.save();
+        ctx.rotate(e.age * (i % 2 ? -.8 : .5));
+        polygon(e.sides, r * (.66 - i * .15));
+        ctx.strokeStyle = ["#eef3ff", "#4aa8ff", "#ff4d6d"][e.phase - 1];
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+        ctx.restore();
+      }
+    }
+
+    if (e.bossKind === "overseer") {
+      ctx.fillStyle = "#eef3ff";
+      ctx.beginPath();
+      ctx.ellipse(0, 0, r * .5, r * .3, 0, 0, TAU);
+      ctx.fill();
+      ctx.fillStyle = c;
+      circle(Math.cos(e.aim) * r * .22, Math.sin(e.aim) * r * .12, r * .16);
+      ctx.fill();
+    } else {
+      const coreColor = e.bossKind === "core" ? ["#eef3ff", "#4aa8ff", "#ff4d6d"][e.phase - 1] : enraged ? "#ff4d6d" : "#eef3ff";
+      ctx.fillStyle = coreColor;
+      circle(0, 0, (e.bossKind === "core" ? 14 : 9) + Math.sin(now / 120) * 2);
+      ctx.fill();
+    }
+
+    if (e.bossKind === "charger" && e.state === "windup") {
+      ctx.strokeStyle = "#ff9a3d";
+      ctx.globalAlpha = .5;
+      ctx.setLineDash([6, 6]);
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      ctx.lineTo(e.targetX - e.x, e.targetY - e.y);
+      ctx.stroke();
+      ctx.setLineDash([]);
+    }
+
+    ctx.restore();
   }
 
   function drawPowerup(p, now) {
@@ -1542,18 +2568,77 @@ function setupGame() {
       ctx.fillRect(-1.5, -6, 3, 12);
       ctx.fillRect(-6, -1.5, 12, 3);
     } else {
-      ctx.beginPath();
-      ctx.moveTo(0, -7);
-      ctx.lineTo(6, -4);
-      ctx.lineTo(5, 3);
-      ctx.lineTo(0, 7);
-      ctx.lineTo(-5, 3);
-      ctx.lineTo(-6, -4);
-      ctx.closePath();
+      shape([[0, -7], [6, -4], [5, 3], [0, 7], [-5, 3], [-6, -4]]);
       ctx.fill();
     }
 
     ctx.restore();
+  }
+
+  function drawHazards(now) {
+    for (const h of state.hazards) {
+      const progress = 1 - h.timer / h.max;
+      ctx.strokeStyle = h.color;
+      ctx.fillStyle = h.color;
+      ctx.lineWidth = 1.5;
+      ctx.globalAlpha = .5 + .4 * Math.sin(now / (h.timer < .4 ? 40 : 110));
+      circle(h.x, h.y, h.radius);
+      ctx.stroke();
+      ctx.globalAlpha = .12 + progress * .25;
+      circle(h.x, h.y, h.radius * progress);
+      ctx.fill();
+      ctx.globalAlpha = 1;
+      if (h.type === "mine") {
+        circle(h.x, h.y, 4);
+        ctx.fill();
+      }
+    }
+
+    for (const r of state.rings) {
+      ctx.strokeStyle = r.color;
+      ctx.globalAlpha = Math.max(0, r.life * 1.6);
+      ctx.lineWidth = 2;
+      circle(r.x, r.y, r.radius);
+      ctx.stroke();
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  function drawLasers(now) {
+    for (const l of state.lasers) {
+      const x = l.owner.x, y = l.owner.y;
+      const ex = x + Math.cos(l.angle) * 4000, ey = y + Math.sin(l.angle) * 4000;
+      const color = l.owner.color;
+
+      if (l.warn > 0) {
+        ctx.strokeStyle = color;
+        ctx.globalAlpha = .25 + .35 * (Math.floor(now / 80) % 2);
+        ctx.lineWidth = 2;
+        ctx.setLineDash([10, 8]);
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        ctx.lineTo(ex, ey);
+        ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.globalAlpha = 1;
+        continue;
+      }
+
+      ctx.globalCompositeOperation = "lighter";
+      ctx.lineCap = "round";
+      ctx.strokeStyle = color;
+      ctx.globalAlpha = .45;
+      ctx.lineWidth = l.width + 10;
+      ctx.beginPath();
+      ctx.moveTo(x, y);
+      ctx.lineTo(ex, ey);
+      ctx.stroke();
+      ctx.globalAlpha = 1;
+      ctx.lineWidth = l.width * .45;
+      ctx.strokeStyle = "#fff";
+      ctx.stroke();
+      ctx.globalCompositeOperation = "source-over";
+    }
   }
 
   function drawShip(now) {
@@ -1567,20 +2652,11 @@ function setupGame() {
 
       if (now - state.lastMove < 120) {
         ctx.fillStyle = "#4aa8ff";
-        ctx.beginPath();
-        ctx.moveTo(-8, -4);
-        ctx.lineTo(-15 - Math.random() * 8, 0);
-        ctx.lineTo(-8, 4);
-        ctx.closePath();
+        shape([[-8, -4], [-15 - Math.random() * 8, 0], [-8, 4]]);
         ctx.fill();
       }
 
-      ctx.beginPath();
-      ctx.moveTo(15, 0);
-      ctx.lineTo(-9, -10);
-      ctx.lineTo(-5, 0);
-      ctx.lineTo(-9, 10);
-      ctx.closePath();
+      shape([[15, 0], [-9, -10], [-5, 0], [-9, 10]]);
       ctx.fillStyle = "#eef3ff";
       ctx.fill();
       ctx.strokeStyle = "#4aa8ff";
@@ -1604,6 +2680,8 @@ function setupGame() {
     ctx.clearRect(0, 0, width, height);
     ctx.save();
     if (s.shake) ctx.translate(random(-s.shake, s.shake), random(-s.shake, s.shake));
+
+    drawHazards(now);
 
     ctx.globalCompositeOperation = "lighter";
     for (const p of s.particles) {
@@ -1639,7 +2717,11 @@ function setupGame() {
     }
     ctx.globalCompositeOperation = "source-over";
 
-    for (const e of s.enemies) drawEnemy(e, now);
+    drawLasers(now);
+    for (const e of s.enemies) {
+      if (e.kind === "boss") drawBoss(e, now);
+      else drawEnemy(e, now);
+    }
     for (const p of s.powerups) drawPowerup(p, now);
     if (!s.over) drawShip(now);
 
@@ -1653,6 +2735,7 @@ function setupGame() {
     ctx.globalAlpha = 1;
     ctx.restore();
   }
+
 
   function isOverContent(x, y) {
     const title = document.getElementById("name").getBoundingClientRect();
