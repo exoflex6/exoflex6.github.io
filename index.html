@@ -733,7 +733,7 @@ const ACCOUNTS = [
   { icon: "supercell", platform: "Supercell", name: "Gamer11", brand: "#f2f2f2", brandText: "#111" },
 ];
 
-const VISIBLE_AT_START = 6;
+const VISIBLE_AT_START = 5;
 
 const ARROW_ICON = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 11 11 5M6 5h5v5"/></svg>';
 const COPY_ICON = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><rect x="5.5" y="5.5" width="7.5" height="7.5" rx="1.5"/><path d="M3 10.5V4a1 1 0 0 1 1-1h6.5"/></svg>';
@@ -995,6 +995,7 @@ function setupGame() {
   const MAX_LIVES = 7;
   const TITLE_TIME = 3;
   const MAX_LEVEL = 30;
+  const MAX_SHIELDERS = 6;
   const ENDLESS_BOSS_EVERY = 3000;
   const LEVEL_POINTS_GROWTH = 100;
   const BOSS_HEALTH_GROWTH = 1.1;
@@ -1233,7 +1234,8 @@ function setupGame() {
 
   function pickEnemy() {
     const lvl = Math.min(state.spawnLevel, MAX_LEVEL);
-    const options = Object.entries(ENEMIES).filter(([, e]) => lvl >= e.level);
+    const shielders = state.enemies.filter((e) => e.kind === "shielder" && !e.dead).length;
+    const options = Object.entries(ENEMIES).filter(([kind, e]) => lvl >= e.level && !(kind === "shielder" && shielders >= MAX_SHIELDERS));
     const weight = (e) => e.weight(lvl) * (e.level === lvl ? 4 : 1);
     let roll = Math.random() * options.reduce((sum, [, e]) => sum + weight(e), 0);
     for (const [kind, e] of options) {
@@ -1691,8 +1693,10 @@ function setupGame() {
     }
 
     s.spawnTimer -= dt;
+    const progress = s.level === Infinity ? MAX_LEVEL + s.endlessBosses * 2 : s.spawnLevel;
+    const crowded = s.enemies.filter((e) => !e.dead && e.kind !== "boss" && e.kind !== "node").length >= (12 + progress * .8) * (s.bossActive === "core" || s.bossActive === "overseer" ? .4 : s.bossActive ? .6 : 1);
+    if (s.spawnTimer <= 0 && crowded) s.spawnTimer = .3;
     if (s.spawnTimer <= 0) {
-      const progress = s.level === Infinity ? MAX_LEVEL + s.endlessBosses * 2 : s.spawnLevel;
       spawnEnemy();
       if (Math.random() < clamp((progress - 12) * .025, 0, .5)) spawnEnemy();
       const interval = progress <= 20 ? 1.1 - progress * .04 : .3 * Math.pow(.96, progress - 20);
@@ -1799,6 +1803,14 @@ function setupGame() {
 
       case "shielder": {
         steer(e, toShip, 70, 1, dt);
+        for (const other of state.enemies) {
+          if (other === e || other.kind !== "shielder" || other.dead) continue;
+          const dx = e.x - other.x, dy = e.y - other.y, gap = Math.hypot(dx, dy) || 1;
+          if (gap < 46) {
+            e.x += (dx / gap) * (46 - gap) * .5;
+            e.y += (dy / gap) * (46 - gap) * .5;
+          }
+        }
         const turn = angleDiff(toShip, e.rotation);
         e.rotation += clamp(turn, -.7 * dt, .7 * dt);
         break;
@@ -2153,6 +2165,9 @@ function setupGame() {
       case "overseer":
         hover(e, topX(e, .25, .5), e.radius + 6, .8);
         e.timer -= dt;
+        const shipDist = Math.hypot(ship.x - e.x, ship.y - e.y);
+        const ringsOut = e.echo > 0 || s.hazards.some((h) => h.type === "wave" && h.radius < shipDist + 140);
+        if (ready && e.timer <= 0 && e.move % 3 === 2 && ringsOut) e.timer = .3;
         if (ready && e.timer <= 0) {
           const move = e.move++ % 3;
           if (move === 0) {
