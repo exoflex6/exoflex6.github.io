@@ -1,0 +1,1638 @@
+<title>exoflex6</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@400;500&family=Unbounded:wght@500;800&display=swap">
+
+<style>
+:root {
+  color-scheme: dark;
+  --bg: #05080f;
+  --card: #0b111d;
+  --card-hover: #101828;
+  --border: #1a2436;
+  --text: #eef3ff;
+  --muted: #7d8aa3;
+  --blue: #4aa8ff;
+  --heal: #3ddc84;
+  --shield: #6ee7ff;
+  --font-display: "Unbounded", "Arial Black", system-ui, sans-serif;
+  --font-mono: "Martian Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+
+html {
+  background: var(--bg);
+}
+
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-mono);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--blue);
+  color: var(--bg);
+}
+
+#stars,
+#game {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+#stars {
+  z-index: 0;
+}
+
+.glow {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(60% 40% at 50% 0%, rgba(40, 110, 220, .16), transparent 70%);
+}
+
+main {
+  position: relative;
+  z-index: 1;
+  box-sizing: border-box;
+  display: grid;
+  align-content: center;
+  gap: 36px;
+  max-width: 560px;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding-block: 48px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  transition: opacity .3s, transform .3s;
+}
+
+h1 {
+  margin: 0;
+  text-align: center;
+  white-space: nowrap;
+  font-family: var(--font-display);
+  font-size: clamp(30px, 11vw, 72px);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -.04em;
+}
+
+h1 span {
+  color: var(--blue);
+}
+
+.accounts {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.account {
+  position: relative;
+  transition: transform .4s cubic-bezier(.25, 1.25, .4, 1);
+  animation: fade-in .5s ease-out backwards;
+  animation-delay: calc(var(--i) * 50ms);
+}
+
+.account:hover,
+.account:has(:focus-visible) {
+  z-index: 2;
+  transform: scale(1.035);
+}
+
+.account:active {
+  transform: scale(.985);
+  transition-duration: .15s;
+}
+
+.card {
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  margin: 0;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--card);
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background .35s, border-color .35s, box-shadow .4s;
+}
+
+.account:hover .card,
+.card:focus-visible {
+  border-color: var(--brand);
+  background: var(--card-hover);
+  box-shadow: 0 12px 36px -14px color-mix(in srgb, var(--brand) 70%, transparent);
+}
+
+.card:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 3px;
+}
+
+.logo {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: #131c2d;
+  transition: background .35s;
+}
+
+.logo svg {
+  width: 22px;
+  height: 22px;
+  fill: var(--text);
+  transition: fill .35s, transform .35s;
+}
+
+.account:hover .logo {
+  background: var(--brand);
+}
+
+.account:hover .logo svg {
+  fill: var(--brand-text);
+  transform: scale(1.1);
+}
+
+.info {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+
+.platform {
+  color: var(--muted);
+  font-size: 10px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+.handle {
+  overflow: hidden;
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 500;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.handle em {
+  color: var(--muted);
+  font-style: normal;
+}
+
+.action {
+  box-sizing: border-box;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  color: var(--muted);
+  transition: background .35s, color .35s, border-color .35s;
+}
+
+.action svg {
+  width: 16px;
+  height: 16px;
+  transition: transform .35s;
+}
+
+.account:hover .action {
+  color: var(--text);
+}
+
+.account.link:hover .action {
+  border-color: transparent;
+  background: var(--brand);
+  color: var(--brand-text);
+}
+
+.account.link:hover .action svg {
+  transform: translate(1px, -1px);
+}
+
+.hint {
+  margin: 0;
+  color: #3a4760;
+  font-size: 10px;
+  letter-spacing: .16em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 24px);
+  z-index: 70;
+  max-width: calc(100vw - 32px);
+  overflow: hidden;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--card-hover);
+  font-size: 12px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  opacity: 0;
+  transform: translate(-50%, 16px);
+  pointer-events: none;
+  transition: transform .2s ease-out, opacity .2s;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+.spark {
+  position: fixed;
+  z-index: 60;
+  width: 5px;
+  height: 5px;
+  border-radius: 1px;
+  background: var(--brand);
+  pointer-events: none;
+  animation: spark .7s cubic-bezier(.1, .7, .3, 1) forwards;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+}
+
+@keyframes spark {
+  to {
+    opacity: 0;
+    transform: translate(var(--dx), var(--dy)) rotate(var(--r)) scale(0);
+  }
+}
+
+body.playing {
+  cursor: none;
+}
+
+body.playing main {
+  opacity: 0;
+  transform: scale(.97);
+  pointer-events: none;
+}
+
+#game {
+  z-index: 30;
+  touch-action: none;
+}
+
+.hud {
+  position: fixed;
+  inset: 0;
+  z-index: 31;
+  color: var(--muted);
+  font-size: 11px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .3s;
+}
+
+body.playing .hud {
+  opacity: 1;
+}
+
+.hud [hidden] {
+  display: none;
+}
+
+.score {
+  position: absolute;
+  top: calc(env(safe-area-inset-top, 0px) + 20px);
+  left: max(20px, env(safe-area-inset-left, 0px));
+  color: var(--text);
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.score small {
+  display: block;
+  margin-top: 6px;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: .14em;
+}
+
+.lives {
+  position: absolute;
+  top: calc(env(safe-area-inset-top, 0px) + 20px);
+  right: max(20px, env(safe-area-inset-right, 0px));
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.lives i {
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-bottom: 14px solid var(--blue);
+}
+
+.lives i.extra {
+  border-bottom-color: var(--shield);
+}
+
+.lives i.lost {
+  border-bottom-color: var(--border);
+}
+
+.lives b {
+  box-sizing: border-box;
+  width: 16px;
+  height: 16px;
+  margin-left: 6px;
+  border: 2px solid var(--shield);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--shield);
+}
+
+.boss-bar {
+  position: absolute;
+  top: calc(env(safe-area-inset-top, 0px) + 24px);
+  left: 50%;
+  display: grid;
+  gap: 6px;
+  width: min(320px, 50vw);
+  text-align: center;
+  transform: translateX(-50%);
+}
+
+.boss-bar div {
+  height: 4px;
+  overflow: hidden;
+  border-radius: 2px;
+  background: var(--border);
+}
+
+.boss-bar i {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--blue);
+  transition: width .15s;
+}
+
+.banner,
+.game-over {
+  position: absolute;
+  left: 50%;
+  display: grid;
+  gap: 12px;
+  text-align: center;
+  transform: translate(-50%, -50%);
+}
+
+.banner {
+  top: 32%;
+  opacity: 0;
+}
+
+.banner.show {
+  animation: banner 1.8s ease forwards;
+}
+
+.banner span {
+  color: var(--blue);
+}
+
+.game-over {
+  top: 50%;
+}
+
+.banner b,
+.game-over b {
+  color: var(--text);
+  font-family: var(--font-display);
+  font-size: clamp(26px, 7vw, 50px);
+  font-weight: 800;
+  letter-spacing: -.03em;
+  text-transform: none;
+}
+
+.game-over small {
+  color: #4b5874;
+  font-size: inherit;
+}
+
+.controls {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 20px);
+  text-align: center;
+}
+
+@keyframes banner {
+  0% { opacity: 0; transform: translate(-50%, -40%); }
+  15%, 75% { opacity: 1; transform: translate(-50%, -50%); }
+  100% { opacity: 0; transform: translate(-50%, -56%); }
+}
+
+@media (max-width: 420px) {
+  .card { gap: 12px; padding: 12px; }
+  .logo { width: 40px; height: 40px; }
+  .handle { font-size: 16px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .account,
+  .spark {
+    animation: none !important;
+  }
+}
+</style>
+
+<canvas id="stars" aria-hidden="true"></canvas>
+<div class="glow" aria-hidden="true"></div>
+
+<main>
+  <h1 id="name" aria-label="exoflex6">exoflex<span>6</span></h1>
+  <ul class="accounts" id="accounts" aria-label="Accounts"></ul>
+  <p class="hint">Click empty space to play</p>
+</main>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<canvas id="game" aria-hidden="true"></canvas>
+<div class="hud" aria-live="polite">
+  <div class="score"><span id="score">0</span><small id="level-best">Level 1 &middot; Best 0</small></div>
+  <div class="lives" id="lives"></div>
+  <div class="boss-bar" id="boss-bar" hidden><span>Mothership</span><div><i id="boss-health"></i></div></div>
+  <div class="banner" id="banner"></div>
+  <div class="game-over" id="game-over" hidden>
+    <b>Ship down</b>
+    <span id="final-score"></span>
+    <small>Click or Esc to exit</small>
+  </div>
+  <div class="controls">Move to fly and shoot &middot; Click or Esc to exit</div>
+</div>
+
+<script>
+const ICONS = {
+  discord: "M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z",
+  steam: "M11.979 0C5.678 0 .511 4.86.022 11.037l6.432 2.658c.545-.371 1.203-.59 1.912-.59.063 0 .125.004.188.006l2.861-4.142V8.91c0-2.495 2.028-4.524 4.524-4.524 2.494 0 4.524 2.031 4.524 4.527s-2.03 4.525-4.524 4.525h-.105l-4.076 2.911c0 .052.004.105.004.159 0 1.875-1.515 3.396-3.39 3.396-1.635 0-3.016-1.173-3.331-2.727L.436 15.27C1.862 20.307 6.486 24 11.979 24c6.627 0 11.999-5.373 11.999-12S18.605 0 11.979 0zM7.54 18.21l-1.473-.61c.262.543.714.999 1.314 1.25 1.297.539 2.793-.076 3.332-1.375.263-.63.264-1.319.005-1.949s-.75-1.121-1.377-1.383c-.624-.26-1.29-.249-1.878-.03l1.523.63c.956.4 1.409 1.5 1.009 2.455-.397.957-1.497 1.41-2.454 1.012H7.54zm11.415-9.303c0-1.662-1.353-3.015-3.015-3.015-1.665 0-3.015 1.353-3.015 3.015 0 1.665 1.35 3.015 3.015 3.015 1.663 0 3.015-1.35 3.015-3.015zm-5.273-.005c0-1.252 1.013-2.266 2.265-2.266 1.249 0 2.266 1.014 2.266 2.266 0 1.251-1.017 2.265-2.266 2.265-1.253 0-2.265-1.014-2.265-2.265z",
+  riot: "M13.458.86 0 7.093l3.353 12.761 2.552-.313-.701-8.024.838-.373 1.447 8.202 4.361-.535-.775-8.857.83-.37 1.591 9.025 4.412-.542-.849-9.708.84-.374 1.74 9.87L24 17.318V3.5Zm.316 19.356.222 1.256L24 23.14v-4.18l-10.22 1.256Z",
+  xbox: "M4.102 21.033C6.211 22.881 8.977 24 12 24c3.026 0 5.789-1.119 7.902-2.967 1.877-1.912-4.316-8.709-7.902-11.417-3.582 2.708-9.779 9.505-7.898 11.417zm11.16-14.406c2.5 2.961 7.484 10.313 6.076 12.912C23.002 17.48 24 14.861 24 12.004c0-3.34-1.365-6.362-3.57-8.536 0 0-.027-.022-.082-.042-.063-.022-.152-.045-.281-.045-.592 0-1.985.434-4.805 3.246zM3.654 3.426c-.057.02-.082.041-.086.042C1.365 5.642 0 8.664 0 12.004c0 2.854.998 5.473 2.661 7.533-1.401-2.605 3.579-9.951 6.08-12.91-2.82-2.813-4.216-3.245-4.806-3.245-.131 0-.223.021-.281.046v-.002zM12 3.551S9.055 1.828 6.755 1.746c-.903-.033-1.454.295-1.521.339C7.379.646 9.659 0 11.984 0H12c2.334 0 4.605.646 6.766 2.085-.068-.046-.615-.372-1.52-.339C14.946 1.828 12 3.545 12 3.545v.006z",
+  minecraft: "M3 3h6v6H3zM15 3h6v6h-6zM9 9h6v3h3v9h-3v-3H9v3H6v-9h3z",
+  geometrydash: "M0.1 12L12 0.1L23.9 12L12 23.9zM9.92 17.94L17.97 9.9L16.04 7.97L7.99 16.01zM7.24 13.09L9.23 11.1L7.24 9.11L5.25 11.1zM11.12 9.21L13.11 7.22L11.12 5.23L9.13 7.22z",
+  epic: "M3.537 0C2.165 0 1.66.506 1.66 1.879V18.44a4.262 4.262 0 00.02.433c.031.3.037.59.316.92.027.033.311.245.311.245.153.075.258.13.43.2l8.335 3.491c.433.199.614.276.928.27h.002c.314.006.495-.071.928-.27l8.335-3.492c.172-.07.277-.124.43-.2 0 0 .284-.211.311-.243.28-.33.285-.621.316-.92a4.261 4.261 0 00.02-.434V1.879c0-1.373-.506-1.88-1.878-1.88zm13.366 3.11h.68c1.138 0 1.688.553 1.688 1.696v1.88h-1.374v-1.8c0-.369-.17-.54-.523-.54h-.235c-.367 0-.537.17-.537.539v5.81c0 .369.17.54.537.54h.262c.353 0 .523-.171.523-.54V8.619h1.373v2.143c0 1.144-.562 1.71-1.7 1.71h-.694c-1.138 0-1.7-.566-1.7-1.71V4.82c0-1.144.562-1.709 1.7-1.709zm-12.186.08h3.114v1.274H6.117v2.603h1.648v1.275H6.117v2.774h1.74v1.275h-3.14zm3.816 0h2.198c1.138 0 1.7.564 1.7 1.708v2.445c0 1.144-.562 1.71-1.7 1.71h-.799v3.338h-1.4zm4.53 0h1.4v9.201h-1.4zm-3.13 1.235v3.392h.575c.354 0 .523-.171.523-.54V4.965c0-.368-.17-.54-.523-.54zm-3.74 10.147a1.708 1.708 0 01.591.108 1.745 1.745 0 01.49.299l-.452.546a1.247 1.247 0 00-.308-.195.91.91 0 00-.363-.068.658.658 0 00-.28.06.703.703 0 00-.224.163.783.783 0 00-.151.243.799.799 0 00-.056.299v.008a.852.852 0 00.056.31.7.7 0 00.157.245.736.736 0 00.238.16.774.774 0 00.303.058.79.79 0 00.445-.116v-.339h-.548v-.565H7.37v1.255a2.019 2.019 0 01-.524.307 1.789 1.789 0 01-.683.123 1.642 1.642 0 01-.602-.107 1.46 1.46 0 01-.478-.3 1.371 1.371 0 01-.318-.455 1.438 1.438 0 01-.115-.58v-.008a1.426 1.426 0 01.113-.57 1.449 1.449 0 01.312-.46 1.418 1.418 0 01.474-.309 1.58 1.58 0 01.598-.111 1.708 1.708 0 01.045 0zm11.963.008a2.006 2.006 0 01.612.094 1.61 1.61 0 01.507.277l-.386.546a1.562 1.562 0 00-.39-.205 1.178 1.178 0 00-.388-.07.347.347 0 00-.208.052.154.154 0 00-.07.127v.008a.158.158 0 00.022.084.198.198 0 00.076.066.831.831 0 00.147.06c.062.02.14.04.236.061a3.389 3.389 0 01.43.122 1.292 1.292 0 01.328.17.678.678 0 01.207.24.739.739 0 01.071.337v.008a.865.865 0 01-.081.382.82.82 0 01-.229.285 1.032 1.032 0 01-.353.18 1.606 1.606 0 01-.46.061 2.16 2.16 0 01-.71-.116 1.718 1.718 0 01-.593-.346l.43-.514c.277.223.578.335.9.335a.457.457 0 00.236-.05.157.157 0 00.082-.142v-.008a.15.15 0 00-.02-.077.204.204 0 00-.073-.066.753.753 0 00-.143-.062 2.45 2.45 0 00-.233-.062 5.036 5.036 0 01-.413-.113 1.26 1.26 0 01-.331-.16.72.72 0 01-.222-.243.73.73 0 01-.082-.36v-.008a.863.863 0 01.074-.359.794.794 0 01.214-.283 1.007 1.007 0 01.34-.185 1.423 1.423 0 01.448-.066 2.006 2.006 0 01.025 0zm-9.358.025h.742l1.183 2.81h-.825l-.203-.499H8.623l-.198.498h-.81zm2.197.02h.814l.663 1.08.663-1.08h.814v2.79h-.766v-1.602l-.711 1.091h-.016l-.707-1.083v1.593h-.754zm3.469 0h2.235v.658h-1.473v.422h1.334v.61h-1.334v.442h1.493v.658h-2.255zm-5.3.897l-.315.793h.624zm-1.145 5.19h8.014l-4.09 1.348z",
+  bungie: "m23.864 12.77-1.1007-.8182V.4648L12.4037.9653 2.044.4656v2.9316L.4312 2.7555c-.06-.0253-.227-.0542-.3499.0823-.1358.1509-.0945.384.0753.484.629.389 1.2582.7778 1.8874 1.1665v7.538c.015 3.2383 2.4585 5.9808 4.8684 7.9678 2.3723 1.9447 4.7727 3.1716 5.0747 3.323.07.0362.2156.1098.4323.218l.4-.2188c.2-.0996 2.6523-1.3367 5.0748-3.323 2.1925-1.8066 4.4-4.2416 4.7946-7.1025l.8598.4236c.1934.0967.4625-.05.451-.2981-.0065-.1693-.1358-.2444-.1357-.2463zM2.408.8476l9.9957.4817c3.3321-.16 6.6643-.3215 9.9964-.4824V11.681l-.4918-.3655.0039-.3609V1.3042l-9.5038.4628-9.503-.4628v2.435l-.4974-.1977Zm15.9223 2.941v-.4464h1.638l-.9531 2.2562h-.5288l.7837-1.8098zM11.857 8.5472c.2416.0972.371.342.371.342l.5955 1.0888 1.9368 1.2795c-.1718.3114-.2337.5578-.2651.6558a.897.897 0 0 0-.0196.0714l.2777 1.4654c-.0142.0047-.0275.0063-.0416.011-.4038.134-.7649.3613-1.1351.5656-.255.1432-.3047.1696-.4323.2157-.355.128-.606.0754-.8198.0164-.0286-.0082-.0575-.0152-.0863-.0228-.2338-.0431-.5844-.3444-.866-.586-.3921-.3351-.5167-.434-.8096-.5664-.0137-.0074-.0283-.013-.0424-.0195l.448-1.5713c-.5937-.966-1.1863-1.9328-1.7792-2.8993a.1434.1434 0 0 1 .0126-.1891l1.2112-2.2538c.0443-.069.1362-.0816.1961-.0423.8363.3395 1.658.7123 2.4812 1.0817.0714.029.1036.113.0738.1867l-.5436.8684c-.0332.0802-.1212.1068-.1836.08l-1.2426-.498-.1874.3082c-.0024.0008.193.0777.8503.4119zm6.7692 6.9738c.0572.1608-.1389.3452-.1805.4903-.0172.0596-.0086.1397-.0298.2016-.0886.2503-.2879.4676-.4165.6974a.2579.2579 0 0 1-.1004-.0306c-.1342-.073.3036-.5828.3389-.644.0839-.1428-.728-.1428-.775-.1663-.1695-.0832-.2958-.3005-.361-.47-.0666-.174-.1223-.495.1036-.5757.0977-.0379.2105.0163.317-.022.0823-.0306.1537-.1263.207-.1867-.2384-.1915-.4612-.2605-.6809-.2605-.3781 0-.7476.2055-1.1728.3538-.2886.055-.5561.098-.6754.1224-.5083.1035-1.015.5397-1.4167.673-.6198.2249-1.1461.1914-1.1971.1875-.5797-.0455-.9579-.0494-1.827-.7829-.452-.3575-.568-.6149-1.7447-.862-.5201-.1043-.9947-.2259-.9665-.5161.0079-.1828.3177-.3562.237-.5398-.0424-.0964-.084-.3286-.0134-.48-.149-.2825-.2855-.3444-.6888-.47-.2398-.0747-.437-.07-.4502-.0674.0156.0808.0196.1656.0054.2464-.0365.1955-.1314.6952-.5161.6314-.0165-.0447.1655-.2541-.1255-.5961-.175-.2017-.5296-.7782-.146-1.0528.4331-.3031.9909-.1012 1.3227.073.103.0886.8765.1811 1.2347.2557.4244.084.7484.4778.4503.7735-.1938.1593-.5036.3781-.353.448.103.023.5009.1161.5766.1373.229.062.491.1412.717.2314.0085.0031.236.0972.3577.1757.4377.2809 1.0308.965 1.5195 1.056.0847.0195.28.0901.5475.0901.3937 0 .7335-.1807.8308-.2377.0651-.0345.1279-.0698.1914-.105.368-.2072.7092-.415 1.066-.5343.2852-.095.4896-.0988.5178-.0988.2503-.0283.4911-.0424.5664-.0667.3742-.1177.757-.2534 1.1477-.2534.5264 0 .8862.245 1.157.6103.0777.1043.4606.641.3562.7743-.116.1506-.3702.3106-.4016.5115-.0304.2039.07.2033.198.1902.128-.013.2343-.0217.2727.088zm-4.5452 2.8908c.0478.0016.0298.066.0635.051.0322-.0157.0596-.0204.0792.033.0251.0698-.065.0416-.0415.0714.0306.04-.0738.1835-.1389.215-.0651.0297-.0627-.0503-.1106-.051-.0494-.0017-.0337.0305-.0565-.0103-.0227-.04-.0063-.0722.0189-.0949.025-.0235-.004-.0651-.004-.0651l-.1192-.375-.9986.8112 1.0041.8911s.164.3436.0824.3397c-.2008-.0071-.3366-.0361-.3366-.0361l-1.11-.9021-1.11.9021s-.1357.029-.3365.036c-.0824.0032.0823-.3396.0823-.3396l1.0042-.8911-.9987-.8112-.1192.375s-.029.0416-.004.0651c.0252.0235.0417.055.019.095-.0228.0407-.0072.0085-.0566.0101-.0478.0008-.0455.0808-.1106.051-.065-.0306-.1694-.175-.1388-.215.0235-.0297-.0667-.0007-.0424-.0713.0196-.0534.0463-.0487.0792-.033.0338.015.015-.0486.0636-.051.0698-.0016.0988-.5232.0988-.5232l-.6166-.5444-.091-.1075s-.0965.0188-.1623-.0431c-.0667-.062-.0863-.2354-.0204-.3146.062-.0738.1945-.0879.309.0227.0651.062.0526.1318.0526.1318l.1114.0942.6519.4957s.5177-.1757.513-.2235c-.0047-.0479.0612-.0377.0424-.0683-.0196-.0298-.0283-.0572.0243-.0823.0667-.033.0486.0596.076.0329.0362-.0353.1954.047.2339.1075.0376.0604-.0432.0674-.0385.116.0047.0471.0353.0291-.0024.0558-.0376.0282-.0721.0141-.098-.0078-.037-.029-.0165-.044-.0165-.044l-.4064.2723 1.0065.8935 1.0065-.8935-.4064-.2723s.0204.015-.0164.044c-.026.022-.0604.0353-.0981.0078-.0377-.0267-.0071-.0086-.0024-.0557.0047-.0487-.076-.0557-.0384-.1161.0392-.0604.1976-.1428.2337-.1075.0267.0267.0094-.0667.0761-.033.0526.0252.0447.0526.0243.0824-.0188.0306.0471.0204.0424.0683-.0039.0478.513.2235.513.2235l.652-.4957.1113-.0942s-.0133-.0698.0518-.1318c.1145-.1106.2471-.0965.309-.0227.066.0792.0464.2526-.0203.3146-.066.062-.1624.0431-.1624.0431l-.091.1075-.6166.5444c.0012-.0004.0341.5232.1005.5232zM12.089 6.459c-.1982-.0848-.3838-.1637-1.2763-.5452l.7719-1.2998a.144.144 0 0 1 .1945-.0502l.9469.56a.1412.1412 0 0 1 .051.193zm.9367-.9837c.0426-.0698.1337-.0853.1953-.047l.8653.5122a.14.14 0 0 1 .047.1938c-.1688.2688-.4737.7593-.6887 1.1045a.4022.4022 0 0 0-.164-.2244.3808.3808 0 0 0-.0972-.0596l-.8379-.3758Zm1.2763.8715a.1432.1432 0 0 1 .1962-.0455l.7781.4582a.141.141 0 0 1 .0455.1937c-.8974 1.4307-1.0436 1.667-1.2983 2.0734-.0063.011-.011.022-.0165.033a.141.141 0 0 1-.1906.04l-.7774-.459c-.1067-.0648-.053-.1937-.0455-.1937.0057 0 .466-.7403 1.3085-2.1zm1.1477.8888a.1462.1462 0 0 1 .1969-.0462l.6166.3679a.1401.1401 0 0 1 .047.1937L15.1 9.6784c-.0447.071-.1377.0833-.1954.0463l-.6181-.3687a.1383.1383 0 0 1-.0455-.193zM.2868 3.1015c-.0536-.0318-.0323-.1258.0502-.1068L7.224 5.7325l-.1295-2.4044 3.4893 2.4703s-.04-.0165-.0996-.0165c-.1155 0-.2056.0594-.229.117-.2357.4394-.4724.8785-.7084 1.3178l-.888-.6205-.375 1.4466Zm17.376 16.6118c-2.3864 1.958-4.8198 3.1865-5.012 3.2822l-.2393.1302c-.0825-.0422-.1652-.0842-.2479-.1263-.211-.1043-2.6389-1.332-5.0198-3.2861-2.3855-1.9596-4.7334-4.6456-4.7358-7.687v-7.312c.1663.1017.3316.205.4974.3075v7.0076c0 5.7988 8.9264 10.3456 9.3069 10.5362l.2047.1043.1899-.1043c.3687-.186 8.8205-4.4958 9.2778-10.0702.1528.0746.305.1506.4574.226-.3232 2.7534-2.4766 5.1837-4.6794 6.9919zm6.0239-6.624h-.0016c-.0086 0-.022-.004-.022-.004l-5.5383-2.7284-.3805 2.5566-4.651-3.1112-.637-1.1735L14.495 9.781l.2761.1648c.0694.0428.1822.0604.2165.0604.2125 0 .3294-.1921.3295-.1922l.1482-.2361.142-.2095 1.074.8865.3412-2.2522 6.693 4.9774c.0502.0326.0274.1076-.029.109z",
+  battlenet: "M18.94 8.296C15.9 6.892 11.534 6 7.426 6.332c.206-1.36.714-2.308 1.548-2.508 1.148-.275 2.4.48 3.594 1.854.782.102 1.71.28 2.355.429C12.747 2.013 9.828-.282 7.607.565c-1.688.644-2.553 2.97-2.448 6.094-2.2.468-3.915 1.3-5.013 2.495-.056.065-.181.227-.137.305.034.058.146-.008.194-.04 1.274-.89 2.904-1.373 5.027-1.676.303 3.333 1.713 7.56 4.055 10.952-1.28.502-2.356.536-2.946-.087-.812-.856-.784-2.318-.19-4.04a26.764 26.764 0 0 1-.807-2.254c-2.459 3.934-2.986 7.61-1.143 9.11 1.402 1.14 3.847.725 6.502-.926 1.505 1.672 3.083 2.74 4.667 3.094.084.015.287.043.332-.034.034-.06-.08-.124-.131-.149-1.408-.657-2.64-1.828-3.964-3.515 2.735-1.929 5.691-5.263 7.457-8.988 1.076.86 1.64 1.773 1.398 2.595-.336 1.131-1.615 1.84-3.403 2.185a27.697 27.697 0 0 1-1.548 1.826c4.634.16 8.08-1.22 8.458-3.565.286-1.786-1.295-3.696-4.053-5.17.696-2.139.832-4.04.346-5.588-.029-.08-.106-.27-.196-.27-.068 0-.067.13-.063.187.135 1.547-.263 3.2-1.062 5.19zm-8.533 9.869c-1.96-3.145-3.09-6.849-3.082-10.594 3.702-.124 7.474.748 10.714 2.627-1.743 3.269-4.385 6.1-7.633 7.966h.001z",
+  github: "M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12",
+};
+
+const ACCOUNTS = [
+  { icon: "discord", platform: "Discord",    name: "exoflex6", brand: "#5865f2", brandText: "#fff",    url: "https://discord.com/users/1328077818629853372" },
+  { icon: "steam",  platform: "Steam",      name: "exoflex6", brand: "#1f6db0", brandText: "#fff",    url: "https://steamcommunity.com/id/exoflex/" },
+  { icon: "riot",   platform: "Riot Games", name: "exoflex6", tag: "#EXO", brand: "#ff4655", brandText: "#fff" },
+  { icon: "xbox",   platform: "Xbox",       name: "exoflex6", brand: "#3fbf3f", brandText: "#062006", url: "https://www.xbox.com/en-US/play/user/exoflex6" },
+  { icon: "epic",   platform: "Epic Games", name: "exoflex6", brand: "#f2f2f2", brandText: "#111" },
+  { icon: "minecraft", platform: "Minecraft", name: "exoflex6", brand: "#5aa846", brandText: "#0b1a07" },
+  { icon: "geometrydash", platform: "Geometry Dash", name: "EXOFLEX", brand: "#ffc800", brandText: "#1a1400" },
+  { icon: "bungie", platform: "Bungie",     name: "exoflex6", tag: "#2627", brand: "#0075bb", brandText: "#fff",    url: "https://www.bungie.net/7/en/User/Profile/254/33961598" },
+  { icon: "battlenet", platform: "Battle.net", name: "exoflex6", tag: "#1638", brand: "#148eff", brandText: "#fff" },
+  { icon: "github", platform: "GitHub",     name: "exoflex6", brand: "#f2f2f2", brandText: "#111",    url: "https://github.com/exoflex6" },
+];
+
+const ARROW_ICON = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 11 11 5M6 5h5v5"/></svg>';
+const COPY_ICON = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><rect x="5.5" y="5.5" width="7.5" height="7.5" rx="1.5"/><path d="M3 10.5V4a1 1 0 0 1 1-1h6.5"/></svg>';
+
+const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const random = (min, max) => min + Math.random() * (max - min);
+
+function scrambleTitle() {
+  const title = document.getElementById("name");
+  const text = "exoflex6";
+  const glyphs = "#/<>_=+*0123456789XO";
+  const frames = 18;
+  let frame = 0;
+
+  const tick = () => {
+    frame++;
+    const revealed = Math.floor((frame / frames) * text.length);
+    const chars = [...text].map((c, i) => i < revealed ? c : glyphs[Math.floor(Math.random() * glyphs.length)]);
+    title.innerHTML = chars.slice(0, 7).join("") + `<span>${chars[7]}</span>`;
+    if (frame < frames) setTimeout(tick, 35);
+  };
+  tick();
+}
+
+const toast = document.getElementById("toast");
+let toastTimer;
+
+function showToast(message) {
+  toast.textContent = message;
+  toast.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove("show"), 1700);
+}
+
+function sparks(x, y, color) {
+  if (reducedMotion) return;
+
+  for (let i = 0; i < 12; i++) {
+    const angle = (Math.PI * 2 * i) / 12 + Math.random() * .4;
+    const dist = random(30, 70);
+    const spark = document.createElement("span");
+    spark.className = "spark";
+    spark.style.cssText = `left:${x - 2}px; top:${y - 2}px; --brand:${color}; --dx:${Math.cos(angle) * dist}px; --dy:${Math.sin(angle) * dist}px; --r:${Math.random() * 360}deg`;
+    document.body.appendChild(spark);
+    setTimeout(() => spark.remove(), 750);
+  }
+}
+
+function copyFallback(text) {
+  try {
+    const input = document.createElement("textarea");
+    input.value = text;
+    input.setAttribute("readonly", "");
+    input.style.cssText = "position: fixed; opacity: 0";
+    document.body.appendChild(input);
+    input.select();
+    const ok = document.execCommand("copy");
+    input.remove();
+    return ok;
+  } catch {
+    return false;
+  }
+}
+
+function copyName(account, x, y) {
+  const text = account.name + (account.tag || "");
+  const copied = () => showToast(`Copied ${text}`);
+  const failed = () => showToast(`${account.platform}: ${text}`);
+
+  sparks(x, y, account.brand);
+  try {
+    navigator.clipboard.writeText(text).then(copied, () => copyFallback(text) ? copied() : failed());
+  } catch {
+    copyFallback(text) ? copied() : failed();
+  }
+}
+
+function renderAccounts() {
+  const list = document.getElementById("accounts");
+
+  ACCOUNTS.forEach((account, i) => {
+    const fullName = account.name + (account.tag || "");
+    const inner = `
+      <span class="logo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="${ICONS[account.icon]}"/></svg></span>
+      <span class="info">
+        <span class="platform">${account.platform}</span>
+        <span class="handle">${account.name}${account.tag ? `<em>${account.tag}</em>` : ""}</span>
+      </span>
+      <span class="action" aria-hidden="true">${account.url ? ARROW_ICON : COPY_ICON}</span>`;
+
+    const item = document.createElement("li");
+    item.className = account.url ? "account link" : "account";
+    item.style.cssText = `--brand:${account.brand}; --brand-text:${account.brandText}; --i:${i}`;
+
+    if (account.url) {
+      item.innerHTML = `<a class="card" href="${account.url}" target="_blank" rel="noopener" aria-label="Open ${account.platform} profile">${inner}</a>`;
+    } else {
+      item.innerHTML = `<button class="card" type="button" aria-label="Copy ${account.platform} name ${fullName}">${inner}</button>`;
+      const button = item.querySelector("button");
+      button.addEventListener("click", (e) => {
+        const box = button.getBoundingClientRect();
+        copyName(account, e.clientX || box.left + box.width / 2, e.clientY || box.top + box.height / 2);
+      });
+    }
+
+    list.appendChild(item);
+  });
+}
+
+function startStars() {
+  const canvas = document.getElementById("stars");
+  const ctx = canvas.getContext("2d");
+  let width, height, dpr;
+  let stars = [];
+  let meteors = [];
+  let parallaxX = 0, parallaxY = 0, mouseX = 0, mouseY = 0;
+
+  function resize() {
+    dpr = Math.min(2, devicePixelRatio || 1);
+    width = canvas.width = innerWidth * dpr;
+    height = canvas.height = innerHeight * dpr;
+
+    const count = Math.round((innerWidth * innerHeight) / 3200);
+    stars = Array.from({ length: count }, () => ({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      depth: Math.random() ** 2.2,
+      phase: Math.random() * 7,
+      twinkle: random(.6, 2.2),
+    }));
+
+    if (reducedMotion) draw(0);
+  }
+
+  function draw(time) {
+    ctx.clearRect(0, 0, width, height);
+    parallaxX += (mouseX - parallaxX) * .04;
+    parallaxY += (mouseY - parallaxY) * .04;
+
+    for (const star of stars) {
+      const x = (((star.x - parallaxX * 50 * dpr * star.depth) % width) + width) % width;
+      const y = (((star.y - parallaxY * 50 * dpr * star.depth + time * .003 * star.depth * dpr) % height) + height) % height;
+      const twinkle = reducedMotion ? 1 : .6 + .4 * Math.sin(time * .001 * star.twinkle + star.phase);
+      ctx.fillStyle = `rgba(205, 225, 255, ${(.2 + star.depth * .7) * twinkle})`;
+      ctx.beginPath();
+      ctx.arc(x, y, (.35 + star.depth * 1.3) * dpr, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    for (const m of meteors) {
+      m.age++;
+      const x = m.x + m.vx * m.age;
+      const y = m.y + m.vy * m.age;
+      const tail = ctx.createLinearGradient(x, y, x - m.vx * 12, y - m.vy * 12);
+      tail.addColorStop(0, `rgba(210, 230, 255, ${(1 - m.age / m.lifetime) * .8})`);
+      tail.addColorStop(1, "rgba(210, 230, 255, 0)");
+      ctx.strokeStyle = tail;
+      ctx.lineWidth = 1.2 * dpr;
+      ctx.beginPath();
+      ctx.moveTo(x, y);
+      ctx.lineTo(x - m.vx * 12, y - m.vy * 12);
+      ctx.stroke();
+    }
+    meteors = meteors.filter((m) => m.age < m.lifetime);
+  }
+
+  function shootingStar() {
+    const angle = Math.PI * random(.15, .27);
+    const speed = random(9, 15) * dpr;
+    meteors.push({
+      x: Math.random() * width * .8,
+      y: Math.random() * height * .4,
+      vx: Math.cos(angle) * speed,
+      vy: Math.sin(angle) * speed,
+      age: 0,
+      lifetime: random(50, 80),
+    });
+    setTimeout(shootingStar, random(5000, 12000));
+  }
+
+  addEventListener("resize", resize);
+  addEventListener("pointermove", (e) => {
+    mouseX = e.clientX / innerWidth - .5;
+    mouseY = e.clientY / innerHeight - .5;
+  });
+
+  resize();
+  if (reducedMotion) return;
+
+  const frame = (time) => {
+    if (!document.hidden) draw(time);
+    requestAnimationFrame(frame);
+  };
+  requestAnimationFrame(frame);
+  setTimeout(shootingStar, 2500);
+}
+
+function setupGame() {
+  const canvas = document.getElementById("game");
+  const ctx = canvas.getContext("2d");
+  const $ = (id) => document.getElementById(id);
+  const ui = {
+    score: $("score"),
+    levelBest: $("level-best"),
+    lives: $("lives"),
+    bossBar: $("boss-bar"),
+    bossHealth: $("boss-health"),
+    banner: $("banner"),
+    gameOver: $("game-over"),
+    finalScore: $("final-score"),
+  };
+
+  const TAU = Math.PI * 2;
+  const POINTS_PER_LEVEL = 350;
+  const START_LIVES = 3;
+  const MAX_LIVES = 5;
+  const TITLE_TIME = 1.8;
+
+  const ENEMIES = {
+    rock:   { level: 1, weight: (lvl) => Math.max(1.5, 5 - lvl * .5) },
+    drone:  { level: 2, weight: () => 3,   radius: 12, hp: 1, points: 50,  color: "#ff4d6d", name: "Drones" },
+    dart:   { level: 3, weight: () => 2.5, radius: 9,  hp: 1, points: 75,  color: "#ffd34d", name: "Darts" },
+    tank:   { level: 4, weight: () => 1.5, radius: 26, hp: 6, points: 120, color: "#ff9a3d", name: "Tanks" },
+    gunner: { level: 5, weight: () => 1.4, radius: 16, hp: 3, points: 150, color: "#b77bff", name: "Gunners" },
+  };
+  const BOSS_POINTS = 1000;
+
+  const HEALTH_DROP = { rock: .01, drone: .02, dart: .02, tank: .08, gunner: .06, boss: .5 };
+  const SHIELD_DROP = { rock: .002, drone: .004, dart: .004, tank: .015, gunner: .01, boss: .1 };
+  const HEALTH_PER_LEVEL = .6;
+
+  let running = false;
+  let width = 0, height = 0;
+  let frameId = 0, lastTime = 0;
+  let best = loadBest();
+  let state;
+
+  function loadBest() {
+    try {
+      const match = document.cookie.match(/(?:^|;\s*)exoBest=(\d+)/);
+      if (match) return Number(match[1]);
+    } catch {}
+    try {
+      return Number(localStorage.getItem("exo-best")) || 0;
+    } catch {
+      return 0;
+    }
+  }
+
+  function saveBest(score) {
+    try { document.cookie = `exoBest=${score}; max-age=31536000; path=/; SameSite=Lax`; } catch {}
+    try { localStorage.setItem("exo-best", score); } catch {}
+  }
+
+  function resize() {
+    const dpr = Math.min(2, devicePixelRatio || 1);
+    width = innerWidth;
+    height = innerHeight;
+    canvas.width = width * dpr;
+    canvas.height = height * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  function updateHud() {
+    const s = state;
+    ui.score.textContent = s.score;
+    ui.levelBest.textContent = `Level ${s.level} · Best ${Math.max(best, s.score)}`;
+
+    let lives = "";
+    for (let i = 0; i < Math.max(START_LIVES, s.lives); i++) {
+      const cls = i >= s.lives ? "lost" : i >= START_LIVES ? "extra" : "";
+      lives += `<i class="${cls}"></i>`;
+    }
+    if (s.ship.shield) lives += '<b title="Shield"></b>';
+    ui.lives.innerHTML = lives;
+  }
+
+  function showBanner(title, subtitle = "") {
+    ui.banner.innerHTML = `<b>${title}</b>` + (subtitle ? `<span>${subtitle}</span>` : "");
+    ui.banner.classList.remove("show");
+    void ui.banner.offsetWidth;
+    ui.banner.classList.add("show");
+  }
+
+  function floatText(x, y, text, color) {
+    state.texts.push({ x, y, text, color, life: 1.1 });
+  }
+
+  function start(x, y) {
+    running = true;
+    resize();
+    document.body.classList.add("playing");
+
+    state = {
+      ship: { x, y, targetX: x, targetY: y, angle: -Math.PI / 2, targetAngle: -Math.PI / 2, shield: false },
+      bullets: [],
+      enemyShots: [],
+      enemies: [],
+      particles: [],
+      powerups: [],
+      texts: [],
+      boss: null,
+      score: 0,
+      lives: START_LIVES,
+      level: 1,
+      spawnLevel: 1,
+      titleTimer: TITLE_TIME,
+      spawnTimer: 0,
+      shieldTimer: random(120, 180),
+      healthTimer: Infinity,
+      invincible: 1.2,
+      shake: 0,
+      over: false,
+      distanceMoved: 0,
+      lastShot: 0,
+      lastMove: 0,
+    };
+
+    ui.gameOver.hidden = true;
+    ui.bossBar.hidden = true;
+    updateHud();
+    showBanner("Level 1", "Move to fly and shoot");
+
+    lastTime = performance.now();
+    frameId = requestAnimationFrame(loop);
+  }
+
+  function stop() {
+    running = false;
+    cancelAnimationFrame(frameId);
+    document.body.classList.remove("playing");
+    ui.banner.classList.remove("show");
+    ctx.clearRect(0, 0, width, height);
+  }
+
+  function offscreenPoint(margin = 60) {
+    const side = Math.floor(Math.random() * 4);
+    return {
+      x: side === 0 ? -margin : side === 1 ? width + margin : random(0, width),
+      y: side === 2 ? -margin : side === 3 ? height + margin : random(0, height),
+    };
+  }
+
+  function pickEnemy() {
+    const lvl = state.spawnLevel;
+    const options = Object.entries(ENEMIES).filter(([, e]) => lvl >= e.level);
+    let roll = Math.random() * options.reduce((sum, [, e]) => sum + e.weight(lvl), 0);
+    for (const [kind, e] of options) {
+      roll -= e.weight(lvl);
+      if (roll <= 0) return kind;
+    }
+    return "rock";
+  }
+
+  function makeRock(x, y, radius, vx, vy, shape) {
+    const hp = radius > 30 ? 2 : 1;
+    return {
+      kind: "rock", x, y, vx, vy, radius, hp, maxHp: hp,
+      shape: shape || Array.from({ length: 9 + Math.floor(Math.random() * 4) }, () => random(.72, 1.08)),
+      rotation: random(0, TAU),
+      spin: random(-1.4, 1.4),
+      age: 0,
+    };
+  }
+
+  function spawnEnemy() {
+    const s = state;
+    const kind = pickEnemy();
+    const { x, y } = offscreenPoint();
+
+    if (kind === "rock") {
+      const aim = Math.atan2(random(height * .2, height * .8) - y, random(width * .2, width * .8) - x);
+      const speed = random(50, 110) + s.level * 8;
+      s.enemies.push(makeRock(x, y, random(18, 40), Math.cos(aim) * speed, Math.sin(aim) * speed));
+      return;
+    }
+
+    const type = ENEMIES[kind];
+    const enemy = {
+      kind, x, y, vx: 0, vy: 0,
+      radius: type.radius, hp: type.hp, maxHp: type.hp,
+      rotation: 0, spin: 0, age: 0,
+      cooldown: random(1, 2),
+    };
+
+    if (kind === "dart") {
+      const aim = Math.atan2(s.ship.y - y, s.ship.x - x);
+      const speed = 300 + s.level * 15;
+      enemy.vx = Math.cos(aim) * speed;
+      enemy.vy = Math.sin(aim) * speed;
+      enemy.rotation = aim;
+    }
+
+    s.enemies.push(enemy);
+  }
+
+  function spawnBoss() {
+    const hp = 30 + state.level * 6;
+    state.boss = {
+      kind: "boss", x: width / 2, y: -80, vx: 0, vy: 0,
+      radius: 50, hp, maxHp: hp,
+      rotation: 0, spin: .4, age: 0, cooldown: 2,
+    };
+    state.enemies.push(state.boss);
+    ui.bossBar.hidden = false;
+  }
+
+  function canDropHealth() {
+    return state.level >= 3 && state.lives < MAX_LIVES;
+  }
+
+  function canDropShield() {
+    const onScreen = state.powerups.filter((p) => p.kind === "shield").length;
+    return onScreen < (state.ship.shield ? 2 : 3);
+  }
+
+  function dropPowerup(x, y, kind) {
+    if (kind === "health" ? !canDropHealth() : !canDropShield()) return;
+    const angle = random(0, TAU);
+    state.powerups.push({ kind, x, y, vx: Math.cos(angle) * 30, vy: Math.sin(angle) * 30, age: 0, lifetime: 9 });
+  }
+
+  function collectPowerup(p) {
+    const s = state;
+    const color = p.kind === "health" ? "#3ddc84" : "#6ee7ff";
+    explode(p.x, p.y, color, 18, 180);
+
+    if (p.kind === "health" && s.lives < MAX_LIVES) {
+      s.lives++;
+      floatText(p.x, p.y - 20, s.lives > START_LIVES ? "+1 Extra life" : "+1 Life", color);
+    } else if (p.kind === "shield" && !s.ship.shield) {
+      s.ship.shield = true;
+      floatText(p.x, p.y - 20, "Shield", color);
+    } else {
+      s.score += 50;
+      floatText(p.x, p.y - 20, "+50", color);
+    }
+    updateHud();
+  }
+
+  function explode(x, y, color, count, speed = 260) {
+    for (let i = 0; i < count; i++) {
+      const angle = random(0, TAU);
+      const v = random(.2, 1) * speed;
+      state.particles.push({ x, y, vx: Math.cos(angle) * v, vy: Math.sin(angle) * v, life: random(.35, .8), maxLife: .8, color, size: random(1.2, 2.8) });
+    }
+  }
+
+  function fire(now) {
+    const { ship } = state;
+    const spread = state.level >= 6 ? [-.08, .08] : [0];
+    for (const offset of spread) {
+      const angle = ship.angle + offset;
+      state.bullets.push({
+        x: ship.x + Math.cos(ship.angle) * 14,
+        y: ship.y + Math.sin(ship.angle) * 14,
+        vx: Math.cos(angle) * 980,
+        vy: Math.sin(angle) * 980,
+        life: .9,
+      });
+    }
+    state.lastShot = now;
+  }
+
+  function enemyFire(enemy, angle, speed) {
+    state.enemyShots.push({
+      x: enemy.x + Math.cos(angle) * enemy.radius,
+      y: enemy.y + Math.sin(angle) * enemy.radius,
+      vx: Math.cos(angle) * speed,
+      vy: Math.sin(angle) * speed,
+      life: 5,
+      color: enemy.kind === "boss" ? "#7cc4ff" : ENEMIES.gunner.color,
+    });
+  }
+
+  function hitShip() {
+    const s = state;
+
+    if (s.ship.shield) {
+      s.ship.shield = false;
+      s.invincible = 2.2;
+      s.shake = 8;
+      for (const shot of s.enemyShots) {
+        if ((shot.x - s.ship.x) ** 2 + (shot.y - s.ship.y) ** 2 < 140 ** 2) shot.life = 0;
+      }
+      for (const e of s.enemies) {
+        if (e.kind === "boss" || e.dead) continue;
+        const dx = e.x - s.ship.x, dy = e.y - s.ship.y;
+        const dist = Math.hypot(dx, dy) || 1;
+        if (dist < e.radius + 70) {
+          e.vx = (dx / dist) * 260;
+          e.vy = (dy / dist) * 260;
+        }
+      }
+      explode(s.ship.x, s.ship.y, "#6ee7ff", 30, 260);
+      floatText(s.ship.x, s.ship.y - 24, "Shield broke", "#6ee7ff");
+      updateHud();
+      return;
+    }
+
+    s.lives--;
+    s.invincible = 1.8;
+    s.shake = 14;
+    explode(s.ship.x, s.ship.y, "#4aa8ff", 40, 320);
+
+    if (s.lives <= 0) {
+      s.over = true;
+      const newBest = s.score > best;
+      if (newBest) {
+        best = s.score;
+        saveBest(best);
+      }
+      ui.finalScore.textContent = (newBest ? "New best · " : "") + `Score ${s.score} · Level ${s.level}`;
+      ui.gameOver.hidden = false;
+    }
+    updateHud();
+  }
+
+  function destroy(enemy) {
+    const s = state;
+    enemy.dead = true;
+
+    if (Math.random() < (HEALTH_DROP[enemy.kind] || 0)) dropPowerup(enemy.x - 14, enemy.y, "health");
+    if (Math.random() < (SHIELD_DROP[enemy.kind] || 0)) dropPowerup(enemy.x + 14, enemy.y, "shield");
+
+    if (enemy.kind === "rock") {
+      s.score += enemy.radius > 30 ? 20 : 10;
+      explode(enemy.x, enemy.y, "#9fb3d6", 18);
+
+      if (enemy.radius > 24) {
+        for (let i = 0; i < 2; i++) {
+          const angle = random(0, TAU);
+          const speed = Math.hypot(enemy.vx, enemy.vy) * 1.3 + 30;
+          const piece = makeRock(enemy.x, enemy.y, enemy.radius * .58, Math.cos(angle) * speed, Math.sin(angle) * speed, enemy.shape.map((p) => p * random(.92, 1.08)));
+          piece.age = 1;
+          s.enemies.push(piece);
+        }
+      }
+    } else if (enemy.kind === "boss") {
+      s.score += BOSS_POINTS;
+      s.shake = 20;
+      s.boss = null;
+      ui.bossBar.hidden = true;
+      for (let i = 0; i < 5; i++) {
+        setTimeout(() => running && explode(enemy.x + random(-40, 40), enemy.y + random(-40, 40), i % 2 ? "#4aa8ff" : "#eef3ff", 40, 380), i * 120);
+      }
+      showBanner("Mothership down", `+${BOSS_POINTS}`);
+    } else {
+      const type = ENEMIES[enemy.kind];
+      s.score += type.points;
+      explode(enemy.x, enemy.y, type.color, enemy.kind === "tank" ? 40 : 24);
+    }
+
+    const level = 1 + Math.floor(s.score / POINTS_PER_LEVEL);
+    if (level > s.level) {
+      s.level = level;
+      s.titleTimer = TITLE_TIME;
+      const newEnemy = Object.values(ENEMIES).find((e) => e.level === level);
+      let subtitle = "";
+      if (level % 3 === 0) subtitle = "Mothership incoming";
+      else if (newEnemy) subtitle = `New enemy: ${newEnemy.name}`;
+      else if (level === 6) subtitle = "Twin cannons online";
+      showBanner(`Level ${level}`, subtitle);
+    }
+
+    updateHud();
+  }
+
+  function updateShip(dt, now) {
+    const { ship } = state;
+    ship.x += (ship.targetX - ship.x) * (1 - Math.pow(.0005, dt));
+    ship.y += (ship.targetY - ship.y) * (1 - Math.pow(.0005, dt));
+
+    let turn = ship.targetAngle - ship.angle;
+    turn = Math.atan2(Math.sin(turn), Math.cos(turn));
+    ship.angle += turn * (1 - Math.pow(.00002, dt));
+
+    const moving = now - state.lastMove < 120;
+    if (!moving) state.distanceMoved = 0;
+    if (state.distanceMoved > 16 && now - state.lastShot > 85) {
+      fire(now);
+      state.distanceMoved = 0;
+    }
+
+    if (moving && Math.random() < .7) {
+      const angle = ship.angle + Math.PI + random(-.4, .4);
+      state.particles.push({
+        x: ship.x - Math.cos(ship.angle) * 10,
+        y: ship.y - Math.sin(ship.angle) * 10,
+        vx: Math.cos(angle) * 90, vy: Math.sin(angle) * 90,
+        life: .3, maxLife: .3, color: "#7cc4ff", size: 1.6,
+      });
+    }
+  }
+
+  function updateSpawning(dt) {
+    const s = state;
+
+    if (s.titleTimer > 0) {
+      s.titleTimer -= dt;
+      if (s.titleTimer <= 0) {
+        s.spawnLevel = s.level;
+        s.spawnTimer = 0;
+        if (s.level % 3 === 0 && !s.boss) spawnBoss();
+        if (s.level === 1) {
+          spawnEnemy();
+          spawnEnemy();
+        }
+        s.healthTimer = s.level >= 3 && Math.random() < HEALTH_PER_LEVEL ? random(4, 15) : Infinity;
+      }
+      return;
+    }
+
+    s.spawnTimer -= dt;
+    if (s.spawnTimer <= 0) {
+      spawnEnemy();
+      s.spawnTimer = Math.max(.32, 1.1 - s.spawnLevel * .08) * (s.boss ? 1.8 : 1);
+    }
+
+    s.shieldTimer -= dt;
+    if (s.shieldTimer <= 0) {
+      dropPowerup(random(60, width - 60), random(60, height - 60), "shield");
+      s.shieldTimer = random(120, 180);
+    }
+
+    s.healthTimer -= dt;
+    if (s.healthTimer <= 0) {
+      s.healthTimer = Infinity;
+      dropPowerup(random(60, width - 60), random(60, height - 60), "health");
+    }
+  }
+
+  function updateEnemies(dt) {
+    const s = state;
+    const { ship } = s;
+
+    for (const e of s.enemies) {
+      e.age += dt;
+      e.rotation += e.spin * dt;
+      const toShip = Math.atan2(ship.y - e.y, ship.x - e.x);
+      const dist = Math.hypot(ship.x - e.x, ship.y - e.y);
+
+      if (e.kind === "drone" || e.kind === "tank") {
+        const speed = e.kind === "tank" ? 45 + s.level * 3 : 120 + s.level * 8;
+        const steer = Math.min(1, dt * (e.kind === "tank" ? .8 : 1.6));
+        e.vx += (Math.cos(toShip) * speed - e.vx) * steer;
+        e.vy += (Math.sin(toShip) * speed - e.vy) * steer;
+        e.rotation = e.kind === "drone" ? Math.atan2(e.vy, e.vx) : e.rotation + dt * .5;
+      }
+
+      if (e.kind === "gunner") {
+        const approach = dist > 260 ? 1 : dist < 180 ? -1 : 0;
+        const sideways = toShip + Math.PI / 2;
+        const steer = Math.min(1, dt * 2);
+        e.vx += (Math.cos(toShip) * approach * 140 + Math.cos(sideways) * 60 - e.vx) * steer;
+        e.vy += (Math.sin(toShip) * approach * 140 + Math.sin(sideways) * 60 - e.vy) * steer;
+        e.rotation = toShip;
+
+        e.cooldown -= dt;
+        if (!s.over && e.cooldown <= 0 && e.age > 1) {
+          enemyFire(e, toShip, 240);
+          e.cooldown = Math.max(.9, 2 - s.level * .08);
+        }
+      }
+
+      if (e.kind === "boss") {
+        const targetX = width / 2 + Math.sin(e.age * .6) * width * .3;
+        const targetY = Math.min(140, height * .22);
+        e.vx = (targetX - e.x) * 1.2;
+        e.vy = (targetY - e.y) * 1.5;
+
+        e.cooldown -= dt;
+        if (!s.over && e.cooldown <= 0 && e.age > 2) {
+          const enraged = e.hp < e.maxHp / 2;
+          const count = enraged ? 7 : 5;
+          for (let i = 0; i < count; i++) enemyFire(e, toShip + (i - (count - 1) / 2) * .22, 220);
+          e.cooldown = enraged ? 1.1 : 1.6;
+        }
+        ui.bossHealth.style.width = (e.hp / e.maxHp) * 100 + "%";
+      }
+
+      e.x += e.vx * dt;
+      e.y += e.vy * dt;
+
+      if (e.kind === "dart" && Math.random() < .6) {
+        s.particles.push({ x: e.x, y: e.y, vx: 0, vy: 0, life: .25, maxLife: .25, color: "#ffd34d", size: 2 });
+      }
+    }
+  }
+
+  function checkCollisions() {
+    const s = state;
+    const { ship } = s;
+    const canBeHit = () => !s.over && s.invincible <= 0;
+
+    for (const e of s.enemies) {
+      for (const b of s.bullets) {
+        if (e.dead || b.life <= 0) continue;
+        if ((b.x - e.x) ** 2 + (b.y - e.y) ** 2 < (e.radius + 3) ** 2) {
+          b.life = 0;
+          e.hp--;
+          e.flash = .08;
+          const color = e.kind === "rock" ? "#9fb3d6" : e.kind === "boss" ? "#eef3ff" : ENEMIES[e.kind].color;
+          explode(b.x, b.y, color, 5, 140);
+          if (e.hp <= 0) destroy(e);
+        }
+      }
+
+      if (!e.dead && canBeHit() && (ship.x - e.x) ** 2 + (ship.y - e.y) ** 2 < (e.radius + 9) ** 2) {
+        if (e.kind !== "boss") {
+          e.dead = true;
+          explode(e.x, e.y, "#9fb3d6", 16);
+        }
+        hitShip();
+      }
+    }
+
+    for (const shot of s.enemyShots) {
+      if (shot.life > 0 && canBeHit() && (ship.x - shot.x) ** 2 + (ship.y - shot.y) ** 2 < 100) {
+        shot.life = 0;
+        hitShip();
+      }
+    }
+
+    for (const p of s.powerups) {
+      if (!s.over && (ship.x - p.x) ** 2 + (ship.y - p.y) ** 2 < 26 ** 2) {
+        p.collected = true;
+        collectPowerup(p);
+      }
+    }
+  }
+
+  function onScreen(obj, margin) {
+    return obj.x > -margin && obj.x < width + margin && obj.y > -margin && obj.y < height + margin;
+  }
+
+  function loop(now) {
+    const s = state;
+    const dt = Math.min(.05, (now - lastTime) / 1000);
+    lastTime = now;
+
+    if (!s.over) {
+      updateShip(dt, now);
+      updateSpawning(dt);
+      s.invincible = Math.max(0, s.invincible - dt);
+    }
+
+    for (const list of [s.bullets, s.enemyShots]) {
+      for (const b of list) {
+        b.x += b.vx * dt;
+        b.y += b.vy * dt;
+        b.life -= dt;
+      }
+    }
+
+    updateEnemies(dt);
+
+    for (const p of s.powerups) {
+      p.age += dt;
+      p.x += p.vx * dt;
+      p.y += p.vy * dt;
+      p.vx *= .99;
+      p.vy *= .99;
+      if (p.x < 20 || p.x > width - 20) p.vx *= -1;
+      if (p.y < 20 || p.y > height - 20) p.vy *= -1;
+    }
+
+    checkCollisions();
+
+    for (const e of s.enemies) {
+      if (e.flash) e.flash = Math.max(0, e.flash - dt);
+    }
+    for (const p of s.particles) {
+      p.x += p.vx * dt;
+      p.y += p.vy * dt;
+      p.vx *= .96;
+      p.vy *= .96;
+      p.life -= dt;
+    }
+    for (const t of s.texts) {
+      t.y -= 30 * dt;
+      t.life -= dt;
+    }
+
+    s.bullets = s.bullets.filter((b) => b.life > 0 && onScreen(b, 20));
+    s.enemyShots = s.enemyShots.filter((b) => b.life > 0 && onScreen(b, 30));
+    s.enemies = s.enemies.filter((e) => !e.dead && (e.kind === "boss" || e.age < 3 || onScreen(e, 150)));
+    s.powerups = s.powerups.filter((p) => !p.collected && p.age < p.lifetime);
+    s.particles = s.particles.filter((p) => p.life > 0);
+    s.texts = s.texts.filter((t) => t.life > 0);
+    s.shake = Math.max(0, s.shake - dt * 40);
+
+    draw(now);
+    frameId = requestAnimationFrame(loop);
+  }
+
+  function polygon(sides, radius, rotation = 0) {
+    ctx.beginPath();
+    for (let i = 0; i < sides; i++) {
+      const a = rotation + (i / sides) * TAU;
+      ctx.lineTo(Math.cos(a) * radius, Math.sin(a) * radius);
+    }
+    ctx.closePath();
+  }
+
+  function circle(x, y, radius) {
+    ctx.beginPath();
+    ctx.arc(x, y, radius, 0, TAU);
+  }
+
+  function drawHealthBar(e) {
+    if (e.kind === "boss" || e.maxHp <= 1 || e.hp === e.maxHp) return;
+    const w = e.radius * 1.6;
+    const x = e.x - w / 2, y = e.y - e.radius - 10;
+    ctx.fillStyle = "#1a2436";
+    ctx.fillRect(x, y, w, 3);
+    ctx.fillStyle = e.kind === "rock" ? "#a9bbdc" : ENEMIES[e.kind].color;
+    ctx.fillRect(x, y, w * e.hp / e.maxHp, 3);
+  }
+
+  function drawEnemy(e, now) {
+    const hit = e.flash > 0;
+
+    ctx.save();
+    ctx.translate(e.x, e.y);
+    ctx.rotate(e.rotation);
+
+    switch (e.kind) {
+      case "rock":
+        ctx.beginPath();
+        e.shape.forEach((r, i) => {
+          const a = (i / e.shape.length) * TAU;
+          ctx.lineTo(Math.cos(a) * e.radius * r, Math.sin(a) * e.radius * r);
+        });
+        ctx.closePath();
+        ctx.fillStyle = hit ? "#2a3a5c" : "#0d1526";
+        ctx.fill();
+        ctx.strokeStyle = e.hp > 1 ? "#a9bbdc" : "#6f82a6";
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+        break;
+
+      case "drone":
+        ctx.beginPath();
+        ctx.moveTo(14, 0);
+        ctx.lineTo(0, 9);
+        ctx.lineTo(-10, 0);
+        ctx.lineTo(0, -9);
+        ctx.closePath();
+        ctx.fillStyle = "#2a0b14";
+        ctx.fill();
+        ctx.strokeStyle = "#ff4d6d";
+        ctx.lineWidth = 1.6;
+        ctx.stroke();
+        ctx.fillStyle = "#ff4d6d";
+        circle(2, 0, 2.2 + Math.sin(now / 90) * .8);
+        ctx.fill();
+        break;
+
+      case "dart":
+        ctx.beginPath();
+        ctx.moveTo(14, 0);
+        ctx.lineTo(-8, -6);
+        ctx.lineTo(-4, 0);
+        ctx.lineTo(-8, 6);
+        ctx.closePath();
+        ctx.fillStyle = "#ffd34d";
+        ctx.fill();
+        break;
+
+      case "tank":
+        polygon(6, e.radius);
+        ctx.fillStyle = hit ? "#4a2a10" : "#1f1408";
+        ctx.fill();
+        ctx.strokeStyle = "#ff9a3d";
+        ctx.lineWidth = 2;
+        ctx.stroke();
+        polygon(6, e.radius * .55, Math.PI / 6);
+        ctx.strokeStyle = "rgba(255, 154, 61, .6)";
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+        ctx.fillStyle = "#ff9a3d";
+        circle(0, 0, 3);
+        ctx.fill();
+        break;
+
+      case "gunner":
+        circle(0, 0, e.radius);
+        ctx.fillStyle = hit ? "#3a2060" : "#170d26";
+        ctx.fill();
+        ctx.strokeStyle = "#b77bff";
+        ctx.lineWidth = 1.8;
+        ctx.stroke();
+        ctx.fillStyle = "#b77bff";
+        ctx.fillRect(e.radius - 4, -3, 12, 6);
+        circle(0, 0, 5);
+        ctx.fill();
+        break;
+
+      case "boss":
+        polygon(8, e.radius, Math.PI / 8);
+        ctx.fillStyle = hit ? "#1c3358" : "#0a1428";
+        ctx.fill();
+        ctx.strokeStyle = "#4aa8ff";
+        ctx.lineWidth = 2.5;
+        ctx.stroke();
+
+        ctx.rotate(e.age * 1.2);
+        polygon(8, e.radius * .66);
+        ctx.strokeStyle = "rgba(74, 168, 255, .55)";
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+        ctx.fillStyle = "#4aa8ff";
+        for (let i = 0; i < 4; i++) {
+          ctx.rotate(TAU / 4);
+          ctx.fillRect(e.radius * .66 - 3, -3, 6, 6);
+        }
+
+        ctx.fillStyle = e.hp < e.maxHp / 2 ? "#ff4d6d" : "#eef3ff";
+        circle(0, 0, 9 + Math.sin(now / 120) * 2);
+        ctx.fill();
+        break;
+    }
+
+    ctx.restore();
+    drawHealthBar(e);
+  }
+
+  function drawPowerup(p, now) {
+    const color = p.kind === "health" ? "#3ddc84" : "#6ee7ff";
+    const blinking = p.lifetime - p.age < 2 && Math.floor(now / 120) % 2;
+    const alpha = blinking ? .3 : 1;
+
+    ctx.save();
+    ctx.translate(p.x, p.y + Math.sin(p.age * 4) * 2);
+
+    ctx.fillStyle = color;
+    ctx.globalAlpha = alpha * (.15 + .1 * Math.sin(p.age * 6));
+    circle(0, 0, 18);
+    ctx.fill();
+
+    ctx.globalAlpha = alpha;
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 2;
+    circle(0, 0, 12);
+    ctx.stroke();
+
+    if (p.kind === "health") {
+      ctx.fillRect(-1.5, -6, 3, 12);
+      ctx.fillRect(-6, -1.5, 12, 3);
+    } else {
+      ctx.beginPath();
+      ctx.moveTo(0, -7);
+      ctx.lineTo(6, -4);
+      ctx.lineTo(5, 3);
+      ctx.lineTo(0, 7);
+      ctx.lineTo(-5, 3);
+      ctx.lineTo(-6, -4);
+      ctx.closePath();
+      ctx.fill();
+    }
+
+    ctx.restore();
+  }
+
+  function drawShip(now) {
+    const { ship } = state;
+    const blinking = state.invincible > 0 && Math.floor(now / 90) % 2;
+
+    if (!blinking) {
+      ctx.save();
+      ctx.translate(ship.x, ship.y);
+      ctx.rotate(ship.angle);
+
+      if (now - state.lastMove < 120) {
+        ctx.fillStyle = "#4aa8ff";
+        ctx.beginPath();
+        ctx.moveTo(-8, -4);
+        ctx.lineTo(-15 - Math.random() * 8, 0);
+        ctx.lineTo(-8, 4);
+        ctx.closePath();
+        ctx.fill();
+      }
+
+      ctx.beginPath();
+      ctx.moveTo(15, 0);
+      ctx.lineTo(-9, -10);
+      ctx.lineTo(-5, 0);
+      ctx.lineTo(-9, 10);
+      ctx.closePath();
+      ctx.fillStyle = "#eef3ff";
+      ctx.fill();
+      ctx.strokeStyle = "#4aa8ff";
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    if (ship.shield) {
+      ctx.strokeStyle = "#6ee7ff";
+      ctx.lineWidth = 2;
+      ctx.globalAlpha = .55 + .25 * Math.sin(now / 150);
+      circle(ship.x, ship.y, 22);
+      ctx.stroke();
+      ctx.globalAlpha = 1;
+    }
+  }
+
+  function draw(now) {
+    const s = state;
+    ctx.clearRect(0, 0, width, height);
+    ctx.save();
+    if (s.shake) ctx.translate(random(-s.shake, s.shake), random(-s.shake, s.shake));
+
+    ctx.globalCompositeOperation = "lighter";
+    for (const p of s.particles) {
+      ctx.globalAlpha = Math.max(0, p.life / p.maxLife);
+      ctx.fillStyle = p.color;
+      ctx.fillRect(p.x - p.size / 2, p.y - p.size / 2, p.size, p.size);
+    }
+    ctx.globalAlpha = 1;
+
+    ctx.lineCap = "round";
+    for (const b of s.bullets) {
+      const tailX = b.x - b.vx * .018, tailY = b.y - b.vy * .018;
+      ctx.strokeStyle = "rgba(74, 168, 255, .35)";
+      ctx.lineWidth = 6;
+      ctx.beginPath();
+      ctx.moveTo(b.x, b.y);
+      ctx.lineTo(tailX, tailY);
+      ctx.stroke();
+      ctx.strokeStyle = "#e6f3ff";
+      ctx.lineWidth = 2;
+      ctx.stroke();
+    }
+
+    for (const shot of s.enemyShots) {
+      ctx.fillStyle = shot.color;
+      ctx.globalAlpha = .3;
+      circle(shot.x, shot.y, 8);
+      ctx.fill();
+      ctx.globalAlpha = 1;
+      ctx.fillStyle = "#fff";
+      circle(shot.x, shot.y, 3);
+      ctx.fill();
+    }
+    ctx.globalCompositeOperation = "source-over";
+
+    for (const e of s.enemies) drawEnemy(e, now);
+    for (const p of s.powerups) drawPowerup(p, now);
+    if (!s.over) drawShip(now);
+
+    ctx.font = "500 11px 'Martian Mono', ui-monospace, monospace";
+    ctx.textAlign = "center";
+    for (const t of s.texts) {
+      ctx.globalAlpha = Math.min(1, t.life * 2);
+      ctx.fillStyle = t.color;
+      ctx.fillText(t.text.toUpperCase(), t.x, t.y);
+    }
+    ctx.globalAlpha = 1;
+    ctx.restore();
+  }
+
+  function isOverContent(x, y) {
+    const title = document.getElementById("name").getBoundingClientRect();
+    const list = document.getElementById("accounts").getBoundingClientRect();
+    const pad = 12;
+    return x >= Math.min(title.left, list.left) - pad
+      && x <= Math.max(title.right, list.right) + pad
+      && y >= title.top - pad
+      && y <= list.bottom + pad;
+  }
+
+  addEventListener("resize", () => running && resize());
+
+  addEventListener("pointermove", (e) => {
+    if (!running || state.over) return;
+    const { ship } = state;
+    const dx = e.clientX - ship.targetX;
+    const dy = e.clientY - ship.targetY;
+    const dist = Math.hypot(dx, dy);
+
+    ship.targetX = e.clientX;
+    ship.targetY = e.clientY;
+    if (dist > .5) {
+      state.distanceMoved += dist;
+      state.lastMove = performance.now();
+      if (dist > 2) ship.targetAngle = Math.atan2(dy, dx);
+    }
+  });
+
+  document.addEventListener("click", (e) => {
+    if (running) return stop();
+    if (e.target.closest("a, button, .toast") || isOverContent(e.clientX, e.clientY)) return;
+    start(e.clientX, e.clientY);
+  });
+
+  addEventListener("keydown", (e) => {
+    if (running && e.key === "Escape") stop();
+  });
+}
+
+if (!reducedMotion) scrambleTitle();
+renderAccounts();
+startStars();
+setupGame();
+</script>
