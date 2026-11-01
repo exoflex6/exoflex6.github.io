@@ -350,6 +350,20 @@ h1 span {
 .touch-ui .more:hover { border-color: var(--border); background: var(--card); color: var(--muted); transform: none; }
 .touch-ui .more:hover svg { transform: none; }
 
+/* Touch: a tap plays the full hover state briefly instead of sticky hover */
+.touch-ui .account.tapped { z-index: 2; transform: scale(1.035); }
+.touch-ui .account.tapped:active { transform: scale(.985); }
+.touch-ui .account.tapped .card {
+  border-color: var(--brand);
+  background: var(--card-hover);
+  box-shadow: 0 12px 36px -14px color-mix(in srgb, var(--brand) 70%, transparent);
+}
+.touch-ui .account.tapped .logo { background: var(--brand); }
+.touch-ui .account.tapped .logo svg { fill: var(--brand-text); transform: scale(1.1); }
+.touch-ui .account.tapped .action { color: var(--text); }
+.touch-ui .account.link.tapped .action { border-color: transparent; background: var(--brand); color: var(--brand-text); }
+.touch-ui .account.link.tapped .action svg { transform: translate(1px, -1px); }
+
 @media (prefers-reduced-motion: reduce) {
   .account,
   .spark {
@@ -625,6 +639,16 @@ function trackInput() {
   set(mode);
   addEventListener("pointerdown", (e) => {
     if (e.pointerType !== mode) set(e.pointerType);
+  });
+  let tapped = null, tapTimer;
+  document.getElementById("accounts").addEventListener("click", (e) => {
+    const item = e.target.closest(".account");
+    if (mode !== "touch" || !item) return;
+    if (tapped && tapped !== item) tapped.classList.remove("tapped");
+    tapped = item;
+    item.classList.add("tapped");
+    clearTimeout(tapTimer);
+    tapTimer = setTimeout(() => item.classList.remove("tapped"), 900);
   });
   addEventListener("pointermove", (e) => {
     if (e.pointerType === "mouse" && mode === "touch" && Math.abs(e.movementX) + Math.abs(e.movementY) > 2) set("mouse");
