@@ -72,12 +72,12 @@ main {
   z-index: 1;
   box-sizing: border-box;
   display: grid;
-  align-content: center;
+  align-content: start;
   gap: 36px;
   max-width: 560px;
   min-height: 100vh;
   margin: 0 auto;
-  padding-top: 48px;
+  padding-top: calc(env(safe-area-inset-top, 0px) + 72px);
   padding-bottom: 80px;
   padding-left: max(16px, env(safe-area-inset-left, 0px));
   padding-right: max(16px, env(safe-area-inset-right, 0px));
@@ -243,50 +243,6 @@ h1 span {
   transform: translate(1px, -1px);
 }
 
-.account[hidden],
-.more[hidden] {
-  display: none;
-}
-
-.more {
-  justify-self: center;
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  margin: -14px 0 0;
-  padding: 10px 18px;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  background: var(--card);
-  color: var(--muted);
-  font: inherit;
-  font-size: 11px;
-  letter-spacing: .14em;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: color .35s, border-color .35s, background .35s, transform .4s cubic-bezier(.25, 1.25, .4, 1);
-}
-
-.more svg {
-  width: 13px;
-  height: 13px;
-  transition: transform .4s cubic-bezier(.25, 1.25, .4, 1);
-}
-
-.more:hover svg,
-.more:focus-visible svg {
-  transform: translateY(2px);
-}
-
-.more:hover,
-.more:focus-visible {
-  border-color: var(--blue);
-  background: var(--card-hover);
-  color: var(--text);
-  transform: scale(1.04);
-  outline: none;
-}
-
 .toast {
   position: fixed;
   left: 50%;
@@ -347,8 +303,6 @@ h1 span {
 .touch-ui .account:hover .action,
 .touch-ui .account.link:hover .action { border-color: var(--border); background: transparent; color: var(--muted); }
 .touch-ui .account.link:hover .action svg { transform: none; }
-.touch-ui .more:hover { border-color: var(--border); background: var(--card); color: var(--muted); transform: none; }
-.touch-ui .more:hover svg { transform: none; }
 
 /* Touch: a tap plays the full hover state briefly instead of sticky hover */
 .touch-ui .account.tapped { z-index: 2; transform: scale(1.035); }
@@ -378,7 +332,6 @@ h1 span {
 <main>
   <h1 id="name" aria-label="exoflex6">exoflex<span>6</span></h1>
   <ul class="accounts" id="accounts" aria-label="Accounts"></ul>
-  <button class="more" id="more" type="button" hidden></button>
 </main>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
@@ -431,10 +384,7 @@ const ACCOUNTS = [
   { icon: "gamecenter", platform: "Game Center", name: "exoflex6", brand: "#8a5cff", brandText: "#fff" },
 ];
 
-const VISIBLE_AT_START = 5;
-
 const ARROW_ICON = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 11 11 5M6 5h5v5"/></svg>';
-const MORE_ICON = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg>';
 const COPY_ICON = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><rect x="5.5" y="5.5" width="7.5" height="7.5" rx="1.5"/><path d="M3 10.5V4a1 1 0 0 1 1-1h6.5"/></svg>';
 
 const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -525,8 +475,7 @@ function renderAccounts() {
 
     const item = document.createElement("li");
     item.className = account.url ? "account link" : "account";
-    item.style.cssText = `--brand:${account.brand}; --brand-text:${account.brandText}; --i:${i % VISIBLE_AT_START}`;
-    item.hidden = i >= VISIBLE_AT_START;
+    item.style.cssText = `--brand:${account.brand}; --brand-text:${account.brandText}; --i:${Math.min(i, 12)}`;
 
     if (account.url) {
       item.innerHTML = `<a class="card" href="${account.url}" target="_blank" rel="noopener" aria-label="Open ${account.platform} profile">${inner}</a>`;
@@ -542,16 +491,6 @@ function renderAccounts() {
     list.appendChild(item);
   });
 
-  const extra = ACCOUNTS.length - VISIBLE_AT_START;
-  const more = document.getElementById("more");
-  if (extra <= 0) return;
-
-  more.innerHTML = `<span>List ${extra} more</span>${MORE_ICON}`;
-  more.hidden = false;
-  more.addEventListener("click", () => {
-    for (const item of list.children) item.hidden = false;
-    more.remove();
-  });
 }
 
 function startStars() {
