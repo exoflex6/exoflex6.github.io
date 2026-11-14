@@ -191,10 +191,13 @@ h1 span {
 }
 
 .platform {
+  overflow: hidden;
   color: var(--muted);
   font-size: 10px;
   letter-spacing: .16em;
   text-transform: uppercase;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .handle {
@@ -300,6 +303,10 @@ h1 span {
 @media (max-width: 370px) {
   .platform { font-size: 9px; letter-spacing: .06em; }
 }
+
+@media (max-width: 340px) {
+  .platform { font-size: 8px; letter-spacing: .03em; }
+}
 .touch-ui .account:hover { transform: none; }
 .touch-ui .account:active { transform: scale(.985); }
 .touch-ui .account:hover .card { border-color: var(--border); background: var(--card); box-shadow: none; }
@@ -384,7 +391,7 @@ const ACCOUNTS = [
   { icon: "clashroyale", platform: "Clash Royale", name: "exoflex8", brand: "#2f6fd6", brandText: "#fff" },
   { icon: "embark",    platform: "Embark ID", name: "exoflex6", tag: "#1709", brand: "#f2f2f2", brandText: "#111" },
   { icon: "ubisoft",   platform: "Ubisoft", name: "exoflex6", brand: "#0070ff", brandText: "#fff" },
-  { icon: "ea",        platform: "EA", name: "exoflex6", brand: "#ff4747", brandText: "#fff" },
+  { icon: "ea",        platform: "Electronic Arts", name: "exoflex6", brand: "#ff4747", brandText: "#fff" },
   { icon: "wbgames",   platform: "WB Games", name: "exoflex6", brand: "#0a5cd6", brandText: "#fff" },
   { icon: "chess",     platform: "Chess.com", name: "exoflex6", brand: "#81b64c", brandText: "#0f1a07", url: "https://www.chess.com/member/exoflex6" },
   { icon: "gamecenter", platform: "Game Center", name: "exoflex6", brand: "#8a5cff", brandText: "#fff" },
