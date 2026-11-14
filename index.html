@@ -294,6 +294,11 @@ h1 span {
   .card { gap: 12px; padding: 12px; }
   .logo { width: 40px; height: 40px; }
   .handle { font-size: 16px; }
+  .platform { letter-spacing: .1em; }
+}
+
+@media (max-width: 370px) {
+  .platform { font-size: 9px; letter-spacing: .06em; }
 }
 .touch-ui .account:hover { transform: none; }
 .touch-ui .account:active { transform: scale(.985); }
@@ -383,7 +388,7 @@ const ACCOUNTS = [
   { icon: "wbgames",   platform: "WB Games", name: "exoflex6", brand: "#0a5cd6", brandText: "#fff" },
   { icon: "chess",     platform: "Chess.com", name: "exoflex6", brand: "#81b64c", brandText: "#0f1a07", url: "https://www.chess.com/member/exoflex6" },
   { icon: "gamecenter", platform: "Game Center", name: "exoflex6", brand: "#8a5cff", brandText: "#fff" },
-  { icon: "rsi",       platform: "RSI", name: "exoflex6", brand: "#6abbcf", brandText: "#06161b", url: "https://robertsspaceindustries.com/citizens/exoflex6" },
+  { icon: "rsi",       platform: "Roberts Space Industries", name: "exoflex6", brand: "#6abbcf", brandText: "#06161b", url: "https://robertsspaceindustries.com/citizens/exoflex6" },
 ];
 
 const ARROW_ICON = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 11 11 5M6 5h5v5"/></svg>';
